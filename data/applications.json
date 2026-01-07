@@ -1,0 +1,31 @@
+[
+  {
+    "id": "1767789050843",
+    "studentName": "Sparsh Sharma",
+    "dateOfBirth": "2005-04-04",
+    "gender": "Male",
+    "nationality": "Indian",
+    "religion": "Hindu",
+    "category": "General",
+    "aadharNumber": "680524004278",
+    "fatherName": "Sanjay Sharma",
+    "fatherOccupation": "Business",
+    "fatherPhone": "07037773317",
+    "fatherEmail": "sparshsharma94123@gmail.com",
+    "motherName": "Dolly Sharma",
+    "motherOccupation": "professor",
+    "motherPhone": "09058672941",
+    "motherEmail": "sparsh.sharma_cs.aiml23@gla.ac.in",
+    "address": "104 Raghuveer Puram Ghari Bhadhouria, Shahganj ,Agra",
+    "city": "Agra",
+    "state": "Uttar Pradesh",
+    "pincode": "281280",
+    "classApplyingFor": "Class 10",
+    "previousSchool": "Gayatri Public School",
+    "previousClass": "0",
+    "medicalConditions": "np",
+    "emergencyContact": "Sparsh Sharma",
+    "emergencyPhone": "09058672941",
+    "submittedAt": "2026-01-07T12:30:50.843Z"
+  }
+]
