@@ -43,7 +43,7 @@ const useFeatureAnimations = (
   maxScrollHeight?: number
 ) => {
   useLayoutEffect(() => {
-    let ctx = gsap.context(() => {
+    const ctx = gsap.context(() => {
       // Desktop horizontal scroll logic
       if (isDesktop) {
         const scrollWidth1 = scrollContainerRef.current?.scrollWidth || 0;

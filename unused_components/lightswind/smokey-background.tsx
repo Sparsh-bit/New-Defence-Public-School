@@ -165,7 +165,7 @@ function SmokeyBackground({
     const iMouseLocation = gl.getUniformLocation(program, "iMouse");
     const uColorLocation = gl.getUniformLocation(program, "u_color"); // Get uniform location for custom color
 
-    let startTime = Date.now();
+    const startTime = Date.now();
 
     // Set the initial color
     const [r, g, b] = hexToRgb(color);

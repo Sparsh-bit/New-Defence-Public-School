@@ -171,7 +171,7 @@ function HellBackground({
       };
     };
 
-    let startTime = Date.now();
+    const startTime = Date.now();
 
     const render = () => {
       const width = canvas.clientWidth;

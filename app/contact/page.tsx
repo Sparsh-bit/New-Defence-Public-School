@@ -6,7 +6,7 @@ import SubPageHero from '@/components/SubPageHero';
 import ContentSection from '@/components/ContentSection';
 import PageTransition from '@/components/PageTransition';
 import SmoothScroll from '@/components/SmoothScroll';
-import { Mail, Phone, MapPin, Send, Instagram, Facebook, Youtube, Twitter, Globe } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function ContactPage() {

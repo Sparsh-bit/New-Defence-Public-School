@@ -1,0 +1,1138 @@
+
+> ndps-premium@0.1.0 lint
+> eslint
+
+
+D:\New_Defence_Public_School\ndps-premium\app\about\prayer\page.tsx
+  37:36  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  42:70  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  60:36  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  65:95  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+D:\New_Defence_Public_School\ndps-premium\app\about\school\page.tsx
+  9:18  warning  'Building2' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\app\academics\examination\page.tsx
+   8:26   warning  'FileText' is defined but never used                             @typescript-eslint/no-unused-vars
+   8:46   warning  'HelpCircle' is defined but never used                           @typescript-eslint/no-unused-vars
+   9:10   warning  'motion' is defined but never used                               @typescript-eslint/no-unused-vars
+  70:37   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  70:70   error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  70:137  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+D:\New_Defence_Public_School\ndps-premium\app\academics\uniform\page.tsx
+   9:17  warning  'CheckCircle' is defined but never used                          @typescript-eslint/no-unused-vars
+  72:66  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  72:68  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+D:\New_Defence_Public_School\ndps-premium\app\achievements\page.tsx
+  9:18  warning  'Star' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\app\admissions\admin\page.tsx
+    6:79   warning  'Mail' is defined but never used                                 @typescript-eslint/no-unused-vars
+    6:85   warning  'MapPin' is defined but never used                               @typescript-eslint/no-unused-vars
+    6:108  warning  'Info' is defined but never used                                 @typescript-eslint/no-unused-vars
+  350:86   error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  354:86   error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  358:86   error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  362:86   error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  366:86   error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  370:86   error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+D:\New_Defence_Public_School\ndps-premium\app\admissions\apply\page.tsx
+  278:93  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  332:93  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+D:\New_Defence_Public_School\ndps-premium\app\admissions\fees\page.tsx
+  55:48  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  55:70  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+D:\New_Defence_Public_School\ndps-premium\app\admissions\portal\page.tsx
+  174:21  error  Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+D:\New_Defence_Public_School\ndps-premium\app\api\admissions\export\route.ts
+  55:37  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\New_Defence_Public_School\ndps-premium\app\api\admissions\list\route.ts
+  5:27  warning  'request' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\app\contact\page.tsx
+  9:37  warning  'Instagram' is defined but never used  @typescript-eslint/no-unused-vars
+  9:48  warning  'Facebook' is defined but never used   @typescript-eslint/no-unused-vars
+  9:58  warning  'Youtube' is defined but never used    @typescript-eslint/no-unused-vars
+  9:67  warning  'Twitter' is defined but never used    @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\app\gallery\events\page.tsx
+  3:8  warning  'Navbar' is defined but never used  @typescript-eslint/no-unused-vars
+  4:8  warning  'Footer' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\app\gallery\infrastructure\page.tsx
+  3:8  warning  'Navbar' is defined but never used  @typescript-eslint/no-unused-vars
+  4:8  warning  'Footer' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\app\gallery\photos\page.tsx
+  3:8  warning  'Navbar' is defined but never used  @typescript-eslint/no-unused-vars
+  4:8  warning  'Footer' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\app\login\page.tsx
+  6:8  warning  'Image' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\app\messages\director\page.tsx
+  46:33  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  47:65  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  61:92  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+D:\New_Defence_Public_School\ndps-premium\app\messages\manager\page.tsx
+  46:33   error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  46:121  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  51:79   error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  61:83   error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  61:102  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+D:\New_Defence_Public_School\ndps-premium\app\messages\principal\page.tsx
+  46:33   error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  46:139  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+D:\New_Defence_Public_School\ndps-premium\app\payment\page.tsx
+  9:47  warning  'Landmark' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\app\rules\leave\page.tsx
+  9:50  warning  'CheckCircle' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\app\rules\parents\page.tsx
+  73:29  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  73:97  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+D:\New_Defence_Public_School\ndps-premium\components\AboutSchoolSection.tsx
+  35:170  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  43:48   error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+D:\New_Defence_Public_School\ndps-premium\components\AdmissionInfoSection.tsx
+  39:227  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                                                                                          react/no-unescaped-entities
+  74:37   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  82:94   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                          react/no-unescaped-entities
+  82:118  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                                                                                          react/no-unescaped-entities
+  82:171  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                          react/no-unescaped-entities
+
+D:\New_Defence_Public_School\ndps-premium\components\CTASection.tsx
+  4:10  warning  'ArrowRight' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\components\CinematicShowcase.tsx
+  26:31  warning  'index' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\components\FlipCard.tsx
+   5:10  warning  'motion' is defined but never used                               @typescript-eslint/no-unused-vars
+  91:25  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  91:40  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+D:\New_Defence_Public_School\ndps-premium\components\Footer.tsx
+  118:64  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\New_Defence_Public_School\ndps-premium\components\Globe.tsx
+  4:10  warning  'motion' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\components\Hero3DScene.tsx
+  24:9  warning  Compilation Skipped: Inline `class` declarations are not supported
+
+Move class declarations outside of components/hooks.
+
+D:\New_Defence_Public_School\ndps-premium\components\Hero3DScene.tsx:24:9
+  22 |         };
+  23 |
+> 24 |         class Particle {
+     |         ^^^^^^^^^^^^^^^^
+> 25 |             x: number;
+     | ^^^^^^^^^^^^^^^^^^^^^^
+> 26 |             y: number;
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^
+> 62 |             }
+     | ^^^^^^^^^^^^^^^^^^^^^^
+> 63 |         }
+     | ^^^^^^^^^^ Inline `class` declarations are not supported
+  64 |
+  65 |         const initParticles = () => {
+  66 |             particles = [];
+
+  react-hooks/unsupported-syntax
+
+D:\New_Defence_Public_School\ndps-premium\components\HeroSection.tsx
+  75:25   error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  75:130  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+D:\New_Defence_Public_School\ndps-premium\components\LeadershipMessages.tsx
+  78:33  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  78:50  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+D:\New_Defence_Public_School\ndps-premium\components\LoadingOverlay.tsx
+  13:15  warning  'handleStart' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+  14:15  warning  'handleComplete' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+  21:9   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\New_Defence_Public_School\ndps-premium\components\LoadingOverlay.tsx:21:9
+  19 |         // For now, let's create a beautiful loading that appears on mount for subpages.
+  20 |
+> 21 |         setIsLoading(true);
+     |         ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  22 |         const timer = setTimeout(() => setIsLoading(false), 1500);
+  23 |         return () => clearTimeout(timer);
+  24 |     }, [pathname, searchParams]);  react-hooks/set-state-in-effect
+
+D:\New_Defence_Public_School\ndps-premium\components\Navbar.tsx
+  6:32  warning  'GraduationCap' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\components\PhoneCard.tsx
+    3:34  warning  'useSpring' is defined but never used                            @typescript-eslint/no-unused-vars
+    5:10  warning  'Quote' is defined but never used                                @typescript-eslint/no-unused-vars
+   27:11  warning  'rotateX' is assigned a value but never used                     @typescript-eslint/no-unused-vars
+   28:11  warning  'rotateY' is assigned a value but never used                     @typescript-eslint/no-unused-vars
+  105:37  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  105:52  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+D:\New_Defence_Public_School\ndps-premium\components\WelcomeSection.tsx
+  62:89   error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  62:111  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+D:\New_Defence_Public_School\ndps-premium\components\lightswind\3d-image-ring.tsx
+   63:3   warning  'ease' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+  105:6   warning  React Hook useEffect has a missing dependency: 'getBgPos'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     react-hooks/exhaustive-deps
+  240:39  error    Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+D:\New_Defence_Public_School\ndps-premium\components\lightswind\3d-image-ring.tsx:240:39
+  238 |         >
+  239 |           <AnimatePresence>
+> 240 |             {showImages && images.map((imageUrl, index) => (
+      |                                       ^^^^^^^^^^^^^^^^^^^^^^
+> 241 |               <motion.div
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 242 |                 key={index}
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 289 |               />
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 290 |             ))}
+      | ^^^^^^^^^^^^^^ Passing a ref to a function may read its value during render
+  291 |           </AnimatePresence>
+  292 |         </motion.div>
+  293 |       </div>  react-hooks/refs
+
+D:\New_Defence_Public_School\ndps-premium\components\lightswind\typing-text.tsx
+   60:24  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @typescript-eslint/no-explicit-any
+   62:43  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @typescript-eslint/no-explicit-any
+   93:28  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @typescript-eslint/no-explicit-any
+  119:9   error  Error: Cannot reassign variable after render completes
+
+Reassigning `charIndexOffset` after render has completed can cause inconsistent behavior on subsequent renders. Consider using state instead.
+
+D:\New_Defence_Public_School\ndps-premium\components\lightswind\typing-text.tsx:119:9
+  117 |         // increment global offset by word length (simulate space ignored in animation count or account for it?)
+  118 |         // Usually better to stagger solely by visible chars.
+> 119 |         charIndexOffset += wordChars.length;
+      |         ^^^^^^^^^^^^^^^ Cannot reassign `charIndexOffset` after render completes
+  120 |
+  121 |         return (
+  122 |           <span key={`word-${wIndex}`} className="whitespace-nowrap inline-block">  react-hooks/immutability
+
+D:\New_Defence_Public_School\ndps-premium\lib\utils.d.ts
+  7:54  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  7:64  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  8:54  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  8:64  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\3d-carousel.tsx
+  13:8  warning  'Link' is defined but never used                    @typescript-eslint/no-unused-vars
+  41:3  warning  'title' is assigned a value but never used          @typescript-eslint/no-unused-vars
+  42:3  warning  'subtitle' is assigned a value but never used       @typescript-eslint/no-unused-vars
+  43:3  warning  'tagline' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  44:3  warning  'isMobileSwipe' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\3d-hover-gallery.tsx
+  50:3  warning  'rotationAngle' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  51:3  warning  'zDepth' is assigned a value but never used         @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\3d-image-gallery.tsx
+  171:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\3d-model-viewer.tsx
+    3:28  warning  'useLoader' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @typescript-eslint/no-unused-vars
+  164:10  error    Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\3d-model-viewer.tsx:164:10
+  162 |     <Center>
+  163 |       <group ref={modelRef}>
+> 164 |         <ModelComponent />
+      |          ^^^^^^^^^^^^^^ This component is created during render
+  165 |       </group>
+  166 |     </Center>
+  167 |   );
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\3d-model-viewer.tsx:147:26
+  145 |   };
+  146 |
+> 147 |   const ModelComponent = () => {
+      |                          ^^^^^^^
+> 148 |     switch (ext) {
+      | ^^^^^^^^^^^^^^^^^^
+> 149 |       case "glb":
+      …
+      | ^^^^^^^^^^^^^^^^^^
+> 158 |     }
+      | ^^^^^^^^^^^^^^^^^^
+> 159 |   };
+      | ^^^^ The component is created during render here
+  160 |
+  161 |   return (
+  162 |     <Center>  react-hooks/static-components
+  224:53  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-explicit-any
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\accordion.tsx
+   29:17  warning  'type' is assigned a value but never used                         @typescript-eslint/no-unused-vars
+   86:11  error    An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+  130:11  error    An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\ai-prompt.tsx
+  88:27  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  97:28  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\alert-dialog.tsx
+   73:13  warning  'onClick' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+   78:41  error    Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\alert-dialog.tsx:78:41
+  76 |       return (
+  77 |         <>
+> 78 |           {React.Children.map(children, child => {
+     |                                         ^^^^^^^^^^
+> 79 |             if (React.isValidElement(child)) {
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 80 |               return React.cloneElement(child as React.ReactElement, {
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 81 |                 ...(child.props as object),
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 82 |                 ref,
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 83 |                 onClick: handleClick
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 84 |               } as any);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 85 |             }
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 86 |             return child;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 87 |           })}
+     | ^^^^^^^^^^^^ Cannot access ref value during render
+  88 |         </>
+  89 |       );
+  90 |     }  react-hooks/refs
+   84:20  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  196:66  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  202:36  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  267:11  error    An interface declaring no members is equivalent to its supertype                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-empty-object-type
+  290:11  warning  'onClick' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+  303:11  error    An interface declaring no members is equivalent to its supertype                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-empty-object-type
+  326:11  warning  'onClick' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\animated-bubble-particles.tsx
+   73:36  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\animated-bubble-particles.tsx:73:36
+  71 |   const particlesArrayRef = useRef<ParticleConfig[]>([]);
+  72 |   const isPausedRef = useRef(false);
+> 73 |   const gooIdRef = useRef('goo-' + Math.random().toString(36).substring(2, 11));
+     |                                    ^^^^^^^^^^^^^ Cannot call impure function
+  74 |
+  75 |   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  76 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                react-hooks/purity
+  173:52  error    Error: Cannot access variable before it is declared
+
+`animate` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\animated-bubble-particles.tsx:173:52
+  171 |   const animate = useCallback(() => {
+  172 |     if (isPausedRef.current) {
+> 173 |       animationRef.current = requestAnimationFrame(animate);
+      |                                                    ^^^^^^^ `animate` accessed before it is declared
+  174 |       return;
+  175 |     }
+  176 |
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\animated-bubble-particles.tsx:171:3
+  169 |   };
+  170 |
+> 171 |   const animate = useCallback(() => {
+      |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 172 |     if (isPausedRef.current) {
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 173 |       animationRef.current = requestAnimationFrame(animate);
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 180 |     animationRef.current = requestAnimationFrame(animate);
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 181 |   }, []);
+      | ^^^^^^^^^^ `animate` is declared here
+  182 |
+  183 |   const spawnParticle = useCallback(() => {
+  184 |     if (!isPausedRef.current && dimensions.width > 0 && dimensions.height > 0) {  react-hooks/immutability
+  181:6   warning  React Hook useCallback has a missing dependency: 'updateParticle'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                react-hooks/exhaustive-deps
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\animated-notification.tsx
+   91:9   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @next/next/no-img-element
+  208:12  warning  'error' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+  319:39  error    Error: Cannot access variable before it is declared
+
+`addNote` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\animated-notification.tsx:319:39
+  317 |
+  318 |     if (autoGenerate) {
+> 319 |       timeoutRef.current = setTimeout(addNote, autoInterval);
+      |                                       ^^^^^^^ `addNote` accessed before it is declared
+  320 |     }
+  321 |   }, [
+  322 |     autoGenerate,
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\animated-notification.tsx:286:3
+  284 |   }, [animationDuration]);
+  285 |
+> 286 |   const addNote = useCallback(async () => {
+      |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 287 |     if (!autoGenerate) return;
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 288 |
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 329 |     dismissNotification
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 330 |   ]);
+      | ^^^^^^ `addNote` is declared here
+  331 |
+  332 |   useEffect(() => {
+  333 |     if (autoGenerate) {  react-hooks/immutability
+  340:23  warning  The ref value 'dismissTimeouts.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'dismissTimeouts.current' to a variable inside the effect, and use that variable in the cleanup function                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         react-hooks/exhaustive-deps
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\animated-wave.tsx
+  139:12  warning  'error' is defined but never used         @typescript-eslint/no-unused-vars
+  199:18  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\avatar.tsx
+  17:17  warning  'src' is defined but never used                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  17:22  warning  'alt' is defined but never used                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  17:27  warning  'fallback' is defined but never used                                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+  17:37  warning  'status' is defined but never used                                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+  34:11  error    An interface declaring no members is equivalent to its supertype                                                                                                                                                                                                                         @typescript-eslint/no-empty-object-type
+  55:7   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  74:11  error    An interface declaring no members is equivalent to its supertype                                                                                                                                                                                                                         @typescript-eslint/no-empty-object-type
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\bento-grid.tsx
+   7:29  error    Unexpected any. Specify a different type        @typescript-eslint/no-explicit-any
+  21:3   warning  'rowHeight' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\border-beam.tsx
+   32:16  error    Unexpected any. Specify a different type              @typescript-eslint/no-explicit-any
+   86:3   warning  'borderThickness' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  126:14  error    Unexpected any. Specify a different type              @typescript-eslint/no-explicit-any
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\breadcrumb.tsx
+  51:64  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  51:70  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\breadcrumb.tsx:51:70
+  49 |     if (React.isValidElement(children)) {
+  50 |       // **KEY CHANGE HERE: Assert the type of children for cloneElement**
+> 51 |       return React.cloneElement(children as React.ReactElement<any>, {
+     |                                                                      ^
+> 52 |         ref, // The ref from forwardRef
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 53 |         className: cn(
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 54 |           "transition-colors hover:text-foreground",
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 55 |           className,
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 56 |           (children.props as any).className // Access existing className safely
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 57 |         ),
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 58 |         ...props, // Spread any other props to the child
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 59 |       });
+     | ^^^^^^^^ Passing a ref to a function may read its value during render
+  60 |     }
+  61 |     console.warn("BreadcrumbLink: When `asChild` is true, a single React element child is expected.");
+  62 |     return null;  react-hooks/refs
+  56:30  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\canvas-confetti-cursor.tsx
+   71:28  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @typescript-eslint/no-explicit-any
+   98:6   warning  React Hook useEffect has a missing dependency: 'resizeCanvas'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            react-hooks/exhaustive-deps
+  111:7   warning  'parentOffsetX' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+  112:7   warning  'parentOffsetY' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+  115:5   warning  Compilation Skipped: Inline `class` declarations are not supported
+
+Move class declarations outside of components/hooks.
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\canvas-confetti-cursor.tsx:115:5
+  113 |     }
+  114 |
+> 115 |     class Particle {
+      |     ^^^^^^^^^^^^^^^^
+> 116 |       x: number;
+      | ^^^^^^^^^^^^^^^^
+> 117 |       y: number;
+      …
+      | ^^^^^^^^^^^^^^^^
+> 143 |       }
+      | ^^^^^^^^^^^^^^^^
+> 144 |     }
+      | ^^^^^^ Inline `class` declarations are not supported
+  145 |
+  146 |     const animate = () => {
+  147 |       if (disposed || !canvasRef.current) return;
+
+  react-hooks/unsupported-syntax
+  115:11  warning  'Particle' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+  160:7   warning  Expected an assignment or function call and instead saw an expression                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-expressions
+  163:5   warning  Unused eslint-disable directive (no problems were reported)
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\chart.tsx
+  71:7  warning  '_' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\code-hover-cards.tsx
+  19:29  error    Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  52:7   warning  'DEFAULT_ICONS' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  72:3   warning  'theme' is assigned a value but never used          @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\collapsible.tsx
+  75:41  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\collapsible.tsx:75:41
+  73 |       return (
+  74 |         <>
+> 75 |           {React.Children.map(children, child => {
+     |                                         ^^^^^^^^^^
+> 76 |             if (React.isValidElement(child)) {
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 77 |               return React.cloneElement(child, {
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 92 |             return child;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 93 |           })}
+     | ^^^^^^^^^^^^ Cannot access ref value during render
+  94 |         </>
+  95 |       );
+  96 |     }  react-hooks/refs
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\command.tsx
+  274:11  error  An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+  314:11  error  An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+  359:11  error  An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\confetti-button.tsx
+   92:7  warning  'asChild' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+  126:9  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\confetti-button.tsx:126:9
+  124 |         };
+  125 |       } else {
+> 126 |         setScriptLoaded(true);
+      |         ^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  127 |       }
+  128 |     }, []);
+  129 |  react-hooks/set-state-in-effect
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\context-menu.tsx
+  56:11  error  An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+  85:11  error  An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\count-up.tsx
+   79:44  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  122:6   warning  React Hook useEffect has missing dependencies: 'animationConfig', 'count', and 'onAnimationComplete'. Either include them or remove the dependency array. If 'onAnimationComplete' changes too often, find the parent component that defines it and wrap that definition in useCallback  react-hooks/exhaustive-deps
+  136:5   warning  React Hook useEffect has a missing dependency: 'count'. Either include it or remove the dependency array                                                                                                                                                                                 react-hooks/exhaustive-deps
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\dialog.tsx
+  74:11  warning  'onClick' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\dot-pattern.tsx
+  14:18  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  20:3   warning  'x' is assigned a value but never used    @typescript-eslint/no-unused-vars
+  21:3   warning  'y' is assigned a value but never used    @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\drag-order-list.tsx
+   32:6  warning  React Hook useEffect has a missing dependency: 'onReorder'. Either include it or remove the dependency array. If 'onReorder' changes too often, find the parent component that defines it and wrap that definition in useCallback  react-hooks/exhaustive-deps
+  118:6  warning  React Hook useEffect has a missing dependency: 'boxShadow'. Either include it or remove the dependency array                                                                                                                       react-hooks/exhaustive-deps
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\dropdown-menu.tsx
+  100:6   warning  React Hook React.useImperativeHandle has a missing dependency: 'triggerRef'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    react-hooks/exhaustive-deps
+  111:32  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-explicit-any
+  132:11  warning  'onClick' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+  132:20  warning  'onMouseEnter' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+  132:34  warning  'onMouseLeave' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+  143:38  error    Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\dropdown-menu.tsx:143:38
+  141 |     }
+  142 |
+> 143 |     return React.cloneElement(child, {
+      |                                      ^
+> 144 |       ...child.props,
+      | ^^^^^^^^^^^^^^^^^^^^^
+> 145 |       ref: (node: HTMLElement | null) => {
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^
+> 179 |       },
+      | ^^^^^^^^^^^^^^^^^^^^^
+> 180 |     });
+      | ^^^^^^ Passing a ref to a function may read its value during render
+  181 |   }
+  182 |
+  183 |   return (  react-hooks/refs
+  158:36  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-explicit-any
+  315:52  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-explicit-any
+  433:13  warning  'onMouseLeave' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+  433:27  warning  'onMouseEnter' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+  479:11  error    An interface declaring no members is equivalent to its supertype                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-empty-object-type
+  522:11  warning  'onClick' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+  543:11  error    An interface declaring no members is equivalent to its supertype                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-empty-object-type
+  558:11  error    An interface declaring no members is equivalent to its supertype                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-empty-object-type
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\dynamic-navigation.tsx
+  143:6  warning  React Hook useEffect has a missing dependency: 'updateHighlightPosition'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   react-hooks/exhaustive-deps
+  148:7  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\dynamic-navigation.tsx:148:7
+  146 |   useEffect(() => {
+  147 |     if (activeLink && activeLink !== active) {
+> 148 |       setActive(activeLink);
+      |       ^^^^^^^^^ Avoid calling setState() directly within an effect
+  149 |     }
+  150 |   }, [activeLink]);
+  151 |  react-hooks/set-state-in-effect
+  150:6  warning  React Hook useEffect has a missing dependency: 'active'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    react-hooks/exhaustive-deps
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\globe.tsx
+   64:27  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  129:42  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\glowing-cards.tsx
+   51:3   warning  'hoverEffect' is assigned a value but never used    @typescript-eslint/no-unused-vars
+   79:3   warning  'enableHover' is assigned a value but never used    @typescript-eslint/no-unused-vars
+   90:10  warning  'mousePosition' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  184:53  warning  'index' is defined but never used                   @typescript-eslint/no-unused-vars
+  187:73  error    Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\glowing-lights.tsx
+  33:3  warning  'glowSize' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\gradient-background.tsx
+  155:9  error  'startTime' is never reassigned. Use 'const' instead  prefer-const
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\grid-dot-backgrounds.tsx
+   34:5  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\grid-dot-backgrounds.tsx:34:5
+  32 |     const isDarkModeActive =
+  33 |       document.documentElement.classList.contains("dark") || prefersDarkMode;
+> 34 |     setCurrentGridColor(isDarkModeActive ? darkGridColor : gridColor);
+     |     ^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  35 |
+  36 |     const observer = new MutationObserver(function (mutations) {
+  37 |       mutations.forEach(function (mutation) {      react-hooks/set-state-in-effect
+  128:5  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\grid-dot-backgrounds.tsx:128:5
+  126 |     const isDarkModeActive =
+  127 |       document.documentElement.classList.contains("dark") || prefersDarkMode;
+> 128 |     setCurrentDotColor(isDarkModeActive ? darkDotColor : dotColor);
+      |     ^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  129 |
+  130 |     const observer = new MutationObserver(function (mutations) {
+  131 |       mutations.forEach(function (mutation) {  react-hooks/set-state-in-effect
+  191:1  warning  Assign object to a variable before exporting as module default                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            import/no-anonymous-default-export
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\hamburger-menu-overlay.tsx
+  125:7  error  Error: This value cannot be modified
+
+Modifying a variable defined outside a component or hook is not allowed. Consider using an effect.
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\hamburger-menu-overlay.tsx:125:7
+  123 |
+  124 |     if (item.href && !item.onClick) {
+> 125 |       window.location.href = item.href;
+      |       ^^^^^^^^^^^^^^^ value cannot be modified
+  126 |     }
+  127 |
+  128 |     if (!keepOpenOnItemClick) {  react-hooks/immutability
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\hell-background.tsx
+  174:9  error  'startTime' is never reassigned. Use 'const' instead  prefer-const
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\image-reveal.tsx
+  80:13  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\image-trail-effect.tsx
+   1:1  error    Do not use "@ts-nocheck" because it alters compilation errors                                                                                                                                                                                                                            @typescript-eslint/ban-ts-comment
+  97:9  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\innovation-background.tsx
+  106:6   warning  React Hook useEffect has a missing dependency: 'camera'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      react-hooks/exhaustive-deps
+  106:13  warning  React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       react-hooks/exhaustive-deps
+  113:26  error    Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\innovation-background.tsx:113:26
+  111 |       <planeGeometry args={[1, 1]} /> 
+  112 |       {/* Attach the material */}
+> 113 |       <primitive object={shaderMaterial.current} attach="material" />
+      |                          ^^^^^^^^^^^^^^^^^^^^^^ Cannot access ref value during render
+  114 |     </mesh>
+  115 |   );
+  116 | };  react-hooks/refs
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\input.tsx
+  8:18  error  An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\interactive-card-gallery.tsx
+  30:3  warning  'imageAlt' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\interactive-gradient-card.tsx
+  57:9  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\interactive-gradient-card.tsx:57:9
+  55 |     } else {
+  56 |         // If backgroundColor is a direct CSS color, use it for the radial gradient's base.
+> 57 |         setResolvedGlowFallbackColor(backgroundColor);
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  58 |     }
+  59 |   }, [backgroundColor]);
+  60 |  react-hooks/set-state-in-effect
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\magic-loader.tsx
+  123:50  error  Error: Cannot access variable before it is declared
+
+`animate` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\magic-loader.tsx:123:50
+  121 |     tickRef.current++;
+  122 |
+> 123 |     animationRef.current = requestAnimationFrame(animate);
+      |                                                  ^^^^^^^ `animate` accessed before it is declared
+  124 |   }, [createParticle, stepParticle, drawParticle, particleCount, speed]);
+  125 |
+  126 |   const setupCanvas = useCallback(() => {
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\magic-loader.tsx:88:3
+   86 |   }, [hueRange]);
+   87 |
+>  88 |   const animate = useCallback(() => {
+      |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  89 |     const canvas = canvasRef.current;
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  90 |     if (!canvas) return;
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 123 |     animationRef.current = requestAnimationFrame(animate);
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 124 |   }, [createParticle, stepParticle, drawParticle, particleCount, speed]);
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `animate` is declared here
+  125 |
+  126 |   const setupCanvas = useCallback(() => {
+  127 |     const canvas = canvasRef.current;  react-hooks/immutability
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\menubar.tsx
+   21:11  error  An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+   76:11  error  An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+  116:11  error  An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\navigation-menu.tsx
+   19:11  error    An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+   55:11  error    An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+  192:11  error    An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+  212:11  error    An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+  218:29  warning  'ref' is defined but never used                                   @typescript-eslint/no-unused-vars
+  245:11  error    An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\particles-background.tsx
+  6:18  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\popover.tsx
+  162:17  warning  'align' is assigned a value but never used       @typescript-eslint/no-unused-vars
+  162:35  warning  'sideOffset' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\reflect-background.tsx
+  135:9  error  'startTime' is never reassigned. Use 'const' instead  prefer-const
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\scroll-carousel.tsx
+   46:9   error    'ctx' is never reassigned. Use 'const' instead                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         prefer-const
+  134:6   warning  React Hook useLayoutEffect has missing dependencies: 'cardRefs', 'cardRefs2', 'containerRef', 'progressBarRef', 'scrollContainerRef', and 'scrollContainerRef2'. Either include them or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    react-hooks/exhaustive-deps
+  149:48  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\scroll-carousel.tsx:149:48
+  147 |
+  148 |     // Dynamic sorting for the second row of cards
+> 149 |     const features2 = [...features].sort(() => Math.random() - 0.5);
+      |                                                ^^^^^^^^^^^^^ Cannot call impure function
+  150 |
+  151 |     useEffect(() => {
+  152 |       const checkDesktop = () => {  react-hooks/purity
+  193:13  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @next/next/no-img-element
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\scroll-list.tsx
+  23:11  warning  'scrollYProgress' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\scroll-stack.tsx
+  108:61  warning  The ref value 'sectionRef.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'sectionRef.current' to a variable inside the effect, and use that variable in the cleanup function  react-hooks/exhaustive-deps
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\scroll-timeline.tsx
+    8:3   warning  'MotionValue' is defined but never used                                                                                                                 @typescript-eslint/no-unused-vars
+   76:3   warning  'activeColor' is assigned a value but never used                                                                                                        @typescript-eslint/no-unused-vars
+   89:3   warning  'smoothScroll' is assigned a value but never used                                                                                                       @typescript-eslint/no-unused-vars
+  209:11  warning  'perspectiveClass' is assigned a value but never used                                                                                                   @typescript-eslint/no-unused-vars
+  304:31  error    React Hook "useTransform" cannot be called inside a callback. React Hooks must be called in a React function component or a custom React Hook function  react-hooks/rules-of-hooks
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\seasonal-hover-cards.tsx
+  34:7  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\select.tsx
+  133:19  error  Unexpected any. Specify a different type                          @typescript-eslint/no-explicit-any
+  145:25  error  Unexpected any. Specify a different type                          @typescript-eslint/no-explicit-any
+  151:32  error  Unexpected any. Specify a different type                          @typescript-eslint/no-explicit-any
+  172:11  error  An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+  417:32  error  Unexpected any. Specify a different type                          @typescript-eslint/no-explicit-any
+  423:45  error  Unexpected any. Specify a different type                          @typescript-eslint/no-explicit-any
+  440:32  error  Unexpected any. Specify a different type                          @typescript-eslint/no-explicit-any
+  545:31  error  Unexpected any. Specify a different type                          @typescript-eslint/no-explicit-any
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\shader-background.tsx
+  170:9  error  'startTime' is never reassigned. Use 'const' instead  prefer-const
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\sheet.tsx
+   57:71  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-explicit-any
+   73:12  error    Error: This value cannot be modified
+
+Modifying a value previously passed as an argument to a hook is not allowed. Consider moving the modification before calling the hook.
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\sheet.tsx:73:12
+  71 |           childRef(node);
+  72 |         } else if (childRef) {
+> 73 |           (childRef as React.MutableRefObject<HTMLElement | null>).current = node;
+     |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `childRef` cannot be modified
+  74 |         }
+  75 |       },
+  76 |       [forwardedRef, childRef]  react-hooks/immutability
+  144:13  warning  '_' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @typescript-eslint/no-unused-vars
+  145:16  warning  '__' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+  146:18  warning  '___' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+  147:17  warning  '____' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+  148:18  warning  '_____' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+  149:18  warning  '______' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  150:17  warning  '_______' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+  151:13  warning  '________' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+  152:23  warning  '_________' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+  241:15  warning  '_' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @typescript-eslint/no-unused-vars
+  242:18  warning  '__' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+  243:20  warning  '___' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+  244:19  warning  '____' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+  245:20  warning  '_____' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+  246:20  warning  '______' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  247:19  warning  '_______' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+  248:15  warning  '________' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+  249:25  warning  '_________' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\sidebar.tsx
+  153:6   warning  React Hook React.useEffect has unnecessary dependencies: 'window.location.pathname' and 'window.location.search'. Either exclude them or remove the dependency array. Outer scope values like 'window.location.pathname' aren't valid dependencies because mutating them doesn't re-render the component                      react-hooks/exhaustive-deps
+  206:11  error    An interface declaring no members is equivalent to its supertype                                                                                                                                                                                                                                                              @typescript-eslint/no-empty-object-type
+  230:11  error    An interface declaring no members is equivalent to its supertype                                                                                                                                                                                                                                                              @typescript-eslint/no-empty-object-type
+  260:11  error    An interface declaring no members is equivalent to its supertype                                                                                                                                                                                                                                                              @typescript-eslint/no-empty-object-type
+  283:11  error    An interface declaring no members is equivalent to its supertype                                                                                                                                                                                                                                                              @typescript-eslint/no-empty-object-type
+  307:11  error    An interface declaring no members is equivalent to its supertype                                                                                                                                                                                                                                                              @typescript-eslint/no-empty-object-type
+  321:11  error    An interface declaring no members is equivalent to its supertype                                                                                                                                                                                                                                                              @typescript-eslint/no-empty-object-type
+  347:11  error    An interface declaring no members is equivalent to its supertype                                                                                                                                                                                                                                                              @typescript-eslint/no-empty-object-type
+  362:11  error    An interface declaring no members is equivalent to its supertype                                                                                                                                                                                                                                                              @typescript-eslint/no-empty-object-type
+  387:11  error    An interface declaring no members is equivalent to its supertype                                                                                                                                                                                                                                                              @typescript-eslint/no-empty-object-type
+  437:31  error    React Hook "React.useId" is called conditionally. React Hooks must be called in the exact same order in every component render                                                                                                                                                                                                react-hooks/rules-of-hooks
+  452:20  warning  The ref value 'menuItemRefs.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'menuItemRefs.current' to a variable inside the effect, and use that variable in the cleanup function                                                       react-hooks/exhaustive-deps
+  496:31  error    React Hook "React.useId" is called conditionally. React Hooks must be called in the exact same order in every component render                                                                                                                                                                                                react-hooks/rules-of-hooks
+  515:6   warning  React Hook React.useCallback has a missing dependency: 'props'. Either include it or remove the dependency array. However, 'props' will change when *any* prop changes, so the preferred fix is to destructure the 'props' object outside of the useCallback call and refer to those specific props inside React.useCallback  react-hooks/exhaustive-deps
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\sliding-cards.tsx
+  69:7  warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\sliding-logo-marquee.tsx
+  56:10  warning  'dimensions' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\smokey-background.tsx
+  168:9  error  'startTime' is never reassigned. Use 'const' instead  prefer-const
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\smokey-cursor.tsx
+   75:3   warning  'className' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+   76:3   warning  'disabled' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+   77:3   warning  'intensity' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+   78:3   warning  'followMouse' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+   79:3   warning  'autoColors' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+   88:9   error    'pointers' is never reassigned. Use 'const' instead                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     prefer-const
+   92:9   error    'config' is never reassigned. Use 'const' instead                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       prefer-const
+  167:39  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-explicit-any
+  169:23  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-explicit-any
+  170:21  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-explicit-any
+  171:20  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-explicit-any
+  327:11  error    'uniforms' is never reassigned. Use 'const' instead                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     prefer-const
+  341:5   warning  Compilation Skipped: Inline `class` declarations are not supported
+
+Move class declarations outside of components/hooks.
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\smokey-cursor.tsx:341:5
+  339 |     }
+  340 |
+> 341 |     class Program {
+      |     ^^^^^^^^^^^^^^^
+> 342 |       program: WebGLProgram | null;
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 343 |       uniforms: Record<string, WebGLUniformLocation | null>;
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 355 |       }
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 356 |     }
+      | ^^^^^^ Inline `class` declarations are not supported
+  357 |
+  358 |     class Material {
+  359 |       vertexShader: WebGLShader | null;
+
+                                   react-hooks/unsupported-syntax
+  358:5   warning  Compilation Skipped: Inline `class` declarations are not supported
+
+Move class declarations outside of components/hooks.
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\smokey-cursor.tsx:358:5
+  356 |     }
+  357 |
+> 358 |     class Material {
+      |     ^^^^^^^^^^^^^^^^
+> 359 |       vertexShader: WebGLShader | null;
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 360 |       fragmentShaderSource: string;
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 402 |       }
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 403 |     }
+      | ^^^^^^ Inline `class` declarations are not supported
+  404 |
+  405 |     // -------------------- Shaders --------------------
+  406 |     const baseVertexShader = compileShader(
+
+  react-hooks/unsupported-syntax
+  995:11  error    'aspect' is never reassigned. Use 'const' instead                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       prefer-const
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\smooth-cursor.tsx
+  132:10  warning  'isMoving' is assigned a value but never used    @typescript-eslint/no-unused-vars
+  134:10  warning  'isClicking' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  181:9   error    Unexpected var, use let or const instead         no-var
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\sparkle-navbar.tsx
+  95:6  warning  React Hook useLayoutEffect has a missing dependency: 'activeIndex'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\sparkle-particles.tsx
+  23:32  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @typescript-eslint/no-explicit-any
+  67:5   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\sparkle-particles.tsx:67:5
+  65 |     };
+  66 |
+> 67 |     setActiveColor(resolveThemeColor());
+     |     ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  68 |
+  69 |     initParticlesEngine(async (engine) => {
+  70 |       await loadSlim(engine);  react-hooks/set-state-in-effect
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\team-carousel.tsx
+  401:19  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\terminal-card.tsx
+  32:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\terminal-card.tsx:32:7
+  30 |       }, 40); // typing speed
+  31 |     } else {
+> 32 |       setIsComplete(true);
+     |       ^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  33 |       timeout = setTimeout(() => {
+  34 |         setDisplayedText("");
+  35 |         setIndex(0);  react-hooks/set-state-in-effect
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\textarea.tsx
+  5:18  error  An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\toggle-group.tsx
+  126:54  warning  'groupSize' is assigned a value but never used                                                                                                                                @typescript-eslint/no-unused-vars
+  126:74  warning  'groupVariant' is assigned a value but never used                                                                                                                             @typescript-eslint/no-unused-vars
+  141:8   warning  React Hook React.useEffect has missing dependencies: 'defaultPressed', 'isActive', 'isDisabled', 'onChange', and 'value'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\tooltip.tsx
+  102:63  warning  The ref value 'showTimeoutRef.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'showTimeoutRef.current' to a variable inside the effect, and use that variable in the cleanup function                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                react-hooks/exhaustive-deps
+  103:63  warning  The ref value 'hideTimeoutRef.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'hideTimeoutRef.current' to a variable inside the effect, and use that variable in the cleanup function                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                react-hooks/exhaustive-deps
+  203:43  error    Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\tooltip.tsx:203:43
+  201 |     // If asChild is true, clone props onto the child element
+  202 |     if (asChild && React.isValidElement(children)) {
+> 203 |       return React.cloneElement(children, triggerProps);
+      |                                           ^^^^^^^^^^^^ Passing a ref to a function may read its value during render
+  204 |     }
+  205 |
+  206 |     // Default rendering if asChild is false  react-hooks/refs
+  342:9   error    'style' is never reassigned. Use 'const' instead                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           prefer-const
+  459:11  warning  '_ref' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\top-loader.tsx
+  46:5   warning  'parent' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @typescript-eslint/no-unused-vars
+  60:60  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\top-loader.tsx:60:60
+  58 |     const isStartedRef = React.useRef<boolean>(false);
+  59 |     const requestRef = React.useRef<number | null>(null);
+> 60 |     const loaderIdRef = React.useRef<string>(`top-loader-${Math.random().toString(36).substring(2, 9)}`);
+     |                                                            ^^^^^^^^^^^^^ Cannot call impure function
+  61 |
+  62 |     // CSS styles for the loader
+  63 |     const styles = React.useMemo(() => {  react-hooks/purity
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\top-sticky-bar.tsx
+  76:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\top-sticky-bar.tsx:76:7
+  74 |   useEffect(() => {
+  75 |     if (!showOnScroll) {
+> 76 |       setInternalShow(externalShow); // If not scroll-controlled, use external prop
+     |       ^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  77 |       return;
+  78 |     }
+  79 |  react-hooks/set-state-in-effect
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\trusted-users.tsx
+  41:13  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\typewriter-input.tsx
+   75:3  warning  'animationDelay' is assigned a value but never used  @typescript-eslint/no-unused-vars
+   97:3  error    Unexpected var, use let or const instead             no-var
+   98:3  error    Unexpected var, use let or const instead             no-var
+   99:3  error    Unexpected var, use let or const instead             no-var
+  100:3  error    Unexpected var, use let or const instead             no-var
+  101:3  error    Unexpected var, use let or const instead             no-var
+  112:5  error    Unexpected var, use let or const instead             no-var
+  113:5  error    Unexpected var, use let or const instead             no-var
+  134:3  error    Unexpected var, use let or const instead             no-var
+  135:5  error    Unexpected var, use let or const instead             no-var
+  140:3  error    Unexpected var, use let or const instead             no-var
+  146:3  error    Unexpected var, use let or const instead             no-var
+  148:3  error    Unexpected var, use let or const instead             no-var
+  156:3  error    Unexpected var, use let or const instead             no-var
+  164:3  error    Unexpected var, use let or const instead             no-var
+  173:3  error    Unexpected var, use let or const instead             no-var
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\video-text.tsx
+  55:5  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\video-text.tsx:55:5
+  53 |             fill='black'>${content}</text>
+  54 |     </svg>`;
+> 55 |     setSvgMask(newSvgMask);
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  56 |   }, [content, fontSize, fontWeight, textAnchor, dominantBaseline, fontFamily]);
+  57 |
+  58 |   const validTags = ["div", "span", "section", "article", "p", "h1", "h2", "h3", "h4", "h5", "h6"] as const;  react-hooks/set-state-in-effect
+  59:8  warning  'ValidTag' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\wave-background.tsx
+  116:9  error  'startTime' is never reassigned. Use 'const' instead  prefer-const
+
+D:\New_Defence_Public_School\ndps-premium\unused_components\lightswind\woofy-hover-image.tsx
+   49:30  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  366:6   warning  React Hook useCallback has missing dependencies: 'fragmentShader' and 'vertexShader'. Either include them or remove the dependency array                                                                                                                                                 react-hooks/exhaustive-deps
+  451:7   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+✖ 346 problems (187 errors, 159 warnings)
+  28 errors and 1 warning potentially fixable with the `--fix` option.
+

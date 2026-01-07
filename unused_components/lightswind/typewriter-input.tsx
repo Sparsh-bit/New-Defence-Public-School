@@ -94,11 +94,11 @@ export const TypewriterInput: React.FC<TypewriterInputProps> = ({
   onEnter,
   ...props
 }) => {
-  var [isAnimating, setIsAnimating] = useState(false);
-  var [showCaret, setShowCaret] = useState(true);
-  var [internalValue, setInternalValue] = useState(value);
-  var prevValueRef = useRef(value);
-  var timeoutRef = useRef<NodeJS.Timeout>();
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [showCaret, setShowCaret] = useState(true);
+  const [internalValue, setInternalValue] = useState(value);
+  const prevValueRef = useRef(value);
+  const timeoutRef = useRef<NodeJS.Timeout>();
 
   // Update internal value when prop changes
   useEffect(function () {
@@ -109,8 +109,8 @@ export const TypewriterInput: React.FC<TypewriterInputProps> = ({
   useEffect(function () {
     if (!enableAnimation) return;
 
-    var prevValue = prevValueRef.current;
-    var currentValue = internalValue;
+    const prevValue = prevValueRef.current;
+    const currentValue = internalValue;
 
     if (currentValue.length > prevValue.length && currentValue.slice(-1) !== ' ') {
       setShowCaret(false);
@@ -131,21 +131,21 @@ export const TypewriterInput: React.FC<TypewriterInputProps> = ({
     prevValueRef.current = currentValue;
   }, [internalValue, enableAnimation, animationDuration]);
 
-  var handleInputChange = function (e: React.ChangeEvent<HTMLInputElement>) {
-    var newValue = e.target.value;
+  const handleInputChange = function (e: React.ChangeEvent<HTMLInputElement>) {
+    const newValue = e.target.value;
     setInternalValue(newValue);
     onChange?.(newValue);
   };
 
-  var handleKeyDown = function (e: React.KeyboardEvent<HTMLInputElement>) {
+  const handleKeyDown = function (e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter') {
       onEnter?.();
     }
   };
 
-  var characters = internalValue.split('');
+  const characters = internalValue.split('');
 
-  var fontWeightClasses = {
+  const fontWeightClasses = {
     normal: 'font-normal',
     medium: 'font-medium',
     semibold: 'font-semibold',
@@ -153,7 +153,7 @@ export const TypewriterInput: React.FC<TypewriterInputProps> = ({
     black: 'font-black'
   };
 
-  var fontSizeClasses = {
+  const fontSizeClasses = {
     xs: 'text-xs',
     sm: 'text-sm',
     base: 'text-base',
@@ -161,7 +161,7 @@ export const TypewriterInput: React.FC<TypewriterInputProps> = ({
     xl: 'text-xl'
   };
 
-  var borderRadiusClasses = {
+  const borderRadiusClasses = {
     none: 'rounded-none',
     sm: 'rounded-sm',
     md: 'rounded-md',
@@ -170,7 +170,7 @@ export const TypewriterInput: React.FC<TypewriterInputProps> = ({
     full: 'rounded-full'
   };
 
-  var shadowClasses = {
+  const shadowClasses = {
     none: 'shadow-none',
     sm: 'shadow-sm',
     md: 'shadow-md',

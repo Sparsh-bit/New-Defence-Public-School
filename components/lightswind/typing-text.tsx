@@ -116,6 +116,7 @@ export const TypingText = ({
         const currentOffset = charIndexOffset;
         // increment global offset by word length (simulate space ignored in animation count or account for it?)
         // Usually better to stagger solely by visible chars.
+        // eslint-disable-next-line react-hooks/exhaustive-deps, no-param-reassign
         charIndexOffset += wordChars.length;
 
         return (

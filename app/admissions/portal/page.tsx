@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Lock, User, Eye, EyeOff, LogIn, Shield } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function PortalLogin() {
     const router = useRouter();
@@ -136,8 +137,8 @@ export default function PortalLogin() {
                             whileHover={{ scale: loading ? 1 : 1.02 }}
                             whileTap={{ scale: loading ? 1 : 0.98 }}
                             className={`w-full py-4 rounded-xl font-bold text-lg text-white shadow-xl transition-all duration-300 ${loading
-                                    ? 'bg-gray-500 cursor-not-allowed'
-                                    : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700'
+                                ? 'bg-gray-500 cursor-not-allowed'
+                                : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700'
                                 }`}
                         >
                             {loading ? (
@@ -171,12 +172,12 @@ export default function PortalLogin() {
                     transition={{ delay: 0.5 }}
                     className="mt-6 text-center"
                 >
-                    <a
+                    <Link
                         href="/"
                         className="text-blue-300 hover:text-white transition-colors text-sm font-semibold"
                     >
                         ← Back to Home
-                    </a>
+                    </Link>
                 </motion.div>
             </motion.div>
 

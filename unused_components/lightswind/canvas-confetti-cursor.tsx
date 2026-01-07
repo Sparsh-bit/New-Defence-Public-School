@@ -160,7 +160,7 @@ export const CanvasConfettiCursor: React.FC<CanvasConfettiCursorProps> = ({
       animId.current && cancelAnimationFrame(animId.current);
       particles.current = [];
     };
-    // eslint-disable-next-line
+     
   }, [decay, overlayOpacity, fillParent, enabled]);
 
   useEffect(() => {

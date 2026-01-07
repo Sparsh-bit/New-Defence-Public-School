@@ -339,7 +339,7 @@ const TooltipContentDisplay = () => {
   const getArrowStyle = React.useCallback(() => {
     const { side, align } = config;
     const arrowSize = 8; // Size of the square div for the arrow
-    let style: React.CSSProperties = {
+    const style: React.CSSProperties = {
       position: 'absolute',
       width: arrowSize,
       height: arrowSize,

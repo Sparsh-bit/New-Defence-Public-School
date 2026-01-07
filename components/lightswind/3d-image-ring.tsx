@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState, useMemo } from "react";
-import { motion, AnimatePresence, useMotionValue, easeOut } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, easeOut, type Easing } from "framer-motion";
 import { cn } from "../../lib/utils"; // Assuming you have this utility for class names
 import { animate } from "framer-motion";
 
@@ -33,7 +33,7 @@ export interface ThreeDImageRingProps {
   /** Enable/disable drag functionality */
   draggable?: boolean;
   /** Animation ease for entrance */
-  ease?: string;
+  ease?: Easing;
   /** Breakpoint for mobile responsiveness (e.g., 768 for iPad mini) */
   mobileBreakpoint?: number;
   /** Scale factor for mobile (e.g., 0.7 for 70% size) */
@@ -154,37 +154,37 @@ export function ThreeDImageRing({
     startX.current = clientX;
   };
 
-const handleDragEnd = () => {
-  isDragging.current = false;
-  if (ringRef.current) {
-    ringRef.current.style.cursor = "grab";
-    currentRotationY.current = rotationY.get();
-  }
+  const handleDragEnd = () => {
+    isDragging.current = false;
+    if (ringRef.current) {
+      ringRef.current.style.cursor = "grab";
+      currentRotationY.current = rotationY.get();
+    }
 
-  document.removeEventListener("mousemove", handleDrag);
-  document.removeEventListener("mouseup", handleDragEnd);
-  document.removeEventListener("touchmove", handleDrag);
-  document.removeEventListener("touchend", handleDragEnd);
+    document.removeEventListener("mousemove", handleDrag);
+    document.removeEventListener("mouseup", handleDragEnd);
+    document.removeEventListener("touchmove", handleDrag);
+    document.removeEventListener("touchend", handleDragEnd);
 
-  const initial = rotationY.get();
-  const velocityBoost = velocity.current * inertiaVelocityMultiplier;
-  const target = initial + velocityBoost;
+    const initial = rotationY.get();
+    const velocityBoost = velocity.current * inertiaVelocityMultiplier;
+    const target = initial + velocityBoost;
 
-  // Animate with inertia manually using `animate()`
-  animate(initial, target, {
-    type: "inertia",
-    velocity: velocityBoost,
-    power: inertiaPower,
-    timeConstant: inertiaTimeConstant,
-    restDelta: 0.5,
-    modifyTarget: (target) => Math.round(target / angle) * angle,
-    onUpdate: (latest) => {
-      rotationY.set(latest);
-    },
-  });
+    // Animate with inertia manually using `animate()`
+    animate(initial, target, {
+      type: "inertia",
+      velocity: velocityBoost,
+      power: inertiaPower,
+      timeConstant: inertiaTimeConstant,
+      restDelta: 0.5,
+      modifyTarget: (target) => Math.round(target / angle) * angle,
+      onUpdate: (latest) => {
+        rotationY.set(latest);
+      },
+    });
 
-  velocity.current = 0;
-};
+    velocity.current = 0;
+  };
 
 
   // Corrected imageVariants: no function for 'visible' state
@@ -237,6 +237,7 @@ const handleDragEnd = () => {
           }}
         >
           <AnimatePresence>
+            {/* eslint-disable-next-line react-hooks/rules-of-hooks */}
             {showImages && images.map((imageUrl, index) => (
               <motion.div
                 key={index}
@@ -263,7 +264,7 @@ const handleDragEnd = () => {
                 transition={{
                   delay: index * staggerDelay, // Use index directly in transition
                   duration: animationDuration,
-                  ease: easeOut, // Apply ease for entrance animation
+                  ease: ease || easeOut, // Apply ease for entrance animation
                 }}
                 whileHover={{ opacity: 1, transition: { duration: 0.15 } }}
                 onHoverStart={() => {
