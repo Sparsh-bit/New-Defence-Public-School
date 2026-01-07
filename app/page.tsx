@@ -1,3 +1,4 @@
+// Deployment v1.1
 import HeroSection from '@/components/HeroSection';
 import { KeyHighlights } from '@/components/KeyHighlights';
 import { AboutSchoolSection } from '@/components/AboutSchoolSection';
