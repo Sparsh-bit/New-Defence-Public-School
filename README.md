@@ -110,6 +110,19 @@ ndps-premium/
 
 ---
 
+## ☁️ Cloudflare Deployment
+
+To deploy this project on Cloudflare Pages:
+
+1.  **Build Settings:**
+    -   **Framework Preset:** None / Custom
+    -   **Build Command:** `npm run pages:build`
+    -   **Output Directory:** `.vercel/output/static`
+
+2.  **Compatibility Flags (Crucial):**
+    -   Go to **Settings** -> **Functions** -> **Compatibility Flags**.
+    -   Add `nodejs_compat` to both Production and Preview environments.
+
 ## 📄 License
 
 Proprietary - © 2026 New Defence Public School
