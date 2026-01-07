@@ -38,6 +38,7 @@
     "react-resizable-panels": "^4.1.0",
     "react-spring": "^10.0.3",
     "recharts": "^3.6.0",
+    "simplex-noise": "^4.0.3",
     "swiper": "^12.0.3",
     "tailwind-merge": "^3.4.0",
     "three": "^0.182.0"
@@ -50,6 +51,6 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "5.9.3"
   }
 }

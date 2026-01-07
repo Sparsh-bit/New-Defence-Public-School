@@ -77,11 +77,11 @@ const AlertDialogTrigger = React.forwardRef<HTMLButtonElement, AlertDialogTrigge
         <>
           {React.Children.map(children, child => {
             if (React.isValidElement(child)) {
-              return React.cloneElement(child, {
-                ...child.props,
+              return React.cloneElement(child as React.ReactElement, {
+                ...(child.props as object),
                 ref,
                 onClick: handleClick
-              });
+              } as any);
             }
             return child;
           })}
@@ -194,13 +194,13 @@ const AlertDialogContent = React.forwardRef<
             // Filter out properties that conflict with Framer Motion's types
             // This is the crucial part for resolving the type error.
             {...Object.keys(props).reduce((acc: { [key: string]: any }, key) => {
-                // Add any other conflicting HTML attributes you might discover here.
-                // 'onDrag' is the most common one.
-                if (key === 'onDrag' || key === 'onAnimationStart' || key === 'onTransitionEnd') {
-                    return acc; // Omit this property
-                }
-                acc[key] = (props as any)[key]; // Keep other properties
-                return acc;
+              // Add any other conflicting HTML attributes you might discover here.
+              // 'onDrag' is the most common one.
+              if (key === 'onDrag' || key === 'onAnimationStart' || key === 'onTransitionEnd') {
+                return acc; // Omit this property
+              }
+              acc[key] = (props as any)[key]; // Keep other properties
+              return acc;
             }, {})}
           >
             {children}
@@ -264,7 +264,7 @@ const AlertDialogDescription = React.forwardRef<
 ));
 AlertDialogDescription.displayName = "AlertDialogDescription";
 
-interface AlertDialogActionProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+interface AlertDialogActionProps extends React.ButtonHTMLAttributes<HTMLButtonElement> { }
 
 const AlertDialogAction = React.forwardRef<
   HTMLButtonElement,
@@ -300,7 +300,7 @@ const AlertDialogAction = React.forwardRef<
 });
 AlertDialogAction.displayName = "AlertDialogAction";
 
-interface AlertDialogCancelProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+interface AlertDialogCancelProps extends React.ButtonHTMLAttributes<HTMLButtonElement> { }
 
 const AlertDialogCancel = React.forwardRef<
   HTMLButtonElement,

@@ -68,7 +68,7 @@ const Calendar = () => {
         <label className="text-gray-700 dark:text-gray-300 font-medium">
           Selection Mode:
         </label>
-        <Select value={mode} onValueChange={handleModeChange}>
+        <Select value={mode} onValueChange={(value) => handleModeChange(value as "single" | "multiple" | "range")}>
           <SelectTrigger className="w-[180px] dark:bg-gray-700 dark:text-white border rounded-md px-3 py-2">
             <SelectValue placeholder="Select mode" />
           </SelectTrigger>

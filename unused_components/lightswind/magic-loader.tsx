@@ -29,7 +29,7 @@ const MagicLoader: React.FC<MagicLoaderProps> = ({
   className
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number | null>(null);
   const particlesRef = useRef<Particle[]>([]);
   const tickRef = useRef(0);
   const globalAngleRef = useRef(0);
@@ -64,7 +64,7 @@ const MagicLoader: React.FC<MagicLoaderProps> = ({
   const drawParticle = useCallback((ctx: CanvasRenderingContext2D, particle: Particle, index: number, tick: number) => {
     const hue = hueRange[0] + ((tick + (particle.life * 120)) % (hueRange[1] - hueRange[0]));
     ctx.fillStyle = ctx.strokeStyle = `hsla(${hue}, 100%, 60%, ${particle.life})`;
-    
+
     // Draw line to previous particle
     ctx.beginPath();
     if (particlesRef.current[index - 1]) {
@@ -136,7 +136,7 @@ const MagicLoader: React.FC<MagicLoaderProps> = ({
     canvas.height = size * dpr;
     canvas.style.width = `${size}px`;
     canvas.style.height = `${size}px`;
-    
+
     ctx.scale(dpr, dpr);
     ctx.globalCompositeOperation = 'lighter';
 

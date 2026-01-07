@@ -11,7 +11,7 @@ import {
   ContactShadows,
   Center,
 } from "@react-three/drei";
-import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
+// import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 import * as THREE from "three";
 
 // ---
@@ -32,15 +32,15 @@ export interface ViewerProps {
   fillLightIntensity?: number;
   rimLightIntensity?: number;
   environmentPreset?:
-    | "city"
-    | "sunset"
-    | "night"
-    | "dawn"
-    | "studio"
-    | "apartment"
-    | "forest"
-    | "park"
-    | "none";
+  | "city"
+  | "sunset"
+  | "night"
+  | "dawn"
+  | "studio"
+  | "apartment"
+  | "forest"
+  | "park"
+  | "none";
   autoRotate?: boolean;
   autoRotateSpeed?: number;
   onModelLoaded?: () => void;
@@ -105,25 +105,25 @@ const FbxContent: FC<{ url: string; onLoaded: () => void }> = ({
   return <primitive object={fbx.clone()} />;
 };
 
-// Component for handling OBJ models
-const ObjContent: FC<{ url: string; onLoaded: () => void }> = ({
-  url,
-  onLoaded,
-}) => {
-  const obj = useLoader(OBJLoader as unknown as any, url);
-  useLayoutEffect(() => {
-    if (obj) {
-      obj.traverse((o) => {
-        if ((o as THREE.Mesh).isMesh) {
-          o.castShadow = true;
-          o.receiveShadow = true;
-        }
-      });
-      onLoaded();
-    }
-  }, [obj, onLoaded]);
-  return <primitive object={obj.clone()} />;
-};
+// Component for handling OBJ models - Disabled due to build issues
+// const ObjContent: FC<{ url: string; onLoaded: () => void }> = ({
+//   url,
+//   onLoaded,
+// }) => {
+//   const obj = useLoader(OBJLoader as unknown as any, url);
+//   useLayoutEffect(() => {
+//     if (obj) {
+//       obj.traverse((o) => {
+//         if ((o as THREE.Mesh).isMesh) {
+//           o.castShadow = true;
+//           o.receiveShadow = true;
+//         }
+//       });
+//       onLoaded();
+//     }
+//   }, [obj, onLoaded]);
+//   return <primitive object={obj.clone()} />;
+// };
 
 const SceneContent: FC<{
   url: string;
@@ -151,8 +151,8 @@ const SceneContent: FC<{
         return <GltfContent url={url} onLoaded={onLoadedHandler} />;
       case "fbx":
         return <FbxContent url={url} onLoaded={onLoadedHandler} />;
-      case "obj":
-        return <ObjContent url={url} onLoaded={onLoadedHandler} />;
+      // case "obj":
+      //   return <ObjContent url={url} onLoaded={onLoadedHandler} />;
       default:
         return null;
     }

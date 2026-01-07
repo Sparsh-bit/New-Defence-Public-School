@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useCallback, useState } from 'react';
 import * as THREE from 'three';
-import { createNoise2D } from 'simplex-noise';
+import { createNoise2D, createNoise3D } from 'simplex-noise';
 import { cn } from '../../lib/utils'; // Assuming this utility is correctly set up
 
 export interface AnimatedWaveProps {
@@ -68,17 +68,17 @@ const getDeviceInfo = (): DeviceInfo => {
       Math.max(
         0,
         window.innerWidth ||
-          document.documentElement.clientWidth ||
-          document.body.clientWidth ||
-          0
+        document.documentElement.clientWidth ||
+        document.body.clientWidth ||
+        0
       ),
     screenHeight: () =>
       Math.max(
         0,
         window.innerHeight ||
-          document.documentElement.clientHeight ||
-          document.body.clientHeight ||
-          0
+        document.documentElement.clientHeight ||
+        document.body.clientHeight ||
+        0
       ),
     screenRatio: function () {
       return this.screenWidth() / this.screenHeight();
@@ -103,7 +103,7 @@ const getDeviceInfo = (): DeviceInfo => {
 };
 
 const addEase = (
-  pos: THREE.Vector3,
+  pos: THREE.Vector3 | THREE.Euler,
   to: { x: number; y: number; z: number },
   ease: number
 ) => {
@@ -264,6 +264,7 @@ const AnimatedWave: React.FC<AnimatedWaveProps> = ({
       material: null as THREE.MeshLambertMaterial | null,
       plane: null as THREE.Mesh | null,
       simplex: null as ReturnType<typeof createNoise2D> | null, // Simplex noise generator
+      simplex3: null as ReturnType<typeof createNoise3D> | null, // 3D Simplex noise generator
       factor: smoothness, // Controls the "wavelength" of the noise
       scale: amplitude, // Controls the "height" of the noise
       speed: speed, // Controls how fast the wave moves over time
@@ -291,7 +292,7 @@ const AnimatedWave: React.FC<AnimatedWaveProps> = ({
         // Create a new Three.js Group to hold the plane, allowing easier positioning/rotation
         this.group = new THREE.Object3D();
         this.group.position.copy(this.move);
-        this.group.rotation.copy(this.look);
+        this.group.rotation.setFromVector3(this.look);
 
         // Define the plane geometry (width, height, segmentsX, segmentsY)
         this.geometry = new THREE.PlaneGeometry(
@@ -325,6 +326,7 @@ const AnimatedWave: React.FC<AnimatedWaveProps> = ({
 
         // Initialize Simplex noise generator
         this.simplex = createNoise2D();
+        this.simplex3 = createNoise3D();
 
         // Perform initial noise calculation (no mouse influence initially)
         this.moveNoise({ x: 0, y: 0 });
@@ -335,7 +337,7 @@ const AnimatedWave: React.FC<AnimatedWaveProps> = ({
 
       // Function to calculate and apply noise (wave + mouse effects) to vertices
       moveNoise: function (mouse: { x: number; y: number }) {
-        if (!this.geometry || !this.simplex || !this._originalPositions) return;
+        if (!this.geometry || !this.simplex || !this.simplex3 || !this._originalPositions) return;
 
         const positions = this.geometry.attributes.position; // Get the position attribute of the geometry
         const currentMouseX = mouseInteraction ? mouse.x : 0;
@@ -372,7 +374,7 @@ const AnimatedWave: React.FC<AnimatedWaveProps> = ({
 
             // Generate a 3D Simplex noise value for the ripple.
             // `this.distortionTime` makes the ripple evolve over time.
-            const mouseRippleNoise = this.simplex(
+            const mouseRippleNoise = this.simplex3(
               distX_mouse / this.mouseDistortionSmoothness, // Smoothness of the mouse ripple
               distY_mouse / this.mouseDistortionSmoothness,
               this.distortionTime // Third dimension for time-based evolution
@@ -443,6 +445,7 @@ const AnimatedWave: React.FC<AnimatedWaveProps> = ({
         this.geometry = null;
         this.material = null;
         this.simplex = null;
+        this.simplex3 = null;
         this.group = null;
         this._originalPositions = new Float32Array(); // Clear the reference
       },

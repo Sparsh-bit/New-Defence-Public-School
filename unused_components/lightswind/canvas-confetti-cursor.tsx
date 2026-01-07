@@ -69,10 +69,10 @@ export const CanvasConfettiCursor: React.FC<CanvasConfettiCursorProps> = ({
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const mousePos = useRef({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
   const particles = useRef<any[]>([]);
-  const animId = useRef<number>();
-  const intervalRef = useRef<number | undefined>();
+  const animId = useRef<number | null>(null);
+  const intervalRef = useRef<number | undefined>(undefined);
   const parentRef = useRef<HTMLDivElement | null>(null);
-  
+
   // Handle canvas resize
   const resizeCanvas = () => {
     if (!canvasRef.current) return;
@@ -183,11 +183,11 @@ export const CanvasConfettiCursor: React.FC<CanvasConfettiCursorProps> = ({
     }
     // Listen on canvas for local, window for full
     const target = fillParent && parentRef.current ? parentRef.current : window;
-    target.addEventListener("mousemove", moveHandler);
-    target.addEventListener("touchmove", moveHandler);
+    target.addEventListener("mousemove", moveHandler as unknown as EventListener);
+    target.addEventListener("touchmove", moveHandler as unknown as EventListener);
     return () => {
-      target.removeEventListener("mousemove", moveHandler);
-      target.removeEventListener("touchmove", moveHandler);
+      target.removeEventListener("mousemove", moveHandler as unknown as EventListener);
+      target.removeEventListener("touchmove", moveHandler as unknown as EventListener);
     };
   }, [fillParent, enabled]);
 
