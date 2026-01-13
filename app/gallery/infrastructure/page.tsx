@@ -1,25 +1,42 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import SubPageHero from '@/components/SubPageHero';
-import { Building2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Building2, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import { ThreeDImageRing } from "@/components/lightswind/3d-image-ring";
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
-const infraImages = [
-    "/images/infrastructure/fl1.jpg",
-    "/images/infrastructure/fl10.jpg",
-    "/images/infrastructure/fl7.jpg",
-    "/images/infrastructure/fl9.jpg",
-    "/images/infrastructure/01.jpg",
-    "/images/infrastructure/12.jpg",
-    "/images/infrastructure/transport.jpg",
-    "/images/gen/smart_classroom_india_1766952364269.png",
-];
-
 export default function InfrastructureGallery() {
+    const [infraImages, setInfraImages] = useState<string[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchImages = async () => {
+            try {
+                const res = await fetch('/api/content');
+                const data = await res.json();
+                if (data.gallery && data.gallery.infrastructure) {
+                    setInfraImages(data.gallery.infrastructure);
+                }
+            } catch (error) {
+                console.error('Failed to load images', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchImages();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-[#0B1C2D] flex items-center justify-center">
+                <Loader2 className="w-12 h-12 text-[#C6A75E] animate-spin" />
+            </div>
+        );
+    }
     return (
         <main className="bg-[#0B1C2D] min-h-screen">
             <SubPageHero

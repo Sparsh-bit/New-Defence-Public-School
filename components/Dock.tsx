@@ -23,8 +23,16 @@ const dockItems = [
     { icon: User, label: 'Portal', href: 'https://educhanger.in/staff/index.php/signin/login?SchCode=ndps', badge: 1, external: true },
 ];
 
+import { usePathname } from 'next/navigation';
+
 export function Dock() {
+    const pathname = usePathname();
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+    // Hide on Admin Portal
+    if (pathname && (pathname.startsWith('/admissions/admin') || pathname.startsWith('/admin'))) {
+        return null;
+    }
 
     return (
         <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] hidden md:flex items-center justify-center">

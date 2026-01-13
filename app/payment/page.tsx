@@ -13,7 +13,6 @@ export default function OnlinePaymentPage() {
     return (
         <SmoothScroll>
             <PageTransition>
-                <Navbar />
 
                 <SubPageHero
                     title="Online Payment"
@@ -23,68 +22,101 @@ export default function OnlinePaymentPage() {
                 />
 
                 <ContentSection>
-                    <div className="grid lg:grid-cols-2 gap-20 items-center">
-                        <div>
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                className="bg-[#0A1628] rounded-[64px] p-12 md:p-20 text-white shadow-2xl relative overflow-hidden"
-                            >
-                                <div className="absolute top-0 right-0 p-12 opacity-10">
-                                    <Smartphone className="w-48 h-48" />
-                                </div>
-                                <h4 className="text-4xl font-display font-black text-[#FFD700] mb-8 tracking-tight relative z-10">Secure Gateway</h4>
-                                <p className="text-xl text-white/70 font-light leading-relaxed mb-12 relative z-10">
-                                    Pay school fees, transport charges, and other dues using our industry-standard encrypted payment gateway.
+                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+                        {/* Option 1: Online Payment */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            className="bg-[#0A1628] rounded-[48px] p-10 md:p-14 text-white shadow-2xl relative overflow-hidden flex flex-col h-full"
+                        >
+                            <div className="absolute top-0 right-0 p-12 opacity-5">
+                                <Smartphone className="w-64 h-64" />
+                            </div>
+
+                            <div className="relative z-10">
+                                <span className="inline-block px-4 py-2 rounded-full bg-[#FFD700]/20 text-[#FFD700] text-xs font-bold tracking-widest uppercase mb-6 border border-[#FFD700]/20">
+                                    Option 1
+                                </span>
+                                <h4 className="text-3xl md:text-4xl font-display font-black text-white mb-6 tracking-tight">
+                                    Pay Online <span className="text-[#FFD700]">Instantly</span>
+                                </h4>
+                                <p className="text-lg text-white/70 font-light leading-relaxed mb-8">
+                                    Use our secure Razorpay gateway to pay fees via Credit Card, Debit Card, Net Banking, or UPI.
                                 </p>
 
-                                <div className="space-y-6 relative z-10">
-                                    <div className="bg-white/5 p-6 rounded-3xl border border-white/10 flex items-center gap-6">
-                                        <Smartphone className="text-[#FFD700]" />
-                                        <p className="text-sm font-bold tracking-widest uppercase">UPI / Mobile Wallets</p>
+                                <div className="space-y-4 mb-10">
+                                    <div className="flex items-center gap-4 text-sm font-medium text-white/80">
+                                        <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-[#FFD700]">
+                                            <ShieldCheck size={18} />
+                                        </div>
+                                        100% Secure & Encrypted
                                     </div>
-                                    <div className="bg-white/5 p-6 rounded-3xl border border-white/10 flex items-center gap-6">
-                                        <CreditCard className="text-[#FFD700]" />
-                                        <p className="text-sm font-bold tracking-widest uppercase">Net Banking & Cards</p>
+                                    <div className="flex items-center gap-4 text-sm font-medium text-white/80">
+                                        <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-[#FFD700]">
+                                            <Smartphone size={18} />
+                                        </div>
+                                        Instant Receipt Generation
                                     </div>
                                 </div>
 
-                                <button className="btn-gold w-full mt-12 py-6 text-xl flex items-center justify-center gap-4 group">
-                                    Proceed to Payment <ArrowRight className="group-hover:translate-x-2 transition-transform" />
-                                </button>
-                            </motion.div>
-                        </div>
+                                <a
+                                    href={razorpayLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-full py-5 bg-[#3B82F6] hover:bg-[#2563EB] text-white rounded-2xl font-bold text-lg flex items-center justify-center gap-3 shadow-xl shadow-blue-500/20 transition-all transform hover:-translate-y-1 mt-auto"
+                                >
+                                    Pay Now <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                                </a>
+                                <p className="text-center text-xs text-white/30 mt-4">Powered by Razorpay</p>
+                            </div>
+                        </motion.div>
 
-                        <div className="space-y-12">
-                            <div className="flex gap-8 group">
-                                <div className="w-20 h-20 bg-emerald-50 rounded-3xl flex items-center justify-center text-emerald-600 transition-colors group-hover:bg-emerald-600 group-hover:text-white">
-                                    <ShieldCheck size={40} />
-                                </div>
-                                <div>
-                                    <h5 className="text-2xl font-display font-black text-[#0A1628] mb-2">100% Encrypted</h5>
-                                    <p className="text-gray-500 font-light">Your transaction details are protected by SSL encryption.</p>
+                        {/* Option 2: Bank Deposit */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            className="bg-white rounded-[48px] p-10 md:p-14 shadow-xl border border-gray-100 flex flex-col h-full relative overflow-hidden"
+                        >
+                            <div className="absolute top-[-20px] right-[-20px] w-40 h-40 bg-gray-50 rounded-full mix-blend-multiply filter blur-3xl opacity-70"></div>
+
+                            <span className="inline-block px-4 py-2 rounded-full bg-blue-50 text-blue-600 text-xs font-bold tracking-widest uppercase mb-6 border border-blue-100 w-fit">
+                                Option 2
+                            </span>
+
+                            <h4 className="text-3xl md:text-4xl font-display font-black text-[#0A1628] mb-6 tracking-tight">
+                                Direct Bank <span className="text-blue-600">Deposit</span>
+                            </h4>
+                            <p className="text-lg text-gray-500 font-light leading-relaxed mb-10">
+                                You can transfer the fees directly to the school bank account via Net Banking or Cash Deposit.
+                            </p>
+
+                            <div className="bg-gray-50 rounded-3xl overflow-hidden border border-gray-200">
+                                <div className="divide-y divide-gray-200">
+                                    {[
+                                        { label: "Bank Name", value: bankDetails.bankName },
+                                        { label: "Account Name", value: bankDetails.accountName },
+                                        { label: "Account Number", value: bankDetails.accountNumber, copy: true },
+                                        { label: "IFSC Code", value: bankDetails.ifscCode, copy: true },
+                                        { label: "Branch", value: bankDetails.branchName },
+                                        { label: "Type", value: bankDetails.accountType },
+                                    ].map((item, idx) => (
+                                        <div key={idx} className="flex flex-col md:flex-row md:items-center justify-between p-5 hover:bg-white transition-colors gap-2">
+                                            <span className="text-xs font-bold text-gray-400 uppercase tracking-widest w-32 shrink-0">{item.label}</span>
+                                            <span className="text-[#0A1628] font-semibold text-right md:text-left flex-1 break-words font-mono text-sm md:text-base selection:bg-blue-100">
+                                                {item.value}
+                                            </span>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
 
-                            <div className="flex gap-8 group">
-                                <div className="w-20 h-20 bg-amber-50 rounded-3xl flex items-center justify-center text-amber-600 transition-colors group-hover:bg-amber-600 group-hover:text-white">
-                                    <Info size={40} />
-                                </div>
-                                <div>
-                                    <h5 className="text-2xl font-display font-black text-[#0A1628] mb-2">Payment Receipts</h5>
-                                    <p className="text-gray-500 font-light">E-receipts are generated instantly and sent to your registered email.</p>
-                                </div>
+                            <div className="mt-8 flex gap-4 text-xs text-gray-400">
+                                <Info size={16} className="shrink-0 mt-0.5" />
+                                <p>Please mention the Student Name & Admission Number in the remarks/narration field while transferring.</p>
                             </div>
-
-                            <div className="p-12 bg-gray-50 rounded-[48px] border border-[#0A1628]/5">
-                                <h6 className="text-[10px] uppercase font-bold tracking-[0.3em] text-[#0A1628]/40 mb-6">Payment Support</h6>
-                                <p className="text-2xl font-display font-light text-[#0A1628] leading-relaxed mb-6">
-                                    Facing issues with your payment? Our finance team is available to assist you.
-                                </p>
-                                <a href="mailto:finance@newdefencepublicschool.com" className="text-[#0A1628] font-black underline underline-offset-8 decoration-[#FFD700] hover:text-[#FFD700] transition-colors">finance@ndpsagra.com</a>
-                            </div>
-                        </div>
+                        </motion.div>
                     </div>
                 </ContentSection>
 
@@ -93,3 +125,5 @@ export default function OnlinePaymentPage() {
         </SmoothScroll>
     );
 }
+
+import { bankDetails, razorpayLink } from '@/data/cms';

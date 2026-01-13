@@ -26,7 +26,15 @@ const footerLinks = {
     ]
 };
 
+import { usePathname } from 'next/navigation';
+
 export default function Footer() {
+    const pathname = usePathname();
+
+    if (pathname && (pathname.startsWith('/admissions/admin') || pathname.startsWith('/admin'))) {
+        return null;
+    }
+
     return (
         <footer className="bg-[#0B1C2D] pt-32 pb-12 text-white relative overflow-hidden">
 

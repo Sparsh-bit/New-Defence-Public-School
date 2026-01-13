@@ -614,26 +614,26 @@ export default function ApplicationForm() {
                         </div>
 
                         {/* Contact Info */}
-                        <div className="mt-8 pt-8 border-t border-[#0A1628]/10">
+                        <div className="mt-8 pt-8 border-t border-gray-200">
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
                                 <div>
-                                    <p className="text-xs font-bold uppercase tracking-widest text-[#0A1628]/40 mb-2">Phone</p>
-                                    <a href="tel:+919412362584" className="text-[#0A1628] hover:text-[#FFD700] font-semibold transition-colors block">
+                                    <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Phone</p>
+                                    <a href="tel:+919412362584" className="text-gray-900 hover:text-[#FFD700] font-black text-lg transition-colors block">
                                         +91 9412362584
                                     </a>
-                                    <p className="text-sm text-[#0A1628]/60 mt-1">+91 9412158024</p>
+                                    <p className="text-sm text-gray-500 mt-1">+91 9412158024</p>
                                 </div>
                                 <div>
-                                    <p className="text-xs font-bold uppercase tracking-widest text-[#0A1628]/40 mb-2">Email</p>
-                                    <a href="mailto:newdefence@yahoo.co.in" className="text-[#0A1628] hover:text-[#FFD700] font-semibold transition-colors block">
+                                    <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Email</p>
+                                    <a href="mailto:newdefence@yahoo.co.in" className="text-gray-900 hover:text-[#FFD700] font-black text-lg transition-colors block">
                                         newdefence@yahoo.co.in
                                     </a>
-                                    <p className="text-sm text-[#0A1628]/60 mt-1">Official Inquiries & Admissions</p>
+                                    <p className="text-sm text-gray-500 mt-1">Official Inquiries & Admissions</p>
                                 </div>
                                 <div>
-                                    <p className="text-xs font-bold uppercase tracking-widest text-[#0A1628]/40 mb-2">Campus</p>
-                                    <p className="text-[#0A1628] font-semibold">103-104, Raghuvirpuram</p>
-                                    <p className="text-sm text-[#0A1628]/60 mt-1">Shahganj, Agra - 282010</p>
+                                    <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Campus</p>
+                                    <p className="text-gray-900 font-black text-lg">103-104, Raghuvirpuram</p>
+                                    <p className="text-sm text-gray-500 mt-1">Shahganj, Agra - 282010</p>
                                 </div>
                             </div>
                         </div>

@@ -1,44 +1,17 @@
-'use client';
-
-import { motion } from 'framer-motion';
+import { Loader2 } from "lucide-react";
 
 export default function Loading() {
     return (
-        <div className="fixed inset-0 bg-[#0A1628] z-[9999] flex items-center justify-center">
+        <div className="min-h-screen bg-[#F7F9FC] flex flex-col items-center justify-center">
             <div className="relative">
-                <motion.div
-                    animate={{
-                        rotate: 360,
-                    }}
-                    transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "linear",
-                    }}
-                    className="w-24 h-24 rounded-full border-t-4 border-r-4 border-[#FFD700] border-b-4 border-l-4 border-transparent"
-                />
-                <motion.div
-                    animate={{
-                        scale: [1, 1.2, 1],
-                        opacity: [0.5, 1, 0.5],
-                    }}
-                    transition={{
-                        duration: 1.5,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                    }}
-                    className="absolute inset-0 flex items-center justify-center"
-                >
-                    <div className="w-4 h-4 bg-white rounded-full" />
-                </motion.div>
+                <div className="w-16 h-16 border-4 border-[#0A1628]/10 border-t-[#C6A75E] rounded-full animate-spin"></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                    <Loader2 className="w-6 h-6 text-[#0A1628] animate-pulse" />
+                </div>
             </div>
-            <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="absolute mt-32 text-[#FFD700] font-bold text-lg tracking-widest uppercase"
-            >
-                Loading
-            </motion.p>
+            <p className="mt-4 text-[#0A1628] font-bold tracking-widest text-sm uppercase animate-pulse">
+                Loading NDPS...
+            </p>
         </div>
     );
 }

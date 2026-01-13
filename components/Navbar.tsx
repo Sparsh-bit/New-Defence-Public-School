@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown, GraduationCap } from 'lucide-react';
 import Image from 'next/image';
@@ -29,6 +30,7 @@ const navigation = [
             { name: 'Video Tours', href: '/gallery/videos' },
         ]
     },
+    { name: 'Pay Fees', href: '/payment' },
     { name: 'Contact', href: '/contact' },
 ];
 
@@ -37,11 +39,18 @@ export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
 
+    const pathname = usePathname();
+
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 20);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    // Hide Navbar on Admin Portal
+    if (pathname && (pathname.startsWith('/admissions/admin') || pathname.startsWith('/admin'))) {
+        return null;
+    }
 
     return (
         <header
@@ -56,13 +65,17 @@ export default function Navbar() {
                             src="/images/logo_official.png"
                             alt="NDPS Logo"
                             fill
+                            sizes="(max-width: 768px) 48px, 48px"
                             className="object-contain"
                             priority
                         />
                     </div>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col md:hidden lg:flex">
                         <span className="text-lg md:text-xl font-display font-bold text-white tracking-wide whitespace-nowrap">NEW DEFENCE PUBLIC SCHOOL</span>
                         <span className="text-[9px] font-black tracking-[0.3em] uppercase text-[#C6A75E]">Excellence Since 1996</span>
+                    </div>
+                    <div className="flex flex-col md:flex lg:hidden">
+                        <span className="text-lg font-display font-bold text-white tracking-wide">NDPS</span>
                     </div>
                 </Link>
 

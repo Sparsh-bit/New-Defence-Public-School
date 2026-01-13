@@ -1,0 +1,47 @@
+{
+    "bankDetails": {
+        "bankName": "BANK OF BARODA",
+        "accountName": "NEW DEFENCE PUBLIC SCHOOL",
+        "accountNumber": "16840200000657",
+        "ifscCode": "BARB0AGSHAH",
+        "branchName": "SHAHGANJ, AGRA - 282010, U.P.",
+        "accountType": "CURRENT"
+    },
+    "razorpayLink": "https://pages.razorpay.com/pl_FKCpuRtZN3r2XU/view",
+    "news": [
+        {
+            "id": "1768328608651",
+            "title": "Republic Day Celebration 2026",
+            "description": "DETAILS\nOur school proudly celebrated the 77th Republic Day of India on 26 January 2026 with great enthusiasm and patriotic spirit.\nThe program began with the national flag hoisting followed by the National Anthem. Students presented inspiring patriotic songs, dances, speeches, and a cultural parade highlighting India’s unity in diversity.\nThe Principal addressed the gathering, emphasizing the importance of the Constitution, discipline, and national values. The event concluded with sweets distribution and a pledge to uphold the ideals of our nation.",
+            "date": "2026-01-26",
+            "type": "event",
+            "highlight": true
+        }
+    ],
+    "gallery": {
+        "events": [
+            "/images/slider/01.jpg",
+            "/images/slider/02.jpg",
+            "/images/slider/04.jpg",
+            "/images/slider/05.jpg",
+            "/images/slider/06.jpg",
+            "/images/slider/07.jpg",
+            "/images/slider/08.jpg",
+            "/images/slider/09.jpg",
+            "/images/achievements/ach1.jpg",
+            "/images/achievements/ach2.jpg"
+        ],
+        "infrastructure": [
+            "/images/infrastructure/fl1.jpg",
+            "/images/infrastructure/fl10.jpg",
+            "/images/infrastructure/fl7.jpg",
+            "/images/infrastructure/fl9.jpg",
+            "/images/infrastructure/01.jpg",
+            "/images/infrastructure/12.jpg",
+            "/images/infrastructure/transport.jpg",
+            "/images/gen/smart_classroom_india_1766952364269.png",
+            "/images/uploads/1768329009097_2.jpeg",
+            "/images/uploads/1768329614145_12.jpeg"
+        ]
+    }
+}

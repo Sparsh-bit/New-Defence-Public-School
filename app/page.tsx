@@ -1,6 +1,7 @@
 // Deployment v1.1
 import HeroSection from '@/components/HeroSection';
 import { KeyHighlights } from '@/components/KeyHighlights';
+import NewsEventsSection from '@/components/NewsEventsSection'; // Added Import
 import { AboutSchoolSection } from '@/components/AboutSchoolSection';
 import { LeadershipMessages } from '@/components/LeadershipMessages';
 import { AssessmentSection } from '@/components/AssessmentSection';
@@ -20,6 +21,9 @@ export default function Home() {
 
       {/* 2. Key Highlights */}
       <KeyHighlights />
+
+      {/* 2.5 News & Events */}
+      <NewsEventsSection />
 
       {/* 3. About the School */}
       <AboutSchoolSection />

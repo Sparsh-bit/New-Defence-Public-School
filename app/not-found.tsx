@@ -1,32 +1,30 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { Home, ArrowLeft } from 'lucide-react';
 
 export default function NotFound() {
     return (
-        <div className="min-h-screen bg-[#0A1628] flex items-center justify-center text-center p-4">
-            <div>
-                <motion.h1
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ type: "spring", stiffness: 200 }}
-                    className="text-[12rem] font-display font-black text-[#FFD700] leading-none opacity-20"
+        <div className="min-h-screen bg-[#0B1C2D] flex flex-col items-center justify-center text-center px-4">
+            <h1 className="text-[150px] font-black text-[#C6A75E] leading-none select-none opacity-50 font-display">404</h1>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Page Not Found</h2>
+            <p className="text-white/60 text-lg max-w-md mb-12">
+                We couldn't find the page you were looking for. It might have been moved or deleted.
+            </p>
+
+            <div className="flex flex-col md:flex-row gap-4">
+                <button
+                    onClick={() => window.history.back()}
+                    className="px-8 py-4 rounded-xl border border-white/10 text-white font-bold flex items-center gap-3 hover:bg-white/5 transition-colors"
                 >
-                    404
-                </motion.h1>
-                <div className="relative -mt-20">
-                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Page Not Found</h2>
-                    <p className="text-gray-400 max-w-lg mx-auto mb-10 text-lg">
-                        The page you are looking for might have been moved, deleted, or possibly never existed.
-                    </p>
-                    <Link
-                        href="/"
-                        className="inline-block px-10 py-4 bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-[#0A1628] font-bold rounded-full shadow-lg hover:transform hover:scale-105 transition-all duration-300"
-                    >
-                        Return Home
-                    </Link>
-                </div>
+                    <ArrowLeft size={20} /> Go Back
+                </button>
+                <Link
+                    href="/"
+                    className="px-8 py-4 rounded-xl bg-[#C6A75E] text-[#0B1C2D] font-bold flex items-center gap-3 hover:bg-white hover:text-[#0B1C2D] transition-colors"
+                >
+                    <Home size={20} /> Back to Home
+                </Link>
             </div>
         </div>
     );
