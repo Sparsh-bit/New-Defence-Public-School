@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import SubPageHero from '@/components/SubPageHero';
@@ -24,6 +24,46 @@ export default function AdminDashboard() {
 
     // Gallery State
     const [galleryItems, setGalleryItems] = useState(galleryImages.events);
+    const [isUploading, setIsUploading] = useState(false);
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files?.length) return;
+
+        setIsUploading(true);
+        const newImages: string[] = [];
+
+        try {
+            // Upload each selected file
+            for (let i = 0; i < e.target.files.length; i++) {
+                const file = e.target.files[i];
+                const formData = new FormData();
+                formData.append('file', file);
+
+                const res = await fetch('/api/admin/upload', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.url) newImages.push(data.url);
+                }
+            }
+
+            // Update Gallery State
+            setGalleryItems(prev => [...newImages, ...prev]);
+
+        } catch (error) {
+            console.error("Upload failed", error);
+            alert("Failed to upload some images.");
+        } finally {
+            setIsUploading(false);
+            if (fileInputRef.current) {
+                fileInputRef.current.value = ''; // Reset input
+            }
+        }
+    };
 
     const handleAddNews = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -210,8 +250,25 @@ export default function AdminDashboard() {
                         <div className="bg-white p-8 rounded-3xl shadow-lg border border-gray-100">
                             <div className="flex justify-between items-center mb-8">
                                 <h3 className="text-xl font-bold text-[#0A1628]">Gallery Management</h3>
-                                <button className="px-6 py-3 bg-[#C6A75E] text-[#0B1C2D] rounded-xl font-bold text-sm uppercase tracking-widest flex items-center gap-2 hover:bg-[#0A1628] hover:text-white transition-colors">
-                                    <Plus size={18} /> Upload Photos
+                                <input
+                                    type="file"
+                                    multiple
+                                    accept="image/*"
+                                    className="hidden"
+                                    ref={fileInputRef}
+                                    onChange={handleFileUpload}
+                                />
+                                <button
+                                    onClick={() => fileInputRef.current?.click()}
+                                    disabled={isUploading}
+                                    className="px-6 py-3 bg-[#C6A75E] text-[#0B1C2D] rounded-xl font-bold text-sm uppercase tracking-widest flex items-center gap-2 hover:bg-[#0A1628] hover:text-white transition-colors disabled:opacity-50"
+                                >
+                                    {isUploading ? (
+                                        <div className="animate-spin w-5 h-5 border-2 border-[#0B1C2D] border-t-transparent rounded-full" />
+                                    ) : (
+                                        <Plus size={18} />
+                                    )}
+                                    {isUploading ? 'Uploading...' : 'Upload Photos'}
                                 </button>
                             </div>
 
@@ -222,6 +279,11 @@ export default function AdminDashboard() {
                                         <button
                                             className="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
                                             title="Remove Image"
+                                            onClick={() => {
+                                                const newItems = galleryItems.filter((_, i) => i !== idx);
+                                                setGalleryItems(newItems);
+                                                // Ideally call API to delete here too
+                                            }}
                                         >
                                             <Trash2 size={14} />
                                         </button>
@@ -233,7 +295,7 @@ export default function AdminDashboard() {
 
                 </div>
             </section>
-            <Footer />
+
         </PageTransition>
     );
 }

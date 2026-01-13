@@ -68,7 +68,7 @@ export default function VideoGalleryPage() {
                     </div>
                 </ContentSection>
 
-                <Footer />
+
             </PageTransition>
         </SmoothScroll>
     );

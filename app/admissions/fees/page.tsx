@@ -66,7 +66,7 @@ export default function FeesPage() {
                     </div>
                 </ContentSection>
 
-                <Footer />
+
             </PageTransition>
         </SmoothScroll>
     );

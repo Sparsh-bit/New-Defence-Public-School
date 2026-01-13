@@ -77,7 +77,7 @@ export default function LeaveRulePage() {
                     </div>
                 </ContentSection>
 
-                <Footer />
+
             </PageTransition>
         </SmoothScroll>
     );

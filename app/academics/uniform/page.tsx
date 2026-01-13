@@ -88,7 +88,7 @@ export default function UniformPage() {
                     </div>
                 </ContentSection>
 
-                <Footer />
+
             </PageTransition>
         </SmoothScroll>
     );

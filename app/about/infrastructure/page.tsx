@@ -111,7 +111,7 @@ export default function InfrastructurePage() {
                     </div>
                 </ContentSection>
 
-                <Footer />
+
             </PageTransition>
         </SmoothScroll>
     );

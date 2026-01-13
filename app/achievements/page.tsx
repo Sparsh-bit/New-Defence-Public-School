@@ -97,7 +97,7 @@ export default function AchievementsPage() {
                     </div>
                 </ContentSection>
 
-                <Footer />
+
             </PageTransition>
         </SmoothScroll>
     );

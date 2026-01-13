@@ -68,7 +68,7 @@ export default function PrayerPage() {
                     </div>
                 </ContentSection>
 
-                <Footer />
+
             </PageTransition>
         </SmoothScroll>
     );

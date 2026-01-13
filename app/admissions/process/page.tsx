@@ -111,7 +111,7 @@ export default function AdmissionProcessPage() {
                     </div>
                 </ContentSection>
 
-                <Footer />
+
             </PageTransition>
         </SmoothScroll>
     );

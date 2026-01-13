@@ -100,7 +100,7 @@ export default function AboutSchoolPage() {
                     </div>
                 </ContentSection>
 
-                <Footer />
+
             </PageTransition>
         </SmoothScroll>
     );
