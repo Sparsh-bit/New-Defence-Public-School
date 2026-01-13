@@ -169,8 +169,6 @@ export default function ContactPage() {
                         </a>
                     </div>
                 </section>
-
-                <Footer />
             </PageTransition>
         </SmoothScroll>
     );

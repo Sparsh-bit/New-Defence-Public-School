@@ -119,8 +119,6 @@ export default function OnlinePaymentPage() {
                         </motion.div>
                     </div>
                 </ContentSection>
-
-                <Footer />
             </PageTransition>
         </SmoothScroll>
     );

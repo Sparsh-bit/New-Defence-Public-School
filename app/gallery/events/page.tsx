@@ -1,8 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 import SubPageHero from '@/components/SubPageHero';
 import { Sparkles, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import { ThreeDImageRing } from "@/components/lightswind/3d-image-ring";
