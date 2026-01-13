@@ -90,20 +90,22 @@ export default function InfrastructurePage() {
                 <ContentSection alternate title="Additional Amenities" subtitle="COMPLETE CAMPUS">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                         {[
-                            { icon: <Bus />, label: "Transportation" },
-                            { icon: <Shield />, label: "CCTV Security" },
-                            { icon: <Coffee />, label: "Hygienic Cafeteria" },
-                            { icon: <Apple />, label: "Health Center" }
+                            { icon: <Bus size={32} />, label: "Transportation", gradient: "from-blue-500 to-cyan-500" },
+                            { icon: <Shield size={32} />, label: "CCTV Security", gradient: "from-purple-500 to-indigo-500" },
+                            { icon: <Coffee size={32} />, label: "Hygienic Cafeteria", gradient: "from-orange-500 to-amber-500" },
+                            { icon: <Apple size={32} />, label: "Health Center", gradient: "from-emerald-500 to-teal-500" }
                         ].map((item, idx) => (
                             <motion.div
                                 key={idx}
                                 whileHover={{ y: -10 }}
-                                className="bg-white p-8 rounded-3xl shadow-premium border border-[#0A1628]/5 flex flex-col items-center text-center transition-all duration-500"
+                                className="group relative overflow-hidden bg-white p-8 rounded-3xl shadow-premium border border-[#0A1628]/5 flex flex-col items-center text-center transition-all duration-500 hover:shadow-2xl"
                             >
-                                <div className="w-16 h-16 bg-[#0A1628]/5 rounded-2xl flex items-center justify-center text-[#0A1628] mb-4">
+                                <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
+
+                                <div className={`w-20 h-20 rounded-2xl flex items-center justify-center text-white bg-gradient-to-br ${item.gradient} mb-6 shadow-lg transform group-hover:scale-110 transition-transform duration-500`}>
                                     {item.icon}
                                 </div>
-                                <span className="text-sm font-bold uppercase tracking-wider text-[#0A1628]">{item.label}</span>
+                                <span className="text-lg font-bold uppercase tracking-wider text-[#0A1628] group-hover:tracking-widest transition-all duration-300">{item.label}</span>
                             </motion.div>
                         ))}
                     </div>

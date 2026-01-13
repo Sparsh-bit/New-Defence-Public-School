@@ -55,18 +55,18 @@ export default function ExaminationPage() {
                         </div>
 
                         <div className="bg-[#0A1628] rounded-[64px] p-12 text-white flex flex-col justify-center">
-                            <BarChart className="w-20 h-20 text-[#FFD700] mb-8 opacity-40" />
+                            <BarChart className="w-20 h-20 text-[#FFD700] mb-8 opacity-100" />
                             <h4 className="text-4xl font-display font-black text-[#FFD700] mb-8 tracking-tight">Promotion Rules</h4>
-                            <div className="space-y-6 text-white font-light">
-                                <p className="flex gap-4">
-                                    <span className="text-[#FFD700] font-black">75%</span>
+                            <div className="space-y-6 text-gray-100 font-medium text-lg">
+                                <p className="flex gap-4 items-center">
+                                    <span className="text-[#FFD700] font-black text-2xl">75%</span>
                                     Attendance is mandatory for appearing in any examination.
                                 </p>
-                                <p className="flex gap-4">
-                                    <span className="text-[#FFD700] font-black">33%</span>
+                                <p className="flex gap-4 items-center">
+                                    <span className="text-[#FFD700] font-black text-2xl">33%</span>
                                     Minimum marks required in each subject for promotion to the next class.
                                 </p>
-                                <p className="italic">
+                                <p className="italic text-white/50 bg-white/5 p-4 rounded-xl border border-white/10">
                                     "Promotion depends on the student's performance throughout the year and not just on the final exams."
                                 </p>
                             </div>

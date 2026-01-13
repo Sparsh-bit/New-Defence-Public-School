@@ -90,10 +90,10 @@ export default function ManagementPage() {
                                 <Clock size={24} />
                             </div>
                             <div>
-                                <h4 className="text-xl font-display font-medium text-[#0B1C2D] mb-2">Visiting Hours</h4>
-                                <p className="text-gray-500 text-sm leading-relaxed">
+                                <h4 className="text-xl font-display font-medium text-[#0A1628] mb-2">Visiting Hours</h4>
+                                <p className="text-slate-700 font-medium text-base leading-relaxed">
                                     Management is available for parents on all working days between <br />
-                                    <strong className="text-[#0B1C2D]">09:00 AM to 11:30 AM</strong>.
+                                    <strong className="text-[#0B1C2D] text-lg">09:00 AM to 11:30 AM</strong>.
                                 </p>
                             </div>
                         </div>
@@ -102,8 +102,8 @@ export default function ManagementPage() {
                                 <ShieldCheck size={24} />
                             </div>
                             <div>
-                                <h4 className="text-xl font-display font-medium text-[#0B1C2D] mb-2">Policy Matters</h4>
-                                <p className="text-gray-500 text-sm leading-relaxed">
+                                <h4 className="text-xl font-display font-medium text-[#0A1628] mb-2">Policy Matters</h4>
+                                <p className="text-slate-700 font-medium text-base leading-relaxed">
                                     For admissions, fee structure, and official board correspondence, please contact the administrative block during office hours.
                                 </p>
                             </div>
