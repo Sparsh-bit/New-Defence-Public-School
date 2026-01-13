@@ -58,8 +58,8 @@ export default function ContactPage() {
                                 {
                                     icon: <MapPin />,
                                     title: "Campus",
-                                    info: "103-104, Raghuvirpuram, Agra",
-                                    sub: "Shahganj, Agra - 282010, Uttar Pradesh"
+                                    info: "103-104, Raghuvirpuram",
+                                    sub: "Shahganj, Agra - 282010"
                                 }
                             ].map((item, idx) => (
                                 <motion.a
@@ -93,7 +93,9 @@ export default function ContactPage() {
                                     <Globe className="w-64 h-64" />
                                 </div>
 
-                                <h4 className="text-4xl font-display font-black text-[#FFD700] mb-4 tracking-tight">Send a Message</h4>
+                                <h4 className="text-4xl font-display font-black text-white mb-4 tracking-tight">
+                                    <span className="bg-[#C6A75E] px-2 leading-relaxed decoration-clone box-decoration-clone">Send a Message</span>
+                                </h4>
                                 <p className="text-white/60 font-light mb-12 max-w-md">Our team will get back to you within 24 business hours.</p>
 
                                 <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-8 relative z-10">

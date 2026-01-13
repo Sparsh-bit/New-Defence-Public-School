@@ -60,7 +60,7 @@ export default function ConductPage() {
                         >
                             <div className="flex items-center gap-4 text-[#FFD700]">
                                 <AlertCircle className="w-8 h-8" />
-                                <h4 className="text-2xl font-display font-black tracking-tight uppercase">Crucial Note</h4>
+                                <h4 className="text-2xl font-display font-black tracking-tight uppercase bg-[#C6A75E] text-white px-2">CRUCIAL NOTE</h4>
                             </div>
                             <p className="text-lg text-white/70 font-light leading-relaxed">
                                 The school reserves the right to suspend or dismiss any student whose conduct is
