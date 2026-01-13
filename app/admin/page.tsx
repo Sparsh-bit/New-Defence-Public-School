@@ -27,42 +27,29 @@ export default function AdminDashboard() {
     const [isUploading, setIsUploading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files?.length) return;
 
         setIsUploading(true);
         const newImages: string[] = [];
 
-        try {
-            // Upload each selected file
-            for (let i = 0; i < e.target.files.length; i++) {
-                const file = e.target.files[i];
-                const formData = new FormData();
-                formData.append('file', file);
+        // Create local preview URLs for selected files
+        Array.from(e.target.files).forEach(file => {
+            const objectUrl = URL.createObjectURL(file);
+            newImages.push(objectUrl);
+        });
 
-                const res = await fetch('/api/admin/upload', {
-                    method: 'POST',
-                    body: formData,
-                });
+        // Update Gallery State immediately
+        setGalleryItems(prev => [...newImages, ...prev]);
+        setIsUploading(false);
 
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data.url) newImages.push(data.url);
-                }
-            }
-
-            // Update Gallery State
-            setGalleryItems(prev => [...newImages, ...prev]);
-
-        } catch (error) {
-            console.error("Upload failed", error);
-            alert("Failed to upload some images.");
-        } finally {
-            setIsUploading(false);
-            if (fileInputRef.current) {
-                fileInputRef.current.value = ''; // Reset input
-            }
+        // Reset input
+        if (fileInputRef.current) {
+            fileInputRef.current.value = '';
         }
+
+        // Optional: Show a toast or log that this is a client-side preview
+        // since we don't have a real backend storage connected.
     };
 
     const handleAddNews = async (e: React.FormEvent) => {
