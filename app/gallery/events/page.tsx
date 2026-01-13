@@ -15,11 +15,26 @@ export default function EventsGallery() {
     useEffect(() => {
         const fetchImages = async () => {
             try {
+                // Fetch default images from API
                 const res = await fetch('/api/content');
                 const data = await res.json();
+                let images = [];
+
                 if (data.gallery && data.gallery.events) {
-                    setEventImages(data.gallery.events);
+                    images = data.gallery.events;
                 }
+
+                // Merge with locally uploaded images (Demo Persistance)
+                const localImages = localStorage.getItem('ndps_gallery_images');
+                if (localImages) {
+                    const parsed = JSON.parse(localImages);
+                    // Deduplicate if necessary, but here we just prepend local uploads
+                    images = [...parsed, ...images];
+                    // Remove duplicates if any (though base64 vs url won't match)
+                    images = Array.from(new Set(images));
+                }
+
+                setEventImages(images);
             } catch (error) {
                 console.error('Failed to load images', error);
             } finally {

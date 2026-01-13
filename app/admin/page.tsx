@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import SubPageHero from '@/components/SubPageHero';
@@ -23,9 +23,26 @@ export default function AdminDashboard() {
     });
 
     // Gallery State
-    const [galleryItems, setGalleryItems] = useState(galleryImages.events);
+    const [galleryItems, setGalleryItems] = useState<string[]>([]);
     const [isUploading, setIsUploading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    // Initialize intent from LocalStorage
+    useEffect(() => {
+        const saved = localStorage.getItem('ndps_gallery_images');
+        if (saved) {
+            setGalleryItems(JSON.parse(saved));
+        } else {
+            setGalleryItems(galleryImages.events);
+        }
+    }, []);
+
+    // Save to LocalStorage on change
+    useEffect(() => {
+        if (galleryItems.length > 0) {
+            localStorage.setItem('ndps_gallery_images', JSON.stringify(galleryItems));
+        }
+    }, [galleryItems]);
 
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files?.length) return;
@@ -33,23 +50,28 @@ export default function AdminDashboard() {
         setIsUploading(true);
         const newImages: string[] = [];
 
-        // Create local preview URLs for selected files
-        Array.from(e.target.files).forEach(file => {
-            const objectUrl = URL.createObjectURL(file);
-            newImages.push(objectUrl);
+        // Use FileReader to convert to Base64 for LocalStorage persistence across tabs/reloads
+        // (URLs created with createObjectURL are revoked on unload)
+        const promises = Array.from(e.target.files).map(file => {
+            return new Promise<void>((resolve) => {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    if (reader.result) {
+                        newImages.push(reader.result as string);
+                    }
+                    resolve();
+                };
+                reader.readAsDataURL(file);
+            });
         });
 
-        // Update Gallery State immediately
-        setGalleryItems(prev => [...newImages, ...prev]);
-        setIsUploading(false);
-
-        // Reset input
-        if (fileInputRef.current) {
-            fileInputRef.current.value = '';
-        }
-
-        // Optional: Show a toast or log that this is a client-side preview
-        // since we don't have a real backend storage connected.
+        Promise.all(promises).then(() => {
+            setGalleryItems(prev => [...newImages, ...prev]);
+            setIsUploading(false);
+            if (fileInputRef.current) {
+                fileInputRef.current.value = '';
+            }
+        });
     };
 
     const handleAddNews = async (e: React.FormEvent) => {
