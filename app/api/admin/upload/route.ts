@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+export const runtime = 'edge';
+
 // Define R2 Types locally
 interface R2ObjectBody {
     json<T>(): Promise<T>;
