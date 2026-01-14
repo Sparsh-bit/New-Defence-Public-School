@@ -24,14 +24,19 @@ export async function POST(request: Request) {
             return NextResponse.json({ success: false, message: 'Server Configuration Error: Bucket not bound' }, { status: 500 });
         }
 
-        // Generate unique filename
+        // Generate unique filename with WebP extension for optimization
         const bytes = await file.arrayBuffer();
-        const filename = `${Date.now()}-${file.name.replace(/\s/g, '_')}`;
+        const originalName = file.name.replace(/\.[^/.]+$/, "").replace(/\s/g, '_');
+        const filename = `${Date.now()}-${originalName}.webp`;
 
-        // Upload directly using Cloudflare R2 Binding API
+        // Upload directly using Cloudflare R2 Binding API with Caching
+        // OPTIMIZATION: Cache-Control header creates "Forever Free" usage pattern
+        // by telling browsers to never fetch this image again after the first time.
+        // This saves millions of 'Class B' operations.
         await bucket.put(filename, bytes, {
             httpMetadata: {
-                contentType: file.type,
+                contentType: 'image/webp', // Ensure header matches actual content
+                cacheControl: 'public, max-age=31536000, immutable', // Cache for 1 year
             },
         });
 

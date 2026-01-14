@@ -258,7 +258,8 @@ export default function SuperAdminPortal() {
                         canvas.height = height;
                         const ctx = canvas.getContext('2d');
                         ctx?.drawImage(img, 0, 0, width, height);
-                        resolve(canvas.toDataURL('image/jpeg', 0.6));
+                        // ENFORCE: WebP format for R2 Optimization
+                        resolve(canvas.toDataURL('image/webp', 0.8));
                     };
                     img.src = readerEvent.target?.result as string;
                 };
