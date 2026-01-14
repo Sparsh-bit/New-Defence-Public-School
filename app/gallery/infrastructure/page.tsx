@@ -16,9 +16,21 @@ export default function InfrastructureGallery() {
             try {
                 const res = await fetch('/api/content');
                 const data = await res.json();
+                let images = [];
+
                 if (data.gallery && data.gallery.infrastructure) {
-                    setInfraImages(data.gallery.infrastructure);
+                    images = data.gallery.infrastructure;
                 }
+
+                // Merge with locally uploaded images (Demo Persistance)
+                const localImages = localStorage.getItem('ndps_gallery_infrastructure');
+                if (localImages) {
+                    const parsed = JSON.parse(localImages);
+                    images = [...parsed, ...images];
+                    images = Array.from(new Set(images));
+                }
+
+                setInfraImages(images);
             } catch (error) {
                 console.error('Failed to load images', error);
             } finally {

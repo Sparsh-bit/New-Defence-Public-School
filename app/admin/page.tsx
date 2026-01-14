@@ -50,23 +50,59 @@ export default function AdminDashboard() {
         setIsUploading(true);
         const newImages: string[] = [];
 
-        // Use FileReader to convert to Base64 for LocalStorage persistence across tabs/reloads
-        // (URLs created with createObjectURL are revoked on unload)
-        const promises = Array.from(e.target.files).map(file => {
-            return new Promise<void>((resolve) => {
+        // Helper to resize image
+        const resizeImage = (file: File): Promise<string> => {
+            return new Promise((resolve) => {
                 const reader = new FileReader();
-                reader.onloadend = () => {
-                    if (reader.result) {
-                        newImages.push(reader.result as string);
-                    }
-                    resolve();
+                reader.onload = (readerEvent) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+
+                        // Resize to reasonable dimensions for LocalStorage
+                        const MAX_WIDTH = 1000;
+                        const MAX_HEIGHT = 1000;
+
+                        if (width > height) {
+                            if (width > MAX_WIDTH) {
+                                height *= MAX_WIDTH / width;
+                                width = MAX_WIDTH;
+                            }
+                        } else {
+                            if (height > MAX_HEIGHT) {
+                                width *= MAX_HEIGHT / height;
+                                height = MAX_HEIGHT;
+                            }
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx?.drawImage(img, 0, 0, width, height);
+                        // Convert to highly optimized JPEG
+                        resolve(canvas.toDataURL('image/jpeg', 0.6));
+                    };
+                    img.src = readerEvent.target?.result as string;
                 };
                 reader.readAsDataURL(file);
             });
-        });
+        };
+
+        const promises = Array.from(e.target.files).map(file => resizeImage(file).then(base64 => newImages.push(base64)));
 
         Promise.all(promises).then(() => {
-            setGalleryItems(prev => [...newImages, ...prev]);
+            setGalleryItems(prev => {
+                const updated = [...newImages, ...prev];
+                try {
+                    localStorage.setItem('ndps_gallery_images', JSON.stringify(updated));
+                } catch (err) {
+                    alert("Storage limit reached! Some older images might need to be removed to add new ones.");
+                    console.error("LocalStorage quota exceeded", err);
+                }
+                return updated;
+            });
             setIsUploading(false);
             if (fileInputRef.current) {
                 fileInputRef.current.value = '';

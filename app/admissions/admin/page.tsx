@@ -82,7 +82,14 @@ export default function SuperAdminPortal() {
                 setNewsItems(data.news);
             }
             if (data.gallery) {
-                setGalleryItems(data.gallery);
+                // Merge with LocalStorage data
+                const localEvents = JSON.parse(localStorage.getItem('ndps_gallery_events') || '[]');
+                const localInfra = JSON.parse(localStorage.getItem('ndps_gallery_infrastructure') || '[]');
+
+                setGalleryItems({
+                    events: [...localEvents, ...(data.gallery.events || [])],
+                    infrastructure: [...localInfra, ...(data.gallery.infrastructure || [])]
+                });
             }
         } catch (error) {
             console.error('Failed to load content:', error);
@@ -176,68 +183,83 @@ export default function SuperAdminPortal() {
     };
 
     // --- Gallery Logic ---
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
     const [uploading, setUploading] = useState(false);
     const [galleryCategory, setGalleryCategory] = useState<'events' | 'infrastructure'>('events');
 
     const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]) {
-            setSelectedFile(e.target.files[0]);
+        if (e.target.files && e.target.files.length > 0) {
+            setSelectedFiles(Array.from(e.target.files));
         }
     };
 
     const handleUploadImage = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!selectedFile) return;
-
-        // Check Limit
-        const currentImages = (galleryItems as any)[galleryCategory] || [];
-        if (currentImages.length >= 20) {
-            alert(`Limit Reached: You can only display 20 images in the ${galleryCategory} gallery. Delete some images to make space.`);
-            return;
-        }
+        if (selectedFiles.length === 0) return;
 
         setUploading(true);
 
-        try {
-            // 1. Upload File
-            const formData = new FormData();
-            formData.append('file', selectedFile);
+        const resizeImage = (file: File): Promise<string> => {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = (readerEvent) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+                        const MAX_WIDTH = 1000;
+                        const MAX_HEIGHT = 1000;
 
-            const uploadRes = await fetch('/api/admin/upload', {
-                method: 'POST',
-                body: formData
+                        if (width > height) {
+                            if (width > MAX_WIDTH) {
+                                height *= MAX_WIDTH / width;
+                                width = MAX_WIDTH;
+                            }
+                        } else {
+                            if (height > MAX_HEIGHT) {
+                                width *= MAX_HEIGHT / height;
+                                height = MAX_HEIGHT;
+                            }
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx?.drawImage(img, 0, 0, width, height);
+                        resolve(canvas.toDataURL('image/jpeg', 0.6));
+                    };
+                    img.src = readerEvent.target?.result as string;
+                };
+                reader.readAsDataURL(file);
             });
-            const uploadData = await uploadRes.json();
+        };
 
-            if (!uploadData.success) throw new Error(uploadData.message);
+        try {
+            const processedImages = await Promise.all(selectedFiles.map(file => resizeImage(file)));
 
-            const imageUrl = uploadData.url;
-
-            // 2. Update CMS Data
-            // Optimistic UI
+            // Update State
             const updatedGallery = { ...galleryItems } as any;
             if (!updatedGallery[galleryCategory]) updatedGallery[galleryCategory] = [];
-            updatedGallery[galleryCategory].push(imageUrl);
+
+            // Prepend new images
+            updatedGallery[galleryCategory].unshift(...processedImages);
             setGalleryItems(updatedGallery);
 
-            await fetch('/api/admin/update', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    type: 'gallery',
-                    action: 'add_image',
-                    data: { category: galleryCategory, url: imageUrl }
-                })
-            });
+            // Persist to LocalStorage
+            const storageKey = `ndps_gallery_${galleryCategory}`;
+            const existing = JSON.parse(localStorage.getItem(storageKey) || '[]');
+            const newStored = [...processedImages, ...existing];
+            localStorage.setItem(storageKey, JSON.stringify(newStored));
 
-            setSelectedFile(null); // Clear input
-            // Reset file input value if needed via ref, but for now state null is ok logic wise
-            (document.getElementById('fileInput') as HTMLInputElement).value = '';
+            // Clear Input
+            setSelectedFiles([]);
+            const input = document.getElementById('fileInput') as HTMLInputElement;
+            if (input) input.value = '';
 
         } catch (error) {
             console.error('Upload failed', error);
-            alert('Failed to upload image. Please try again.');
+            alert('Failed to upload images.');
         } finally {
             setUploading(false);
         }
@@ -510,12 +532,19 @@ export default function SuperAdminPortal() {
                                             id="fileInput"
                                             type="file"
                                             accept="image/*"
+                                            multiple
                                             onChange={handleFileSelect}
                                             className="w-full bg-white border border-gray-200 rounded-xl p-3 focus:border-[#C6A75E] outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#0A1628] file:text-white hover:file:bg-[#C6A75E] hover:file:text-[#0A1628] transition-all cursor-pointer"
                                             required
                                         />
                                         <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
-                                            <UploadCloud size={20} />
+                                            {selectedFiles.length > 0 ? (
+                                                <span className="text-xs font-bold bg-[#C6A75E] text-[#0A1628] px-2 py-1 rounded-lg mr-2">
+                                                    {selectedFiles.length} selected
+                                                </span>
+                                            ) : (
+                                                <UploadCloud size={20} />
+                                            )}
                                         </div>
                                     </div>
                                 </div>
@@ -532,10 +561,10 @@ export default function SuperAdminPortal() {
                                 </div>
                                 <button
                                     type="submit"
-                                    disabled={uploading || !selectedFile}
+                                    disabled={uploading || selectedFiles.length === 0}
                                     className="w-full py-3 bg-[#0A1628] text-white rounded-xl font-bold hover:bg-[#C6A75E] hover:text-[#0A1628] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                                 >
-                                    {uploading ? <Loader2 className="animate-spin" /> : 'Upload Image'}
+                                    {uploading ? <Loader2 className="animate-spin" /> : `Upload ${selectedFiles.length > 0 ? `${selectedFiles.length} Images` : 'Images'}`}
                                 </button>
                             </form>
                         </div>

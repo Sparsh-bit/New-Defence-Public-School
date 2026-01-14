@@ -25,7 +25,7 @@ export default function EventsGallery() {
                 }
 
                 // Merge with locally uploaded images (Demo Persistance)
-                const localImages = localStorage.getItem('ndps_gallery_images');
+                const localImages = localStorage.getItem('ndps_gallery_events');
                 if (localImages) {
                     const parsed = JSON.parse(localImages);
                     // Deduplicate if necessary, but here we just prepend local uploads
