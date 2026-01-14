@@ -32,7 +32,36 @@ const FALLBACK_CONTENT = {
 };
 
 export async function GET() {
-    // In Edge Runtime, we cannot read local JSON files.
-    // Serving fallback content to ensure site functionality.
-    return NextResponse.json(FALLBACK_CONTENT);
+    try {
+        const bucket = process.env.NDPS_BUCKET as unknown as R2Bucket;
+        let content = { ...FALLBACK_CONTENT };
+
+        if (bucket) {
+            // 1. Fetch News
+            const newsObj = await bucket.get('news.json');
+            if (newsObj) {
+                const newsData = await newsObj.json();
+                if (Array.isArray(newsData)) {
+                    content.news = newsData; // Override with live DB data
+                }
+            }
+
+            // 2. Fetch Gallery
+            const galleryObj = await bucket.get('gallery.json');
+            if (galleryObj) {
+                const galleryData = await galleryObj.json() as any;
+                if (galleryData) {
+                    // Merge or Override. Let's Override to ensure Admin has full control.
+                    if (galleryData.events) content.gallery.events = galleryData.events;
+                    if (galleryData.infrastructure) content.gallery.infrastructure = galleryData.infrastructure;
+                }
+            }
+        }
+
+        return NextResponse.json(content);
+    } catch (error) {
+        console.error('Content fetch failed:', error);
+        // Fallback to static
+        return NextResponse.json(FALLBACK_CONTENT);
+    }
 }

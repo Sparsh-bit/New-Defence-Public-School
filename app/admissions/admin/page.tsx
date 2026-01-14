@@ -173,13 +173,21 @@ export default function SuperAdminPortal() {
         await fetch('/api/admin/update', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ type: 'news', action: 'update_news', data: item })
+            body: JSON.stringify({ type: 'news', fullList: updatedList })
         });
         setNewNews({ title: '', description: '', date: '', type: 'event', highlight: false });
     };
 
-    const handleDeleteNews = (id: string) => {
-        setNewsItems(newsItems.filter(item => item.id !== id));
+    const handleDeleteNews = async (id: string) => {
+        const updatedList = newsItems.filter(item => item.id !== id);
+        setNewsItems(updatedList);
+
+        // Persist to R2 JSON DB
+        await fetch('/api/admin/update', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ type: 'news', fullList: updatedList })
+        });
     };
 
     // --- Gallery Logic ---
@@ -191,17 +199,17 @@ export default function SuperAdminPortal() {
         if (e.target.files && e.target.files.length > 0) {
             const files = Array.from(e.target.files);
 
-            // Validate File Type (JPG/WebP only)
+            // Validate File Type (Allow all standard web images)
             const validFiles = files.filter(file => {
-                const isValid = file.type === 'image/jpeg' || file.type === 'image/webp';
-                if (!isValid) alert(`Skipped ${file.name}: Only JPG and WebP are allowed.`);
+                const isValid = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'].includes(file.type);
+                if (!isValid) alert(`Skipped ${file.name}: Invalid format. Allowed: JPG, PNG, WebP, GIF.`);
                 return isValid;
             });
 
-            // Validate File Size (Max 1MB)
+            // Validate File Size (Max 5MB input - we compress it later)
             const sizedFiles = validFiles.filter(file => {
-                const isValid = file.size <= 1024 * 1024; // 1MB
-                if (!isValid) alert(`Skipped ${file.name}: Size exceeds 1MB limit.`);
+                const isValid = file.size <= 5 * 1024 * 1024; // 5MB
+                if (!isValid) alert(`Skipped ${file.name}: Size exceeds 5MB limit.`);
                 return isValid;
             });
 
@@ -268,7 +276,21 @@ export default function SuperAdminPortal() {
         };
 
         try {
-            const processedImages = await Promise.all(filesToUpload.map(file => resizeImage(file)));
+            // Process and Upload each file (R2)
+            const processedImages = await Promise.all(
+                filesToUpload.map(async (file) => {
+                    const dataUrl = await resizeImage(file);
+                    const res = await fetch(dataUrl);
+                    const blob = await res.blob();
+                    const optimizedFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".webp", { type: 'image/webp' });
+                    const formData = new FormData();
+                    formData.append('file', optimizedFile);
+                    const uploadRes = await fetch('/api/admin/upload', { method: 'POST', body: formData });
+                    const uploadData = await uploadRes.json();
+                    if (!uploadData.success) throw new Error(uploadData.message || 'Upload failed');
+                    return uploadData.url;
+                })
+            );
 
             // Update State
             const updatedGallery = { ...galleryItems } as any;
@@ -283,6 +305,13 @@ export default function SuperAdminPortal() {
             }
 
             setGalleryItems(updatedGallery);
+
+            // Persist to R2 JSON DB
+            await fetch('/api/admin/update', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ type: 'gallery_meta', fullData: updatedGallery })
+            });
 
             // Persist to LocalStorage
             const storageKey = `ndps_gallery_${galleryCategory}`;
@@ -312,9 +341,8 @@ export default function SuperAdminPortal() {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                type: 'gallery',
-                action: 'delete_image',
-                data: { category, url }
+                type: 'gallery_meta',
+                fullData: updatedGallery
             })
         });
     };
