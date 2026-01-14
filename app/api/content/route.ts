@@ -2,6 +2,16 @@ import { NextResponse } from 'next/server';
 
 export const runtime = 'edge';
 
+// Define minimal R2 types for TS
+interface R2ObjectBody {
+    json<T>(): Promise<T>;
+}
+
+interface R2Bucket {
+    get(key: string): Promise<R2ObjectBody | null>;
+    put(key: string, value: any, options?: any): Promise<any>;
+}
+
 // Mock content for Edge Runtime
 const FALLBACK_CONTENT = {
     news: [
