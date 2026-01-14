@@ -2,9 +2,28 @@ import { NextResponse } from 'next/server';
 
 export const runtime = 'edge';
 
+// Define R2 Types locally
+interface R2ObjectBody {
+    json<T>(): Promise<T>;
+}
+interface R2Bucket {
+    get(key: string): Promise<R2ObjectBody | null>;
+    put(key: string, value: any, options?: any): Promise<any>;
+}
+
 export async function POST(request: Request) {
     try {
         const body = await request.json();
+
+        // SAFETY 1: Max JSON Payload Size (200KB)
+        // This ensures the database files (news.json, gallery.json) never grow large enough to cause issues.
+        const payloadSize = JSON.stringify(body).length;
+        if (payloadSize > 200 * 1024) {
+            return NextResponse.json({
+                success: false,
+                message: 'Database Safety Limit: Payload too large (Max 200KB)'
+            }, { status: 413 });
+        }
 
         // Use R2 Bucket as a JSON Database
         const bucket = process.env.NDPS_BUCKET as unknown as R2Bucket;
@@ -15,29 +34,42 @@ export async function POST(request: Request) {
 
         // Handle News Updates
         if (body.type === 'news') {
-            // We expect the client to send the FULL updated list of news
-            // This is a simple "File DB" approach.
-            // body.data should be the array or the item to add.
-            // For robustness, let's assume body.data is the *full list* if action is 'save_all', 
-            // OR we handle read-modify-write here (risky without strong consistency).
-            // Let's stick to: Client sends action 'update_full_list' with data: [Array]
+            const fullList = body.fullList;
 
-            // Simpler for this context: The Admin page sends the single new item, 
-            // BUT since this is a "JSON File DB", we really need to Read -> Modify -> Write, 
-            // or trust the client to send the whole state.
+            // SAFETY 2: Max Item Count check (50 items)
+            if (Array.isArray(fullList) && fullList.length > 50) {
+                return NextResponse.json({
+                    success: false,
+                    message: 'Database Safety Limit: Max 50 News Items allowed.'
+                }, { status: 400 });
+            }
 
-            // Let's rely on the client sending the *entire* new state to overwrite the file.
-            // It's the safest simple implementation for a single admin.
-
-            const fullList = body.fullList; // Expects array of news
             await bucket.put('news.json', JSON.stringify(fullList), {
                 httpMetadata: { contentType: 'application/json', cacheControl: 'no-cache' }
             });
         }
 
-        // Handle Gallery Text Updates (if we wanted to store gallery metadata later)
+        // Handle Gallery Text Updates
         if (body.type === 'gallery_meta') {
-            await bucket.put('gallery.json', JSON.stringify(body.fullData), {
+            const data = body.fullData;
+
+            // SAFETY 3: Hard Limit 10 Images per Category
+            // This is the CRITICAL "Forever Free" enforcement.
+            // Even if client-side validation is bypassed, this blocks the database update.
+            if (data.events && data.events.length > 10) {
+                return NextResponse.json({
+                    success: false,
+                    message: 'Database Safety Limit: Max 10 Event Images allowed.'
+                }, { status: 400 });
+            }
+            if (data.infrastructure && data.infrastructure.length > 10) {
+                return NextResponse.json({
+                    success: false,
+                    message: 'Database Safety Limit: Max 10 Infrastructure Images allowed.'
+                }, { status: 400 });
+            }
+
+            await bucket.put('gallery.json', JSON.stringify(data), {
                 httpMetadata: { contentType: 'application/json', cacheControl: 'no-cache' }
             });
         }

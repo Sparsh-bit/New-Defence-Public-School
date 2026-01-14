@@ -1,27 +1,47 @@
 import { NextResponse } from 'next/server';
 
-export const runtime = 'edge';
-
-// NOTE: This route relies on Cloudflare Pages/Workers Bindings.
-// The R2 Bucket MUST be bound with the variable name: "NDPS_BUCKET"
-// The R2 Public Domain must be set in Environment Variables as "R2_PUBLIC_URL"
+// Define R2 Types locally
+interface R2ObjectBody {
+    json<T>(): Promise<T>;
+}
+interface R2Bucket {
+    get(key: string): Promise<R2ObjectBody | null>;
+    put(key: string, value: any, options?: any): Promise<any>;
+}
 
 export async function POST(request: Request) {
     try {
         const formData = await request.formData();
         const file = formData.get('file') as File;
+        const category = formData.get('category') as string; // 'events' | 'infrastructure'
 
         if (!file) {
             return NextResponse.json({ success: false, message: 'No file uploaded' }, { status: 400 });
         }
 
         // Access the bound R2 Bucket from the environment
-        // In Next.js on Cloudflare Pages, bindings are exposed on process.env
         const bucket = process.env.NDPS_BUCKET as unknown as R2Bucket;
 
         if (!bucket) {
             console.error("R2 Bucket binding 'NDPS_BUCKET' not found.");
             return NextResponse.json({ success: false, message: 'Server Configuration Error: Bucket not bound' }, { status: 500 });
+        }
+
+        // SAFETY CHECK: Verify Limits BEFORE permitting upload
+        // This prevents "orphan" files from cluttering storage if the limit is reached.
+        if (category) {
+            const galleryObj = await bucket.get('gallery.json');
+            if (galleryObj) {
+                const galleryData = await galleryObj.json() as any;
+                const currentCount = galleryData[category]?.length || 0;
+
+                if (currentCount >= 10) {
+                    return NextResponse.json({
+                        success: false,
+                        message: `Limit Reached: Max 10 images allowed for ${category}. Delete some images first.`
+                    }, { status: 403 });
+                }
+            }
         }
 
         // Generate unique filename with WebP extension for optimization

@@ -285,6 +285,7 @@ export default function SuperAdminPortal() {
                     const optimizedFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".webp", { type: 'image/webp' });
                     const formData = new FormData();
                     formData.append('file', optimizedFile);
+                    formData.append('category', galleryCategory); // Pass category for strict server-side validity check
                     const uploadRes = await fetch('/api/admin/upload', { method: 'POST', body: formData });
                     const uploadData = await uploadRes.json();
                     if (!uploadData.success) throw new Error(uploadData.message || 'Upload failed');
