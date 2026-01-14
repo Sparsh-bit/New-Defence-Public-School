@@ -189,13 +189,44 @@ export default function SuperAdminPortal() {
 
     const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
-            setSelectedFiles(Array.from(e.target.files));
+            const files = Array.from(e.target.files);
+
+            // Validate File Type (JPG/WebP only)
+            const validFiles = files.filter(file => {
+                const isValid = file.type === 'image/jpeg' || file.type === 'image/webp';
+                if (!isValid) alert(`Skipped ${file.name}: Only JPG and WebP are allowed.`);
+                return isValid;
+            });
+
+            // Validate File Size (Max 1MB)
+            const sizedFiles = validFiles.filter(file => {
+                const isValid = file.size <= 1024 * 1024; // 1MB
+                if (!isValid) alert(`Skipped ${file.name}: Size exceeds 1MB limit.`);
+                return isValid;
+            });
+
+            setSelectedFiles(sizedFiles);
         }
     };
 
     const handleUploadImage = async (e: React.FormEvent) => {
         e.preventDefault();
         if (selectedFiles.length === 0) return;
+
+        // CHECK 1: Hard Limit - Max 10 images per gallery
+        const currentCount = (galleryItems as any)[galleryCategory]?.length || 0;
+        const remainingSlots = 10 - currentCount;
+
+        if (remainingSlots <= 0) {
+            alert(`Gallery Full: The ${galleryCategory} gallery has reached its limit of 10 images. Please delete some images before adding new ones.`);
+            return;
+        }
+
+        let filesToUpload = selectedFiles;
+        if (selectedFiles.length > remainingSlots) {
+            alert(`Limit Exceeded: You can only add ${remainingSlots} more images. Truncating selection.`);
+            filesToUpload = selectedFiles.slice(0, remainingSlots);
+        }
 
         setUploading(true);
 
@@ -236,7 +267,7 @@ export default function SuperAdminPortal() {
         };
 
         try {
-            const processedImages = await Promise.all(selectedFiles.map(file => resizeImage(file)));
+            const processedImages = await Promise.all(filesToUpload.map(file => resizeImage(file)));
 
             // Update State
             const updatedGallery = { ...galleryItems } as any;
@@ -244,12 +275,18 @@ export default function SuperAdminPortal() {
 
             // Prepend new images
             updatedGallery[galleryCategory].unshift(...processedImages);
+
+            // Helper to enforce max 10 in state too just in case
+            if (updatedGallery[galleryCategory].length > 10) {
+                updatedGallery[galleryCategory] = updatedGallery[galleryCategory].slice(0, 10);
+            }
+
             setGalleryItems(updatedGallery);
 
             // Persist to LocalStorage
             const storageKey = `ndps_gallery_${galleryCategory}`;
             const existing = JSON.parse(localStorage.getItem(storageKey) || '[]');
-            const newStored = [...processedImages, ...existing];
+            const newStored = [...processedImages, ...existing].slice(0, 10); // Enforce limit in storage
             localStorage.setItem(storageKey, JSON.stringify(newStored));
 
             // Clear Input
