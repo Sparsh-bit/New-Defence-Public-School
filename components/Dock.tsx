@@ -18,7 +18,7 @@ const dockItems = [
     { icon: GraduationCap, label: 'Admission', href: '/admissions/apply', badge: 3, external: false },
     { icon: FileText, label: 'Downloads', href: '/downloads', external: false },
     { icon: Mail, label: 'Contact', href: '/contact', badge: 12, external: false },
-    { icon: Calendar, label: 'Events', href: '/events', external: false },
+    { icon: Calendar, label: 'Events', href: '/gallery/events', external: false },
     { icon: LayoutGrid, label: 'Gallery', href: '/gallery/photos', external: false },
     { icon: User, label: 'Portal', href: 'https://educhanger.in/staff/index.php/signin/login?SchCode=ndps', badge: 1, external: true },
 ];
