@@ -338,6 +338,12 @@ export default function SuperAdminPortal() {
         updatedGallery[category] = updatedGallery[category].filter((img: string) => img !== url);
         setGalleryItems(updatedGallery);
 
+        // Also remove from LocalStorage to prevent ghost images on reload
+        const storageKey = `ndps_gallery_${category}`;
+        const storedImages = JSON.parse(localStorage.getItem(storageKey) || '[]');
+        const filteredStored = storedImages.filter((img: string) => img !== url);
+        localStorage.setItem(storageKey, JSON.stringify(filteredStored));
+
         await fetch('/api/admin/update', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

@@ -13,7 +13,7 @@ const footerLinks = {
         { label: 'School Rules', href: '/rules/conduct' },
     ],
     academics: [
-        { label: 'CBSE Curriculum', href: '/academics/curriculum' },
+        { label: 'CBSE Curriculum', href: '/about/curriculum' },
         { label: 'Examination System', href: '/academics/examination' },
         { label: 'Transfer Certificate', href: '/admissions' },
         { label: 'Book List', href: '/downloads' },
@@ -111,8 +111,8 @@ export default function Footer() {
                         © 2024 New Defence Public School. All rights reserved.
                     </p>
                     <div className="flex gap-10 text-xs font-bold uppercase tracking-[0.2em] text-white/50">
-                        <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-                        <Link href="/terms" className="hover:text-white transition-colors">Terms of Use</Link>
+                        <Link href="/contact" className="hover:text-white transition-colors">Privacy Policy</Link>
+                        <Link href="/contact" className="hover:text-white transition-colors">Terms of Use</Link>
                         <Link href="/admissions/portal" className="hover:text-[#FFD700] transition-colors flex items-center gap-1">
                             🔐 Admin Portal
                         </Link>
