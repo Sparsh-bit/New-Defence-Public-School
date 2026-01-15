@@ -92,7 +92,7 @@ export default function NewsEventsSection() {
                             ) : (
                                 <div className="space-y-6">
                                     {events.map((item, idx) => (
-                                        <NewsCard key={item.id} item={item} index={idx} />
+                                        <NewsCard key={item.id || `event-${item.title}-${item.date}-${idx}`} item={item} index={idx} />
                                     ))}
                                 </div>
                             )}
@@ -112,7 +112,7 @@ export default function NewsEventsSection() {
                             ) : (
                                 <div className="space-y-6">
                                     {news.map((item, idx) => (
-                                        <NewsCard key={item.id} item={item} index={idx} />
+                                        <NewsCard key={item.id || `news-${item.title}-${item.date}-${idx}`} item={item} index={idx} />
                                     ))}
                                 </div>
                             )}

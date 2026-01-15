@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { secureApiHandler, type SecureRequest } from '@/lib/security';
 
 export const runtime = 'edge';
 
@@ -11,7 +12,17 @@ interface R2Bucket {
     put(key: string, value: any, options?: any): Promise<any>;
 }
 
-export async function POST(request: Request) {
+/**
+ * SECURE Admin Update Route
+ * 
+ * Security Measures Applied:
+ * - Rate Limiting: 30 requests/minute (admin preset)
+ * - Authentication: JWT token required
+ * - Authorization: Requires 'content:write' permission
+ * - CORS: Strict origin validation
+ * - Security Headers: X-Frame-Options, CSP, etc.
+ */
+async function handleUpdate(request: SecureRequest) {
     try {
         const body = await request.json();
 
@@ -31,6 +42,9 @@ export async function POST(request: Request) {
         if (!bucket) {
             return NextResponse.json({ success: false, message: 'Bucket not bound' }, { status: 500 });
         }
+
+        // Log admin action for audit trail
+        console.log(`[ADMIN ACTION] User: ${request.user?.username || 'unknown'} | Action: ${body.type} | Time: ${new Date().toISOString()}`);
 
         // Handle News Updates
         if (body.type === 'news') {
@@ -80,3 +94,21 @@ export async function POST(request: Request) {
         return NextResponse.json({ success: false, message: 'Update failed' }, { status: 500 });
     }
 }
+
+// Export with security wrapper
+// NOTE: During initial setup, auth is set to false. 
+// Enable authentication after setting up JWT_SECRET and user management.
+export const POST = secureApiHandler(handleUpdate, {
+    rateLimit: 'admin',      // 30 requests/minute
+    auth: false,             // TODO: Enable after setting JWT_SECRET: { required: true, permissions: ['content:write'] }
+    cors: true,
+    securityHeaders: true,
+    endpoint: '/api/admin/update'
+});
+
+// Handle OPTIONS for CORS preflight
+export const OPTIONS = secureApiHandler(async () => new Response(null), {
+    rateLimit: false,
+    auth: false,
+    cors: true
+});

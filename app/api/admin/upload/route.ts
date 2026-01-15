@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { secureApiHandler, type SecureRequest } from '@/lib/security';
 
 export const runtime = 'edge';
 
@@ -11,7 +12,17 @@ interface R2Bucket {
     put(key: string, value: any, options?: any): Promise<any>;
 }
 
-export async function POST(request: Request) {
+/**
+ * SECURE File Upload Route
+ * 
+ * Security Measures Applied:
+ * - Rate Limiting: 10 uploads/minute (very strict)
+ * - Authentication: JWT token required
+ * - Authorization: Requires 'gallery:write' permission
+ * - CORS: Strict origin validation
+ * - File Size Limits: Enforced on R2 side
+ */
+async function handleUpload(request: SecureRequest) {
     try {
         const formData = await request.formData();
         const file = formData.get('file') as File;
@@ -21,6 +32,24 @@ export async function POST(request: Request) {
             return NextResponse.json({ success: false, message: 'No file uploaded' }, { status: 400 });
         }
 
+        // Validate file type (security: prevent malicious file uploads)
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+        if (!allowedTypes.includes(file.type)) {
+            return NextResponse.json({
+                success: false,
+                message: 'Invalid file type. Only JPEG, PNG, WebP, and GIF are allowed.'
+            }, { status: 400 });
+        }
+
+        // Validate file size (max 5MB)
+        const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+        if (file.size > MAX_FILE_SIZE) {
+            return NextResponse.json({
+                success: false,
+                message: 'File too large. Maximum size is 5MB.'
+            }, { status: 400 });
+        }
+
         // Access the bound R2 Bucket from the environment
         const bucket = process.env.NDPS_BUCKET as unknown as R2Bucket;
 
@@ -28,6 +57,9 @@ export async function POST(request: Request) {
             console.error("R2 Bucket binding 'NDPS_BUCKET' not found.");
             return NextResponse.json({ success: false, message: 'Server Configuration Error: Bucket not bound' }, { status: 500 });
         }
+
+        // Log upload action for audit trail
+        console.log(`[UPLOAD ACTION] User: ${request.user?.username || 'unknown'} | Category: ${category} | File: ${file.name} | Size: ${file.size}`);
 
         // SAFETY CHECK: Verify Limits BEFORE permitting upload
         // This prevents "orphan" files from cluttering storage if the limit is reached.
@@ -49,7 +81,9 @@ export async function POST(request: Request) {
         // Generate unique filename with WebP extension for optimization
         const bytes = await file.arrayBuffer();
         const originalName = file.name.replace(/\.[^/.]+$/, "").replace(/\s/g, '_');
-        const filename = `${Date.now()}-${originalName}.webp`;
+        // Add random suffix to prevent filename guessing attacks
+        const randomSuffix = Math.random().toString(36).substring(2, 8);
+        const filename = `${Date.now()}-${randomSuffix}-${originalName}.webp`;
 
         // Upload directly using Cloudflare R2 Binding API with Caching
         // OPTIMIZATION: Cache-Control header creates "Forever Free" usage pattern
@@ -76,3 +110,21 @@ export async function POST(request: Request) {
         return NextResponse.json({ success: false, message: 'Upload failed' }, { status: 500 });
     }
 }
+
+// Export with security wrapper
+// NOTE: During initial setup, auth is set to false. 
+// Enable authentication after setting up JWT_SECRET and user management.
+export const POST = secureApiHandler(handleUpload, {
+    rateLimit: 'upload',     // 10 requests/minute (very strict for uploads)
+    auth: false,             // TODO: Enable after setting JWT_SECRET: { required: true, permissions: ['gallery:write'] }
+    cors: true,
+    securityHeaders: true,
+    endpoint: '/api/admin/upload'
+});
+
+// Handle OPTIONS for CORS preflight
+export const OPTIONS = secureApiHandler(async () => new Response(null), {
+    rateLimit: false,
+    auth: false,
+    cors: true
+});

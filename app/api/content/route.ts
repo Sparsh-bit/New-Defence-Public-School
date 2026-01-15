@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { secureApiHandler } from '@/lib/security';
 
 export const runtime = 'edge';
 
@@ -41,7 +42,16 @@ const FALLBACK_CONTENT = {
     }
 };
 
-export async function GET() {
+/**
+ * SECURE Public Content Route
+ * 
+ * Security Measures Applied:
+ * - Rate Limiting: Lenient (200 req/min) for public content
+ * - No Authentication: Public content accessible to all
+ * - CORS: Strict origin validation
+ * - Caching headers for performance
+ */
+async function handleContent() {
     try {
         const bucket = process.env.NDPS_BUCKET as unknown as R2Bucket;
         let content = { ...FALLBACK_CONTENT };
@@ -68,10 +78,32 @@ export async function GET() {
             }
         }
 
-        return NextResponse.json(content);
+        // Add cache headers for performance (5 minutes cache)
+        return new Response(JSON.stringify(content), {
+            headers: {
+                'Content-Type': 'application/json',
+                'Cache-Control': 'public, max-age=300, stale-while-revalidate=60'
+            }
+        });
     } catch (error) {
         console.error('Content fetch failed:', error);
         // Fallback to static
         return NextResponse.json(FALLBACK_CONTENT);
     }
 }
+
+// Export with security wrapper - lenient rate limiting for public content
+export const GET = secureApiHandler(handleContent, {
+    rateLimit: 'public',     // 200 requests/minute (lenient for public content)
+    auth: false,             // Public content - no auth
+    cors: true,
+    securityHeaders: true,
+    endpoint: '/api/content'
+});
+
+// Handle OPTIONS for CORS preflight
+export const OPTIONS = secureApiHandler(async () => new Response(null), {
+    rateLimit: false,
+    auth: false,
+    cors: true
+});
