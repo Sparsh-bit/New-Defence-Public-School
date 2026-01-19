@@ -61,6 +61,7 @@ export function LeadershipMessages() {
                                         src={leader.image}
                                         alt={leader.name}
                                         fill
+                                        sizes="80px"
                                         className="object-cover"
                                     />
                                 </div>

@@ -59,7 +59,7 @@ export default function FacilitiesSection() {
                         viewport={{ once: true }}
                         className="relative h-64 rounded-3xl overflow-hidden shadow-xl group"
                     >
-                        <Image src="/images/classroom.png" alt="Smart Classroom" fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
+                        <Image src="/images/classroom.png" alt="Smart Classroom" fill sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover group-hover:scale-110 transition-transform duration-500" />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628]/70 to-transparent flex items-end p-6">
                             <span className="!text-white font-bold text-xl" style={{ color: '#FFFFFF' }}>Smart Classroom</span>
                         </div>
@@ -71,7 +71,7 @@ export default function FacilitiesSection() {
                         transition={{ delay: 0.1 }}
                         className="relative h-64 rounded-3xl overflow-hidden shadow-xl group"
                     >
-                        <Image src="/images/lab.png" alt="Science Laboratory" fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
+                        <Image src="/images/lab.png" alt="Science Laboratory" fill sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover group-hover:scale-110 transition-transform duration-500" />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628]/70 to-transparent flex items-end p-6">
                             <span className="!text-white font-bold text-xl" style={{ color: '#FFFFFF' }}>Science Lab</span>
                         </div>
@@ -83,7 +83,7 @@ export default function FacilitiesSection() {
                         transition={{ delay: 0.2 }}
                         className="relative h-64 rounded-3xl overflow-hidden shadow-xl group"
                     >
-                        <Image src="/images/library.png" alt="Library" fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
+                        <Image src="/images/library.png" alt="Library" fill sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover group-hover:scale-110 transition-transform duration-500" />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628]/70 to-transparent flex items-end p-6">
                             <span className="!text-white font-bold text-xl" style={{ color: '#FFFFFF' }}>Library</span>
                         </div>

@@ -44,6 +44,7 @@ function ShowcaseItem({ item, index }: { item: typeof items[0], index: number })
                     src={item.img}
                     alt={item.title}
                     fill
+                    sizes="90vw"
                     className="object-cover transition-transform duration-1000 scale-105"
                 />
                 <div className="absolute inset-0 bg-white/10 bg-gradient-to-t from-slate-950/60 via-transparent to-white/20" />

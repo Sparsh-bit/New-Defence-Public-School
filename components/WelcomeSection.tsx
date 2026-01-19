@@ -100,6 +100,7 @@ export default function WelcomeSection() {
                                 src="/images/aerial_view.png"
                                 alt="New Defence Public School Campus"
                                 fill
+                                sizes="(max-width: 1024px) 100vw, 50vw"
                                 className="object-cover"
                                 priority
                             />

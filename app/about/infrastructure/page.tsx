@@ -69,6 +69,7 @@ export default function InfrastructurePage() {
                                         src={fac.image}
                                         alt={fac.title}
                                         fill
+                                        sizes="(max-width: 768px) 100vw, 50vw"
                                         className="object-cover transition-transform duration-1000 group-hover:scale-110"
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628]/80 to-transparent" />

@@ -22,6 +22,7 @@ export default function HeroSection() {
                         src="/images/home_hero_bg.png"
                         alt="NDPS School Building"
                         fill
+                        sizes="100vw"
                         priority
                         className="object-cover object-center"
                     />

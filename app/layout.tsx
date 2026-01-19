@@ -47,7 +47,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable} ${jetbrainsMono.variable} ${libreBaskerville.variable}`} suppressHydrationWarning>
-      <body className="font-sans antialiased bg-[#F7F9FC] text-[#1E2933] selection:bg-[#C6A75E] selection:text-white">
+      <body className="font-sans antialiased bg-[#F7F9FC] text-[#1E2933] selection:bg-[#C6A75E] selection:text-white" suppressHydrationWarning>
         <SmoothScroll>
           <Navbar />
           <Template>

@@ -57,6 +57,7 @@ export function AboutSchoolSection() {
                             src="/images/ndps.jpg"
                             alt="NDPS School Building"
                             fill
+                            sizes="(max-width: 1024px) 100vw, 50vw"
                             className="object-cover"
                         />
                         {/* Muted Overlay as per spec */}

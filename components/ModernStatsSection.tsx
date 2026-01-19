@@ -63,6 +63,7 @@ const Skeleton = ({ src }: { src?: string }) => (
                 src={src}
                 alt="Feature Image"
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-110 grayscale-[20%] group-hover:grayscale-0"
             />
         ) : (

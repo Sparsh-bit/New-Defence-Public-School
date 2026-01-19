@@ -48,6 +48,7 @@ export function OfficialGallery() {
                                 src={img.src}
                                 alt={img.title}
                                 fill
+                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                             />
                             <div className="absolute inset-0 bg-[#0B1C2D]/0 group-hover:bg-[#0B1C2D]/40 transition-colors duration-500 flex items-center justify-center">
@@ -87,6 +88,7 @@ export function OfficialGallery() {
                                 src={selectedImage}
                                 alt="Gallery Lightbox"
                                 fill
+                                sizes="100vw"
                                 className="object-cover"
                             />
                         </motion.div>

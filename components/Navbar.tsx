@@ -54,46 +54,53 @@ export default function Navbar() {
 
     return (
         <header
-            className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 ${scrolled ? 'bg-[#0B1C2D] shadow-xl py-4' : 'bg-transparent py-8'}`}
+            className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 ${scrolled ? 'bg-[#0B1C2D] shadow-xl py-3 md:py-4' : 'bg-[#0B1C2D]/90 backdrop-blur-md py-4 md:py-6 lg:py-8'}`}
         >
-            <div className="container-premium flex items-center justify-between">
+            <div className="w-full max-w-[1400px] mx-auto px-3 sm:px-4 md:px-6 lg:px-8 flex items-center justify-between">
 
-                {/* Official Branding */}
-                <Link href="/" className="flex items-center gap-4 group mr-16">
-                    <div className="relative w-12 h-12 transition-transform group-hover:scale-110">
+                {/* Official Branding - Improved responsive sizing */}
+                <Link href="/" className="flex items-center gap-2 sm:gap-3 md:gap-4 group flex-shrink-0">
+                    <div className="relative w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 transition-transform group-hover:scale-110 flex-shrink-0">
                         <Image
                             src="/images/logo_official.png"
                             alt="NDPS Logo"
                             fill
-                            sizes="(max-width: 768px) 48px, 48px"
+                            sizes="(max-width: 640px) 40px, (max-width: 768px) 44px, 48px"
                             className="object-contain"
                             priority
                         />
                     </div>
-                    <div className="flex flex-col md:hidden lg:flex">
-                        <span className="text-lg md:text-xl font-display font-bold text-white tracking-wide whitespace-nowrap">NEW DEFENCE PUBLIC SCHOOL</span>
-                        <span className="text-[9px] font-black tracking-[0.3em] uppercase text-[#C6A75E]">Excellence Since 1996</span>
+                    {/* Full name on large screens */}
+                    <div className="hidden xl:flex flex-col">
+                        <span className="text-base lg:text-lg xl:text-xl font-display font-bold text-white tracking-wide whitespace-nowrap">NEW DEFENCE PUBLIC SCHOOL</span>
+                        <span className="text-[8px] lg:text-[9px] font-black tracking-[0.2em] lg:tracking-[0.3em] uppercase text-[#C6A75E]">Excellence Since 1996</span>
                     </div>
-                    <div className="flex flex-col md:flex lg:hidden">
-                        <span className="text-lg font-display font-bold text-white tracking-wide">NDPS</span>
+                    {/* Abbreviated on medium screens */}
+                    <div className="hidden md:flex xl:hidden flex-col">
+                        <span className="text-sm lg:text-base font-display font-bold text-white tracking-wide whitespace-nowrap">NDPS</span>
+                        <span className="text-[7px] lg:text-[8px] font-black tracking-[0.15em] uppercase text-[#C6A75E]">Est. 1996</span>
+                    </div>
+                    {/* Compact on small screens */}
+                    <div className="flex md:hidden flex-col">
+                        <span className="text-sm sm:text-base font-display font-bold text-white tracking-wide">NDPS</span>
                     </div>
                 </Link>
 
-                {/* Desktop Menu */}
-                <nav className="hidden lg:flex items-center gap-10">
+                {/* Desktop Menu - Improved gap spacing */}
+                <nav className="hidden lg:flex items-center gap-4 xl:gap-6 2xl:gap-8 flex-shrink-0">
                     {navigation.map((item) => (
                         <div
                             key={item.name}
-                            className="relative group pt-2 pb-2"
+                            className="relative group py-2"
                             onMouseEnter={() => setActiveSubmenu(item.name)}
                             onMouseLeave={() => setActiveSubmenu(null)}
                         >
                             <Link
                                 href={item.href}
-                                className="text-white/80 hover:text-[#C6A75E] transition-colors text-xs font-bold tracking-widest uppercase flex items-center gap-1.5 whitespace-nowrap"
+                                className="text-white/80 hover:text-[#C6A75E] transition-colors text-[10px] xl:text-xs font-bold tracking-wider xl:tracking-widest uppercase flex items-center gap-1 whitespace-nowrap"
                             >
                                 {item.name}
-                                {item.submenu && <ChevronDown size={14} className="opacity-50" />}
+                                {item.submenu && <ChevronDown size={12} className="opacity-50" />}
                             </Link>
 
                             <AnimatePresence>
@@ -102,13 +109,13 @@ export default function Navbar() {
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: 10 }}
-                                        className="absolute top-full left-0 w-48 bg-[#1E2933] border border-white/10 rounded-xl overflow-hidden shadow-2xl mt-4"
+                                        className="absolute top-full left-0 w-44 xl:w-48 bg-[#1E2933] border border-white/10 rounded-xl overflow-hidden shadow-2xl mt-3"
                                     >
                                         {item.submenu.map((sub) => (
                                             <Link
                                                 key={sub.name}
                                                 href={sub.href}
-                                                className="block px-6 py-4 text-[11px] font-bold text-white/70 hover:text-white hover:bg-[#C6A75E]/20 transition-all uppercase tracking-widest border-b border-white/5 last:border-0"
+                                                className="block px-4 xl:px-6 py-3 xl:py-4 text-[10px] xl:text-[11px] font-bold text-white/70 hover:text-white hover:bg-[#C6A75E]/20 transition-all uppercase tracking-widest border-b border-white/5 last:border-0"
                                             >
                                                 {sub.name}
                                             </Link>
@@ -121,7 +128,7 @@ export default function Navbar() {
 
                     <Link
                         href="/admissions/apply"
-                        className="px-8 py-3 bg-[#C6A75E] text-[#0B1C2D] font-bold text-xs uppercase tracking-widest hover:bg-white transition-colors whitespace-nowrap"
+                        className="px-4 xl:px-6 2xl:px-8 py-2.5 xl:py-3 bg-[#C6A75E] text-[#0B1C2D] font-bold text-[10px] xl:text-xs uppercase tracking-wider xl:tracking-widest hover:bg-white transition-colors whitespace-nowrap rounded-sm flex-shrink-0"
                     >
                         Apply Now
                     </Link>
@@ -130,38 +137,67 @@ export default function Navbar() {
                 {/* Mobile Toggle */}
                 <button
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                    className="lg:hidden text-white"
+                    className="lg:hidden text-white p-2 -mr-2"
+                    aria-label="Toggle menu"
                 >
-                    {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+                    {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
                 </button>
             </div>
 
-            {/* Mobile Menu Overlay */}
+            {/* Mobile Menu Overlay - Improved */}
             <AnimatePresence>
                 {mobileMenuOpen && (
                     <motion.div
                         initial={{ x: '100%' }}
                         animate={{ x: 0 }}
                         exit={{ x: '100%' }}
-                        className="fixed inset-0 bg-[#0B1C2D] z-[-1] flex flex-col pt-32 p-10 lg:hidden"
+                        transition={{ type: 'tween', duration: 0.3 }}
+                        className="fixed inset-0 top-0 bg-[#0B1C2D] z-[-1] flex flex-col pt-24 sm:pt-28 md:pt-32 p-6 sm:p-8 md:p-10 lg:hidden overflow-y-auto"
                     >
-                        {navigation.map((item) => (
-                            <Link
+                        {navigation.map((item, index) => (
+                            <motion.div
                                 key={item.name}
-                                href={item.href}
-                                onClick={() => setMobileMenuOpen(false)}
-                                className="text-2xl font-display font-medium text-white mb-8 border-b border-white/5 pb-4"
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: index * 0.1 }}
                             >
-                                {item.name}
-                            </Link>
+                                <Link
+                                    href={item.href}
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className="text-xl sm:text-2xl font-display font-medium text-white mb-6 sm:mb-8 border-b border-white/10 pb-4 block"
+                                >
+                                    {item.name}
+                                </Link>
+                                {/* Mobile submenu items */}
+                                {item.submenu && (
+                                    <div className="pl-4 mb-4">
+                                        {item.submenu.map((sub) => (
+                                            <Link
+                                                key={sub.name}
+                                                href={sub.href}
+                                                onClick={() => setMobileMenuOpen(false)}
+                                                className="block text-sm text-white/60 hover:text-[#C6A75E] py-2 transition-colors"
+                                            >
+                                                {sub.name}
+                                            </Link>
+                                        ))}
+                                    </div>
+                                )}
+                            </motion.div>
                         ))}
-                        <Link
-                            href="/admissions/apply"
-                            onClick={() => setMobileMenuOpen(false)}
-                            className="mt-10 py-6 bg-[#C6A75E] text-[#0B1C2D] text-center font-bold uppercase tracking-widest"
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5 }}
                         >
-                            Start Admission
-                        </Link>
+                            <Link
+                                href="/admissions/apply"
+                                onClick={() => setMobileMenuOpen(false)}
+                                className="mt-6 sm:mt-10 py-4 sm:py-6 bg-[#C6A75E] text-[#0B1C2D] text-center font-bold uppercase tracking-widest block rounded-lg"
+                            >
+                                Start Admission
+                            </Link>
+                        </motion.div>
                     </motion.div>
                 )}
             </AnimatePresence>
