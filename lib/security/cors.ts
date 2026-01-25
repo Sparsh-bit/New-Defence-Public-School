@@ -47,10 +47,12 @@ export function getCorsConfig(): CorsConfig {
         ],
         production: [
             // Production domains - NEVER use wildcard (*)
-            process.env.PRODUCTION_URL || 'https://example.com',
+            process.env.PRODUCTION_URL || 'https://www.newdefencepublicschool.com',
             'https://www.newdefencepublicschool.com',
             'https://newdefencepublicschool.com',
-            // Add Cloudflare Pages default domain if used
+            'https://new-defence-public-school.pages.dev',
+            // Add Cloudflare Pages domains for previews
+            '*.pages.dev',
             ...(process.env.CF_PAGES_URL ? [process.env.CF_PAGES_URL] : []),
         ]
     };
