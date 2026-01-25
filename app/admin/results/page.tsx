@@ -184,10 +184,16 @@ export default function AdminResultsPortal() {
                         </div>
 
                         {/* Recent Uploads / Granular Deletion */}
-                        <div className="bg-white p-8 rounded-[40px] shadow-sm border border-gray-100">
-                            <h4 className="text-sm font-black uppercase tracking-widest text-[#0A1628] mb-6 flex items-center gap-2">
-                                <FileSpreadsheet size={16} /> Management History
-                            </h4>
+                        <div className="bg-white p-8 rounded-[40px] shadow-sm border border-gray-100 overflow-hidden relative">
+                            <div className="mb-6">
+                                <h4 className="text-sm font-black uppercase tracking-widest text-[#0A1628] flex items-center gap-2">
+                                    <FileSpreadsheet size={16} /> Database Snapshot
+                                </h4>
+                                <div className="mt-4 p-4 bg-emerald-50 rounded-2xl border border-emerald-100 flex items-center justify-between">
+                                    <span className="text-[10px] font-black uppercase text-emerald-600 tracking-wider">Total Files Sync</span>
+                                    <span className="text-2xl font-black text-emerald-700">{batches.length}</span>
+                                </div>
+                            </div>
                             <div className="space-y-4 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
                                 {isLoadingBatches ? (
                                     <div className="flex justify-center py-10"><Loader2 className="animate-spin text-gray-300" /></div>

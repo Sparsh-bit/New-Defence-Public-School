@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { RefreshCw, Search, Calendar, User, Phone, LogOut, Settings, Plus, Trash2, Image as ImageIcon, Bell, GraduationCap, FileSpreadsheet, UploadCloud, Loader2, FileText, Download } from 'lucide-react';
+import { RefreshCw, Search, Calendar, User, Phone, LogOut, Settings, Plus, Trash2, Image as ImageIcon, Bell, GraduationCap, FileSpreadsheet, UploadCloud, Loader2, FileText, Download, Database } from 'lucide-react';
 import { schoolNewsEvents, galleryImages, DownloadItem, schoolDownloads } from '@/data/cms';
 
 // --- Types ---
@@ -72,6 +72,8 @@ export default function SuperAdminPortal() {
     });
     const [docFile, setDocFile] = useState<File | null>(null);
     const [isUploadingDoc, setIsUploadingDoc] = useState(false);
+    const [batches, setBatches] = useState<any[]>([]);
+    const [loadingBatches, setLoadingBatches] = useState(false);
 
     // --- Authentication Check & Data Load ---
     useEffect(() => {
@@ -80,6 +82,7 @@ export default function SuperAdminPortal() {
             setIsAuthenticated(true);
             fetchApplications();
             fetchContent();
+            fetchBatches();
         } else {
             router.push('/admissions/portal');
         }
@@ -108,6 +111,23 @@ export default function SuperAdminPortal() {
             }
         } catch (error) {
             console.error('Failed to load content:', error);
+        }
+    };
+
+    const fetchBatches = async () => {
+        setLoadingBatches(true);
+        try {
+            const res = await fetch('/api/admin/upload-results', {
+                headers: getAuthHeaders()
+            });
+            const data = await res.json();
+            if (data.success) {
+                setBatches(data.data || []);
+            }
+        } catch (error) {
+            console.error('Failed to fetch batches:', error);
+        } finally {
+            setLoadingBatches(false);
         }
     };
 
@@ -536,7 +556,7 @@ export default function SuperAdminPortal() {
                                 <FileSpreadsheet size={20} /> <span className="hidden md:inline">Export Excel</span>
                             </button>
                             <button
-                                onClick={fetchApplications}
+                                onClick={() => { fetchApplications(); fetchBatches(); }}
                                 className="bg-white p-3 rounded-xl shadow-sm text-gray-500 hover:text-[#0A1628] transition-colors"
                                 title="Refresh Data"
                             >
@@ -545,6 +565,44 @@ export default function SuperAdminPortal() {
                         </div>
                     )}
                 </header>
+
+                {/* Database Summary Section */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-12">
+                    <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                        <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-4">
+                            <GraduationCap size={24} />
+                        </div>
+                        <h4 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-1">Admissions</h4>
+                        <p className="text-3xl font-black text-[#0A1628]">{applications.length}</p>
+                    </div>
+                    <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                        <div className="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mb-4">
+                            <Bell size={24} />
+                        </div>
+                        <h4 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-1">Updates</h4>
+                        <p className="text-3xl font-black text-[#0A1628]">{newsItems.length}</p>
+                    </div>
+                    <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                        <div className="w-12 h-12 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mb-4">
+                            <ImageIcon size={24} />
+                        </div>
+                        <h4 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-1">Gallery</h4>
+                        <p className="text-3xl font-black text-[#0A1628]">
+                            {((galleryItems as any).events?.length || 0) + ((galleryItems as any).infrastructure?.length || 0)}
+                        </p>
+                    </div>
+                    <div className="bg-white p-6 rounded-3xl shadow-sm border border-emerald-100 bg-emerald-50/10">
+                        <div className="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-4">
+                            <Database size={24} />
+                        </div>
+                        <h4 className="text-sm font-bold text-emerald-600/70 uppercase tracking-wider mb-1">Excel Files</h4>
+                        <p className="text-3xl font-black text-emerald-700">{batches.length}</p>
+                        <div className="flex items-center gap-1.5 mt-2">
+                            <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></div>
+                            <span className="text-[10px] font-bold text-emerald-600 uppercase">Synchronized</span>
+                        </div>
+                    </div>
+                </div>
 
                 {/* --- APPLICATIONS TAB --- */}
                 {activeTab === 'applications' && (
