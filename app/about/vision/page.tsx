@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 
 export default function VisionPage() {
     return (
-        <PageTransition>
+        <main>
             <SubPageHero
                 title="Vision & Mission"
                 subtitle="Our guiding principles that drive excellence in everything we do."
@@ -116,6 +116,6 @@ export default function VisionPage() {
                     ))}
                 </div>
             </ContentSection>
-        </PageTransition>
+        </main>
     );
 }

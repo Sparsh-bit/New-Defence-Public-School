@@ -61,8 +61,7 @@ export default function ResultSearchPage() {
     };
 
     return (
-        <PageTransition>
-            <Navbar />
+        <main>
             <SubPageHero
                 title="Academic Performance"
                 subtitle="Official 2024-25 Annual Examination Result Portal."
@@ -223,6 +222,6 @@ export default function ResultSearchPage() {
                     )}
                 </div>
             </section>
-        </PageTransition>
+        </main>
     );
 }

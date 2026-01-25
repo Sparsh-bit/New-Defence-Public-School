@@ -34,21 +34,21 @@ const recommendations = [
 
 export default function ParentsRecommendationPage() {
     return (
-        <SmoothScroll>
-            <PageTransition>
-                <Navbar />
+        <main>
+            <SubPageHero
+                title="For Parents"
+                subtitle="Collaborating to build a successful future for your child."
+                breadcrumb="Recommendations"
+                icon={<HeartHandshake className="w-8 h-8" />}
+            />
 
-                <SubPageHero
-                    title="For Parents"
-                    subtitle="Collaborating to build a successful future for your child."
-                    breadcrumb="Recommendations"
-                    icon={<HeartHandshake className="w-8 h-8" />}
-                />
+            <section className="py-24">
+                <div className="container-premium">
+                    <div className="text-center mb-16">
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#C6A75E] mb-4 block">PARENTAL GUIDELINES</span>
+                        <h2 className="text-4xl md:text-5xl font-display font-black text-[#0A1628]">A Partnership for Growth</h2>
+                    </div>
 
-                <ContentSection
-                    title="A Partnership for Growth"
-                    subtitle="PARENTAL GUIDELINES"
-                >
                     <div className="grid md:grid-cols-2 gap-8">
                         {recommendations.map((rec, idx) => (
                             <motion.div
@@ -59,29 +59,27 @@ export default function ParentsRecommendationPage() {
                                 transition={{ delay: idx * 0.1 }}
                                 className="group p-10 bg-[#0A1628]/5 rounded-[40px] border border-[#0A1628]/10 hover:bg-[#0A1628] hover:text-white transition-all duration-500"
                             >
-                                <div className="text-[#FFD700] mb-8 group-hover:scale-110 transition-transform">{rec.icon}</div>
+                                <div className="text-[#C6A75E] mb-8 group-hover:scale-110 transition-transform">{rec.icon}</div>
                                 <h4 className="text-2xl font-display font-black mb-4 tracking-tight">{rec.title}</h4>
                                 <p className="text-lg opacity-70 font-light leading-relaxed">{rec.desc}</p>
                             </motion.div>
                         ))}
                     </div>
-                </ContentSection>
+                </div>
+            </section>
 
-                <ContentSection alternate title="Parent-Teacher Interaction" subtitle="JOIN THE CONVERSATION">
-                    <div className="max-w-3xl mx-auto text-center space-y-8">
-                        <p className="text-2xl font-display font-light text-[#0A1628] leading-relaxed">
-                            "Parents are the first teachers and teachers are the second parents."
-                            We believe in an open-door policy where constructive feedback leads to student success.
-                        </p>
-                        <div className="flex flex-wrap justify-center gap-6">
-                            <div className="px-8 py-4 bg-white rounded-full shadow-premium text-sm font-bold uppercase tracking-widest text-[#0A1628]">Every 2nd Saturday: PTM</div>
-                            <div className="px-8 py-4 bg-white rounded-full shadow-premium text-sm font-bold uppercase tracking-widest text-[#0A1628]">Time: 9:00 AM - 12:00 PM</div>
-                        </div>
+            <ContentSection alternate title="Parent-Teacher Interaction" subtitle="JOIN THE CONVERSATION">
+                <div className="max-w-3xl mx-auto text-center space-y-8">
+                    <p className="text-2xl font-display font-light text-[#0A1628] leading-relaxed">
+                        "Parents are the first teachers and teachers are the second parents."
+                        We believe in an open-door policy where constructive feedback leads to student success.
+                    </p>
+                    <div className="flex flex-wrap justify-center gap-6">
+                        <div className="px-8 py-4 bg-white rounded-full shadow-sm text-sm font-bold uppercase tracking-widest text-[#0A1628]">Every 2nd Saturday: PTM</div>
+                        <div className="px-8 py-4 bg-white rounded-full shadow-sm text-sm font-bold uppercase tracking-widest text-[#0A1628]">Time: 9:00 AM - 12:00 PM</div>
                     </div>
-                </ContentSection>
-
-
-            </PageTransition>
-        </SmoothScroll>
+                </div>
+            </ContentSection>
+        </main>
     );
 }

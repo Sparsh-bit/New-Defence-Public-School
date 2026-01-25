@@ -42,8 +42,7 @@ export default function DownloadsPage() {
     }, []);
 
     return (
-        <PageTransition>
-            <Navbar />
+        <main>
             <SubPageHero
                 title="Resource Center"
                 subtitle="Download official school documents, examination results, and academic resources."
@@ -150,6 +149,6 @@ export default function DownloadsPage() {
 
                 </div>
             </section>
-        </PageTransition>
+        </main>
     );
 }

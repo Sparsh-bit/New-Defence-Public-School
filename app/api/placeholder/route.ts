@@ -1,6 +1,6 @@
 import { getStorageBucket } from '@/lib/storage';
 
-export const runtime = process.env.NODE_ENV === 'production' ? 'edge' : 'nodejs';
+export const runtime = 'edge';
 
 /**
  * Development-only File Server

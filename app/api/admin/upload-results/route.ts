@@ -4,7 +4,7 @@ import { deriveInfoFromSrNo } from '@/lib/result-utils';
 import { getDatabase } from '@/lib/db';
 import * as XLSX from 'xlsx';
 
-export const runtime = process.env.NODE_ENV === 'production' ? 'edge' : 'nodejs';
+export const runtime = 'edge';
 
 interface SubjectMark {
     subject: string;

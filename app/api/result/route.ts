@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { secureApiHandler, type SecureRequest } from '@/lib/security';
 import { getDatabase } from '@/lib/db';
 
-export const runtime = process.env.NODE_ENV === 'production' ? 'edge' : 'nodejs';
+export const runtime = 'edge';
 
 interface ResultResponse {
     sr_no: string;

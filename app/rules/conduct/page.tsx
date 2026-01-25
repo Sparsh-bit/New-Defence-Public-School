@@ -20,21 +20,21 @@ const rules = [
 
 export default function ConductPage() {
     return (
-        <SmoothScroll>
-            <PageTransition>
-                <Navbar />
+        <main>
+            <SubPageHero
+                title="Code of Conduct"
+                subtitle="Standards of behavior and discipline for our students."
+                breadcrumb="Rules & Regulations"
+                icon={<ShieldAlert className="w-8 h-8" />}
+            />
 
-                <SubPageHero
-                    title="Code of Conduct"
-                    subtitle="Standards of behavior and discipline for our students."
-                    breadcrumb="Rules & Regulations"
-                    icon={<ShieldAlert className="w-8 h-8" />}
-                />
+            <section className="py-24">
+                <div className="container-premium">
+                    <div className="text-center mb-16">
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#C6A75E] mb-4 block">ENSURING A SAFE HARMONY</span>
+                        <h2 className="text-4xl md:text-5xl font-display font-black text-[#0A1628]">General Rules of Discipline</h2>
+                    </div>
 
-                <ContentSection
-                    title="General Rules of Discipline"
-                    subtitle="ENSURING A SAFE HARMONY"
-                >
                     <div className="grid lg:grid-cols-2 gap-12 items-start">
                         <div className="space-y-4">
                             {rules.map((rule, idx) => (
@@ -46,7 +46,7 @@ export default function ConductPage() {
                                     transition={{ delay: idx * 0.1 }}
                                     className="flex gap-4 p-6 bg-[#0A1628]/80 rounded-2xl border border-white/10 shadow-sm hover:shadow-md transition-shadow"
                                 >
-                                    <CheckCircle2 className="w-6 h-6 text-[#FFD700] flex-shrink-0" />
+                                    <CheckCircle2 className="w-6 h-6 text-[#C6A75E] flex-shrink-0" />
                                     <p className="text-white font-light leading-relaxed">{rule}</p>
                                 </motion.div>
                             ))}
@@ -58,25 +58,24 @@ export default function ConductPage() {
                             viewport={{ once: true }}
                             className="bg-[#0A1628] p-12 rounded-[40px] text-white space-y-8 sticky top-32"
                         >
-                            <div className="flex items-center gap-4 text-[#FFD700]">
+                            <div className="flex items-center gap-4 text-[#C6A75E]">
                                 <AlertCircle className="w-8 h-8" />
-                                <h4 className="text-2xl font-display font-black tracking-tight uppercase bg-[#C6A75E] text-white px-2">CRUCIAL NOTE</h4>
+                                <h4 className="text-2xl font-display font-black tracking-tight uppercase bg-[#C6A75E] text-[#0A1628] px-2 leading-relaxed">CRUCIAL NOTE</h4>
                             </div>
                             <p className="text-lg text-white/70 font-light leading-relaxed">
                                 The school reserves the right to suspend or dismiss any student whose conduct is
                                 prejudicial to the interest of the school. Discipline is non-negotiable at NDPS.
                             </p>
                             <div className="p-8 bg-white/5 rounded-2xl border border-white/10">
-                                <Info className="w-6 h-6 text-[#FFD700] mb-4" />
+                                <Info className="w-6 h-6 text-[#C6A75E] mb-4" />
                                 <p className="text-sm font-bold tracking-widest uppercase mb-2">School Hours</p>
                                 <p className="text-white/60">Summer: 7:30 AM - 1:30 PM</p>
                                 <p className="text-white/60">Winter: 8:00 AM - 2:00 PM</p>
                             </div>
                         </motion.div>
                     </div>
-                </ContentSection>
-
-            </PageTransition>
-        </SmoothScroll>
+                </div>
+            </section>
+        </main>
     );
 }

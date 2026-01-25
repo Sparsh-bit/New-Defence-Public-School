@@ -3,7 +3,7 @@ import { secureApiHandler, type SecureRequest } from '@/lib/security';
 
 import { getStorageBucket } from '@/lib/storage';
 
-export const runtime = process.env.NODE_ENV === 'production' ? 'edge' : 'nodejs';
+export const runtime = 'edge';
 
 /**
  * SECURE Admin Update Route

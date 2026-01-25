@@ -1,11 +1,10 @@
 /**
  * Centralized D1 Database Provider
  * 
- * Provides industry-standard D1 binding access with a robust
- * disk-based fallback for local development.
+ * EDGE COMPATIBLE VERSION:
+ * - No Node.js 'fs' or 'path' imports.
+ * - In-memory simulation for local dev to ensure Edge compatibility.
  */
-import fs from 'fs';
-import path from 'path';
 
 // D1 Interface subsets
 export interface D1PreparedStatement {
@@ -26,30 +25,15 @@ interface MockPreparedStatement extends D1PreparedStatement {
     _bound: unknown[];
 }
 
+// In-memory Database for local development (Edge-safe)
+const memoryDb = {
+    results: [] as any[]
+};
+
 /**
- * Mock D1 Database for Local Development
+ * Mock D1 Database for Local Development (Edge Compatible)
  */
 class DevDatabase implements D1Database {
-    private dbPath: string;
-
-    constructor() {
-        this.dbPath = path.join(process.cwd(), 'dev_db', 'd1_mock.json');
-        if (!fs.existsSync(path.dirname(this.dbPath))) {
-            fs.mkdirSync(path.dirname(this.dbPath), { recursive: true });
-        }
-        if (!fs.existsSync(this.dbPath)) {
-            fs.writeFileSync(this.dbPath, JSON.stringify({ results: [] }));
-        }
-    }
-
-    private getData(): { results: any[] } {
-        return JSON.parse(fs.readFileSync(this.dbPath, 'utf8'));
-    }
-
-    private setData(data: { results: any[] }) {
-        fs.writeFileSync(this.dbPath, JSON.stringify(data, null, 2));
-    }
-
     prepare(query: string): D1PreparedStatement {
         const self = this;
 
@@ -61,8 +45,7 @@ class DevDatabase implements D1Database {
                     return createStatement(args);
                 },
                 async first<T>() {
-                    const data = self.getData();
-                    const table = data.results || [];
+                    const table = memoryDb.results || [];
 
                     if (query.toUpperCase().includes('SELECT')) {
                         const found = table.find((r: any) =>
@@ -73,33 +56,29 @@ class DevDatabase implements D1Database {
                     return null;
                 },
                 async run() {
-                    const data = self.getData();
-                    if (query.toUpperCase().includes('DELETE')) {
-                        if (query.toUpperCase().includes('BATCH_ID')) {
+                    const queryUpper = query.toUpperCase();
+                    if (queryUpper.includes('DELETE')) {
+                        if (queryUpper.includes('BATCH_ID')) {
                             const batchId = stmt._bound[0];
-                            data.results = data.results.filter((r: any) => String(r.batch_id) !== String(batchId));
+                            memoryDb.results = memoryDb.results.filter((r: any) => String(r.batch_id) !== String(batchId));
                         } else {
-                            const cls = stmt._bound[0];
-                            const strm = stmt._bound[1];
-                            const year = stmt._bound[2];
-                            data.results = data.results.filter((r: any) => !(String(r.class) === String(cls) && String(r.stream) === String(strm) && String(r.academic_year) === String(year)));
+                            const [cls, strm, year] = stmt._bound;
+                            memoryDb.results = memoryDb.results.filter((r: any) => !(String(r.class) === String(cls) && String(r.stream) === String(strm) && String(r.academic_year) === String(year)));
                         }
-                        self.setData(data);
                     }
                     return { success: true };
                 },
                 async all<T>() {
-                    const data = self.getData();
                     const queryUpper = query.toUpperCase();
                     if (queryUpper.includes('SELECT') && queryUpper.includes('DISTINCT ACADEMIC_YEAR')) {
-                        const years = Array.from(new Set(data.results.map((r: any) => r.academic_year)))
+                        const years = Array.from(new Set(memoryDb.results.map((r: any) => r.academic_year)))
                             .map(y => ({ academic_year: y }));
                         return { success: true, results: years as unknown as T[] };
                     }
                     if (queryUpper.includes('SELECT') && queryUpper.includes('DISTINCT BATCH_ID')) {
-                        const batches = Array.from(new Set(data.results.filter(r => r.batch_id).map((r: any) => r.batch_id)))
+                        const batches = Array.from(new Set(memoryDb.results.filter(r => r.batch_id).map((r: any) => r.batch_id)))
                             .map(b => {
-                                const first = data.results.find(r => r.batch_id === b);
+                                const first = memoryDb.results.find(r => r.batch_id === b);
                                 return { batch_id: b, academic_year: first?.academic_year, upload_date: first?.upload_date, class: first?.class, stream: first?.stream };
                             });
                         return { success: true, results: batches as unknown as T[] };
@@ -114,11 +93,6 @@ class DevDatabase implements D1Database {
     }
 
     async batch(statements: D1PreparedStatement[]): Promise<unknown[]> {
-        console.warn(`[DEV DB] Executing Batch with ${statements.length} operations`);
-
-        const data = this.getData();
-        if (!data.results) data.results = [];
-
         for (const stmt of (statements as MockPreparedStatement[])) {
             const query = stmt._query || '';
             const bound = stmt._bound || [];
@@ -127,14 +101,14 @@ class DevDatabase implements D1Database {
             if (queryUpper.includes('DELETE')) {
                 if (queryUpper.includes('BATCH_ID')) {
                     const batchId = bound[0];
-                    data.results = data.results.filter((r: any) => String(r.batch_id) !== String(batchId));
+                    memoryDb.results = memoryDb.results.filter((r: any) => String(r.batch_id) !== String(batchId));
                 } else {
                     const [cls, strm, year] = bound;
-                    data.results = data.results.filter((r: any) => !(String(r.class) === String(cls) && String(r.stream) === String(strm) && String(r.academic_year) === String(year)));
+                    memoryDb.results = memoryDb.results.filter((r: any) => !(String(r.class) === String(cls) && String(r.stream) === String(strm) && String(r.academic_year) === String(year)));
                 }
             } else if (queryUpper.includes('INSERT')) {
                 const [sr, name, cls, strm, subjects, total, perc, status, year, batchId, uploadDate] = bound;
-                data.results.push({
+                memoryDb.results.push({
                     sr_no: sr,
                     student_name: name,
                     class: cls,
@@ -149,8 +123,6 @@ class DevDatabase implements D1Database {
                 });
             }
         }
-
-        this.setData(data);
         return statements.map(() => ({ success: true }));
     }
 }
@@ -161,15 +133,8 @@ class DevDatabase implements D1Database {
 export function getDatabase(): D1Database {
     const db = (process.env as any).DB as D1Database;
 
-    if (!db || process.env.NODE_ENV === 'development') {
-        if (typeof window === 'undefined') {
-            return new DevDatabase();
-        }
-    }
+    if (db) return db;
 
-    if (!db) {
-        throw new Error('Database Error: DB binding not found.');
-    }
-
-    return db;
+    // Local Development Fallback (Memory)
+    return new DevDatabase();
 }

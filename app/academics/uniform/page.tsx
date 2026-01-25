@@ -11,27 +11,25 @@ import { motion } from 'framer-motion';
 
 export default function UniformPage() {
     return (
-        <SmoothScroll>
-            <PageTransition>
-                <Navbar />
+        <main>
+            <SubPageHero
+                title="School Uniform"
+                subtitle="Dressing for success and equality."
+                breadcrumb="Academics"
+                icon={<Shirt className="w-8 h-8" />}
+            />
 
-                <SubPageHero
-                    title="School Uniform"
-                    subtitle="Dressing for success and equality."
-                    breadcrumb="Academics"
-                    icon={<Shirt className="w-8 h-8" />}
-                />
-
-                <ContentSection>
+            <section className="py-24">
+                <div className="container-premium">
                     <div className="grid lg:grid-cols-2 gap-12">
                         {/* Summer Uniform */}
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
-                            className="bg-white p-12 rounded-[48px] shadow-premium border border-blue-50"
+                            className="bg-white p-12 rounded-[48px] shadow-sm border border-blue-50"
                         >
-                            <h4 className="text-3xl font-display font-black text-[#0A1628] mb-8 border-l-8 border-[#FFD700] pl-6">Summer Schedule</h4>
+                            <h4 className="text-3xl font-display font-black text-[#0A1628] mb-8 border-l-8 border-[#C6A75E] pl-6">Summer Schedule</h4>
                             <div className="space-y-8">
                                 <div>
                                     <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-4">Boys</p>
@@ -60,9 +58,9 @@ export default function UniformPage() {
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.1 }}
-                            className="bg-[#0A1628] p-12 rounded-[48px] text-white shadow-2xl"
+                            className="bg-[#0A1628] p-12 rounded-[48px] text-white shadow-xl"
                         >
-                            <h4 className="text-3xl font-display font-black text-[#FFD700] mb-8 border-l-8 border-white pl-6">Winter Schedule</h4>
+                            <h4 className="text-3xl font-display font-black text-[#C6A75E] mb-8 border-l-8 border-white pl-6">Winter Schedule</h4>
                             <div className="space-y-8 text-white/70">
                                 <div>
                                     <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-4 uppercase">All Students</p>
@@ -76,7 +74,7 @@ export default function UniformPage() {
                                 </div>
                                 <div className="pt-12">
                                     <div className="p-8 bg-white/5 rounded-3xl border border-white/10 flex items-start gap-6">
-                                        <Info className="text-[#FFD700] flex-shrink-0" />
+                                        <Info className="text-[#C6A75E] flex-shrink-0" />
                                         <p className="text-sm font-light leading-relaxed">
                                             The school uniform is a symbol of belonging. Students must be in neat and clean uniform daily.
                                             Action will be taken against those who do not comply.
@@ -86,10 +84,8 @@ export default function UniformPage() {
                             </div>
                         </motion.div>
                     </div>
-                </ContentSection>
-
-
-            </PageTransition>
-        </SmoothScroll>
+                </div>
+            </section>
+        </main>
     );
 }

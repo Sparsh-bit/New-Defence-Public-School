@@ -25,18 +25,17 @@ export default function ContactPage() {
     };
 
     return (
-        <SmoothScroll>
-            <PageTransition>
-                <Navbar />
-                <SubPageHero
-                    title="Get In Touch"
-                    subtitle="We are here to answer your questions and welcome you to our campus."
-                    breadcrumb="Contact & Support"
-                    icon={<Mail className="w-8 h-8" />}
-                    backgroundImage="/images/gen/school_reception_india_1766952527898.png"
-                />
+        <main>
+            <SubPageHero
+                title="Get In Touch"
+                subtitle="We are here to answer your questions and welcome you to our campus."
+                breadcrumb="Contact & Support"
+                icon={<Mail className="w-8 h-8" />}
+                backgroundImage="/images/gen/school_reception_india_1766952527898.png"
+            />
 
-                <ContentSection>
+            <section className="py-24">
+                <div className="container-premium">
                     <div className="grid lg:grid-cols-3 gap-12">
                         {/* Contact Info Cards */}
                         <div className="lg:col-span-1 space-y-8">
@@ -69,9 +68,9 @@ export default function ContactPage() {
                                     whileInView={{ opacity: 1, x: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: idx * 0.1 }}
-                                    className="block p-10 bg-white rounded-[40px] border border-[#0A1628]/5 shadow-premium hover:border-[#FFD700] transition-colors group"
+                                    className="block p-10 bg-white rounded-[40px] border border-[#0A1628]/5 shadow-sm hover:border-[#C6A75E] transition-colors group"
                                 >
-                                    <div className="w-12 h-12 bg-[#0A1628] rounded-xl flex items-center justify-center text-[#FFD700] mb-6 group-hover:scale-110 transition-transform">
+                                    <div className="w-12 h-12 bg-[#0A1628] rounded-xl flex items-center justify-center text-[#C6A75E] mb-6 group-hover:scale-110 transition-transform">
                                         {item.icon}
                                     </div>
                                     <h5 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#0A1628]/40 mb-2">{item.title}</h5>
@@ -94,7 +93,7 @@ export default function ContactPage() {
                                 </div>
 
                                 <h4 className="text-4xl font-display font-black text-white mb-4 tracking-tight">
-                                    <span className="bg-[#C6A75E] px-2 leading-relaxed decoration-clone box-decoration-clone">Send a Message</span>
+                                    <span className="bg-[#C6A75E] px-2 leading-relaxed decoration-clone box-decoration-clone text-[#0A1628]">Send a Message</span>
                                 </h4>
                                 <p className="text-white/60 font-light mb-12 max-w-md">Our team will get back to you within 24 business hours.</p>
 
@@ -106,7 +105,7 @@ export default function ContactPage() {
                                             required
                                             value={formState.name}
                                             onChange={e => setFormState({ ...formState, name: e.target.value })}
-                                            className="w-full bg-white/5 border border-white/10 rounded-2xl py-5 px-6 text-white placeholder:text-white/30 focus:ring-2 focus:ring-[#FFD700] transition-all outline-none"
+                                            className="w-full bg-white/5 border border-white/10 rounded-2xl py-5 px-6 text-white placeholder:text-white/30 focus:ring-2 focus:ring-[#C6A75E] transition-all outline-none"
                                             placeholder="Enter your full name"
                                         />
                                     </div>
@@ -117,7 +116,7 @@ export default function ContactPage() {
                                             required
                                             value={formState.email}
                                             onChange={e => setFormState({ ...formState, email: e.target.value })}
-                                            className="w-full bg-white/5 border border-white/10 rounded-2xl py-5 px-6 text-white placeholder:text-white/30 focus:ring-2 focus:ring-[#FFD700] transition-all outline-none"
+                                            className="w-full bg-white/5 border border-white/10 rounded-2xl py-5 px-6 text-white placeholder:text-white/30 focus:ring-2 focus:ring-[#C6A75E] transition-all outline-none"
                                             placeholder="your.email@example.com"
                                         />
                                     </div>
@@ -128,7 +127,7 @@ export default function ContactPage() {
                                             required
                                             value={formState.message}
                                             onChange={e => setFormState({ ...formState, message: e.target.value })}
-                                            className="w-full bg-white/5 border border-white/10 rounded-2xl py-5 px-6 text-white placeholder:text-white/30 focus:ring-2 focus:ring-[#FFD700] transition-all outline-none resize-none"
+                                            className="w-full bg-white/5 border border-white/10 rounded-2xl py-5 px-6 text-white placeholder:text-white/30 focus:ring-2 focus:ring-[#C6A75E] transition-all outline-none resize-none"
                                             placeholder="Tell us about your inquiry..."
                                         />
                                     </div>
@@ -145,33 +144,33 @@ export default function ContactPage() {
                             </motion.div>
                         </div>
                     </div>
-                </ContentSection>
+                </div>
+            </section>
 
-                {/* Map Integration */}
-                <section className="relative h-[500px] w-full bg-gray-100">
-                    <iframe
-                        title="New Defence Public School Location"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3549.385312386805!2d77.96853547535498!3d27.1883838!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397477a0d78606ef%3A0x6502d739bd0a84d4!2sNew%20Defense%20Public%20school!5e0!3m2!1sen!2sin!4v1735559773000!5m2!1sen!2sin"
-                        width="100%"
-                        height="100%"
-                        style={{ border: 0 }}
-                        allowFullScreen
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                        className="grayscale hover:grayscale-0 transition-all duration-1000"
-                    />
-                    <div className="absolute bottom-4 right-4 z-10">
-                        <a
-                            href="https://www.google.com/maps/place/New+Defense+Public+school/@27.1883838,77.9685355,17z/data=!3m1!4b1!4m6!3m5!1s0x397477a0d78606ef:0x6502d739bd0a84d4!8m2!3d27.1883838!4d77.9711104!16s%2Fg%2F11h0ghp_g4"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="px-6 py-3 bg-[#0A1628] text-white rounded-xl font-semibold hover:bg-[#FFD700] hover:text-[#0A1628] transition-all shadow-lg"
-                        >
-                            Open in Google Maps
-                        </a>
-                    </div>
-                </section>
-            </PageTransition>
-        </SmoothScroll>
+            {/* Map Integration */}
+            <section className="relative h-[500px] w-full bg-gray-100">
+                <iframe
+                    title="New Defence Public School Location"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3549.385312386805!2d77.96853547535498!3d27.1883838!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397477a0d78606ef%3A0x6502d739bd0a84d4!2sNew%20Defense%20Public%20school!5e0!3m2!1sen!2sin!4v1735559773000!5m2!1sen!2sin"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="grayscale hover:grayscale-0 transition-all duration-1000"
+                />
+                <div className="absolute bottom-10 right-10 z-10">
+                    <a
+                        href="https://www.google.com/maps/place/New+Defense+Public+school/@27.1883838,77.9685355,17z/data=!3m1!4b1!4m6!3m5!1s0x397477a0d78606ef:0x6502d739bd0a84d4!8m2!3d27.1883838!4d77.9711104!16s%2Fg%2F11h0ghp_g4"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-10 py-5 bg-[#0A1628] text-white rounded-full font-bold hover:bg-[#C6A75E] hover:text-[#0A1628] transition-all shadow-xl"
+                    >
+                        Open in Google Maps
+                    </a>
+                </div>
+            </section>
+        </main>
     );
 }

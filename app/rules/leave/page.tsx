@@ -19,25 +19,23 @@ const leaveRules = [
 
 export default function LeaveRulePage() {
     return (
-        <SmoothScroll>
-            <PageTransition>
-                <Navbar />
+        <main>
+            <SubPageHero
+                title="Leave Rules"
+                subtitle="Guidelines for attendance and absence."
+                breadcrumb="Rules & Regulations"
+                icon={<CalendarClock className="w-8 h-8" />}
+            />
 
-                <SubPageHero
-                    title="Leave Rules"
-                    subtitle="Guidelines for attendance and absence."
-                    breadcrumb="Rules & Regulations"
-                    icon={<CalendarClock className="w-8 h-8" />}
-                />
-
-                <ContentSection>
+            <section className="py-24">
+                <div className="container-premium">
                     <div className="max-w-4xl mx-auto">
                         <div className="grid md:grid-cols-2 gap-8 mb-12">
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                className="bg-[#FFD700]/10 p-10 rounded-[40px] border border-[#FFD700]/20"
+                                className="bg-[#C6A75E]/10 p-10 rounded-[40px] border border-[#C6A75E]/20"
                             >
                                 <FileText className="w-12 h-12 text-[#0A1628] mb-6" />
                                 <h4 className="text-2xl font-display font-black text-[#0A1628] mb-4">Application Mode</h4>
@@ -51,8 +49,8 @@ export default function LeaveRulePage() {
                                 transition={{ delay: 0.1 }}
                                 className="bg-[#0A1628] p-10 rounded-[40px] text-white"
                             >
-                                <AlertTriangle className="w-12 h-12 text-[#FFD700] mb-6" />
-                                <h4 className="text-2xl font-display font-black text-[#FFD700] mb-4">Strict Policy</h4>
+                                <AlertTriangle className="w-12 h-12 text-[#C6A75E] mb-6" />
+                                <h4 className="text-2xl font-display font-black text-[#C6A75E] mb-4">Strict Policy</h4>
                                 <p className="text-white/70 font-light">Attendance is mandatory on the first and last day of every term.</p>
                             </motion.div>
                         </div>
@@ -67,7 +65,7 @@ export default function LeaveRulePage() {
                                     transition={{ delay: idx * 0.1 }}
                                     className="flex items-start gap-6 p-8 bg-white rounded-3xl border border-[#0A1628]/5 shadow-sm hover:translate-x-2 transition-transform duration-300"
                                 >
-                                    <div className="w-8 h-8 rounded-full bg-[#0A1628] flex items-center justify-center text-[#FFD700] flex-shrink-0">
+                                    <div className="w-8 h-8 rounded-full bg-[#0A1628] flex items-center justify-center text-[#C6A75E] flex-shrink-0">
                                         {idx + 1}
                                     </div>
                                     <p className="text-lg text-gray-700 font-light leading-relaxed">{rule}</p>
@@ -75,10 +73,8 @@ export default function LeaveRulePage() {
                             ))}
                         </div>
                     </div>
-                </ContentSection>
-
-
-            </PageTransition>
-        </SmoothScroll>
+                </div>
+            </section>
+        </main>
     );
 }

@@ -4,7 +4,7 @@ import { getStorageBucket, getPublicUrl } from '@/lib/storage';
 
 // INDUSTRY LEVEL: Use dynamic runtime
 // Locally we use 'nodejs' for filesystem access, in production we use 'edge' for speed.
-export const runtime = process.env.NODE_ENV === 'production' ? 'edge' : 'nodejs';
+export const runtime = 'edge';
 
 /**
  * SECURE Document Upload Route

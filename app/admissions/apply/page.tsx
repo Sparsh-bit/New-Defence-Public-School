@@ -146,7 +146,7 @@ export default function ApplicationForm() {
     const labelClasses = "block text-sm font-semibold text-[#0A1628] mb-2";
 
     return (
-        <PageTransition>
+        <main>
             <SubPageHero
                 title="Admission Application"
                 subtitle="Begin your journey to excellence"
@@ -640,6 +640,6 @@ export default function ApplicationForm() {
                     </motion.form>
                 </div>
             </section>
-        </PageTransition>
+        </main>
     );
 }

@@ -3,7 +3,7 @@ import { secureApiHandler } from '@/lib/security';
 
 import { getStorageBucket } from '@/lib/storage';
 
-export const runtime = process.env.NODE_ENV === 'production' ? 'edge' : 'nodejs';
+export const runtime = 'edge';
 
 // Mock content for Edge Runtime
 const FALLBACK_CONTENT = {

@@ -34,21 +34,21 @@ const levels = [
 
 export default function CurriculumPage() {
     return (
-        <SmoothScroll>
-            <PageTransition>
-                <Navbar />
+        <main>
+            <SubPageHero
+                title="Academic Curriculum"
+                subtitle="Empowering minds through a comprehensive and rigorous academic framework."
+                breadcrumb="Academics"
+                icon={<BookOpen className="w-8 h-8" />}
+            />
 
-                <SubPageHero
-                    title="Academic Curriculum"
-                    subtitle="Empowering minds through a comprehensive and rigorous academic framework."
-                    breadcrumb="Academics"
-                    icon={<BookOpen className="w-8 h-8" />}
-                />
+            <section className="py-24">
+                <div className="container-premium">
+                    <div className="text-center mb-16">
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#C6A75E] mb-4 block">OUR PEDAGOGY</span>
+                        <h2 className="text-4xl md:text-5xl font-display font-black text-[#0A1628]">Nurturing Brilliance At Every Stage</h2>
+                    </div>
 
-                <ContentSection
-                    title="Nurturing Brilliance At Every Stage"
-                    subtitle="OUR PEDAGOGY"
-                >
                     <div className="space-y-12">
                         {levels.map((level, idx) => (
                             <motion.div
@@ -71,8 +71,8 @@ export default function CurriculumPage() {
                                     </p>
                                     <div className="grid grid-cols-2 gap-4">
                                         {level.subjects.map((s) => (
-                                            <div key={s} className="flex items-center gap-2 text-sm font-bold text-[#0A1628]/60 uppercase tracking-widest">
-                                                <div className="w-1.5 h-1.5 bg-[#FFD700] rounded-full" />
+                                            <div key={s} className="flex items-center gap-3 text-sm font-bold text-[#0A1628]/60 uppercase tracking-widest">
+                                                <div className="w-1.5 h-1.5 bg-[#C6A75E] rounded-full" />
                                                 {s}
                                             </div>
                                         ))}
@@ -92,25 +92,24 @@ export default function CurriculumPage() {
                             </motion.div>
                         ))}
                     </div>
-                </ContentSection>
+                </div>
+            </section>
 
-                <ContentSection alternate title="Co-Curricular Excellence" subtitle="BEYOND ACADEMICS">
-                    <div className="grid md:grid-cols-3 gap-8">
-                        {[
-                            { title: "Science Club", desc: "Fostering innovation through practical experiments.", icon: <Microscope /> },
-                            { title: "Performing Arts", desc: "Encouraging self-expression through music and dance.", icon: <Music /> },
-                            { title: "Sports Academy", desc: "Building character and physical excellence.", icon: <Award /> }
-                        ].map((item, idx) => (
-                            <div key={idx} className="bg-white p-10 rounded-3xl shadow-premium border border-[#0A1628]/5">
-                                <div className="text-[#FFD700] mb-6">{item.icon}</div>
-                                <h4 className="text-2xl font-display font-bold text-[#0A1628] mb-4">{item.title}</h4>
-                                <p className="text-gray-600 leading-relaxed font-light">{item.desc}</p>
-                            </div>
-                        ))}
-                    </div>
-                </ContentSection>
-
-            </PageTransition>
-        </SmoothScroll>
+            <ContentSection alternate title="Co-Curricular Excellence" subtitle="BEYOND ACADEMICS">
+                <div className="grid md:grid-cols-3 gap-8">
+                    {[
+                        { title: "Science Club", desc: "Fostering innovation through practical experiments.", icon: <Microscope /> },
+                        { title: "Performing Arts", desc: "Encouraging self-expression through music and dance.", icon: <Music /> },
+                        { title: "Sports Academy", desc: "Building character and physical excellence.", icon: <Award /> }
+                    ].map((item, idx) => (
+                        <div key={idx} className="bg-white p-10 rounded-3xl shadow-sm border border-[#0A1628]/5">
+                            <div className="text-[#C6A75E] mb-6">{item.icon}</div>
+                            <h4 className="text-2xl font-display font-bold text-[#0A1628] mb-4">{item.title}</h4>
+                            <p className="text-gray-600 leading-relaxed font-light">{item.desc}</p>
+                        </div>
+                    ))}
+                </div>
+            </ContentSection>
+        </main>
     );
 }

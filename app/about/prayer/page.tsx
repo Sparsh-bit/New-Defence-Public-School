@@ -11,18 +11,16 @@ import { motion } from 'framer-motion';
 
 export default function PrayerPage() {
     return (
-        <SmoothScroll>
-            <PageTransition>
-                <Navbar />
+        <main>
+            <SubPageHero
+                title="Prayer & Pledge"
+                subtitle="Spiritual and moral anchors for our students."
+                breadcrumb="Spirit of NDPS"
+                icon={<Heart className="w-8 h-8" />}
+            />
 
-                <SubPageHero
-                    title="Prayer & Pledge"
-                    subtitle="Spiritual and moral anchors for our students."
-                    breadcrumb="Spirit of NDPS"
-                    icon={<Heart className="w-8 h-8" />}
-                />
-
-                <ContentSection>
+            <section className="py-24">
+                <div className="container-premium">
                     <div className="max-w-4xl mx-auto space-y-32">
                         {/* School Prayer */}
                         <motion.div
@@ -31,7 +29,7 @@ export default function PrayerPage() {
                             viewport={{ once: true }}
                             className="text-center"
                         >
-                            <Music className="w-12 h-12 text-[#FFD700] mx-auto mb-10 opacity-40" />
+                            <Music className="w-12 h-12 text-[#C6A75E] mx-auto mb-10 opacity-40" />
                             <h3 className="text-4xl md:text-5xl font-display font-black text-[#0A1628] mb-12 tracking-tight">Our School Prayer</h3>
                             <div className="space-y-6 text-2xl md:text-3xl font-light text-gray-600 leading-[1.6] italic font-display">
                                 <p>"O God, our Father, help us today</p>
@@ -41,10 +39,10 @@ export default function PrayerPage() {
                                 <p>Give us wisdom, strength, and grace,</p>
                                 <p>To make this world a better place."</p>
                             </div>
-                            <div className="w-40 h-[1px] bg-[#FFD700] mx-auto mt-16" />
+                            <div className="w-40 h-[1px] bg-[#C6A75E] mx-auto mt-16" />
                         </motion.div>
 
-                        {/* School Pledge */}
+                        {/* National Pledge */}
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -54,8 +52,8 @@ export default function PrayerPage() {
                             <div className="absolute inset-0 opacity-10">
                                 <Stars className="w-full h-full" />
                             </div>
-                            <BookText className="w-12 h-12 text-[#FFD700] mx-auto mb-10 opacity-40 relative z-10" />
-                            <h3 className="text-4xl md:text-5xl font-display font-black text-[#FFD700] mb-12 tracking-tight relative z-10">National Pledge</h3>
+                            <BookText className="w-12 h-12 text-[#C6A75E] mx-auto mb-10 opacity-40 relative z-10" />
+                            <h3 className="text-4xl md:text-5xl font-display font-black text-[#C6A75E] mb-12 tracking-tight relative z-10">National Pledge</h3>
                             <div className="space-y-6 text-xl md:text-2xl font-light text-white/80 leading-[1.8] relative z-10 uppercase tracking-wide">
                                 <p>"India is my country. All Indians are my brothers and sisters.</p>
                                 <p>I love my country and I am proud of its rich and varied heritage.</p>
@@ -66,10 +64,8 @@ export default function PrayerPage() {
                             </div>
                         </motion.div>
                     </div>
-                </ContentSection>
-
-
-            </PageTransition>
-        </SmoothScroll>
+                </div>
+            </section>
+        </main>
     );
 }
