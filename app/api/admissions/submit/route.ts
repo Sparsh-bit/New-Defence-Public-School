@@ -84,7 +84,7 @@ async function handleSubmit(request: SecureRequest) {
 // Export with security wrapper
 // Public route but with strict rate limiting to prevent spam
 export const POST = secureApiHandler(handleSubmit, {
-    rateLimit: 'admin',      // Strict: 30 requests/minute to prevent form spam
+    rateLimit: 'form',       // Strict: 3 requests per 15 minutes to prevent form spam
     auth: false,             // Public form - no auth required
     cors: true,
     securityHeaders: true,

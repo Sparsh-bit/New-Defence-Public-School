@@ -287,7 +287,7 @@ body {
 **Solution:** Removed duplicate Footer, Navbar, and SmoothScroll from individual pages since they're provided by root layout
 
 ### 6. Admin Portal Header Overlap ✅ FIXED
-**Solution:** Added `pt-32` top padding to account for fixed navbar
+**Solution:** Hidden navbar on Admin Portal pages and added necessary padding to ensure content is never cut off.
 
 ---
 

@@ -37,7 +37,7 @@ async function handleExport(request: SecureRequest) {
 // Enable authentication after setting up JWT_SECRET and user management.
 export const GET = secureApiHandler(handleExport, {
     rateLimit: 'admin',      // 30 requests/minute (exports are expensive)
-    auth: false,             // TODO: Enable after setting JWT_SECRET: { required: true, permissions: ['admissions:export'] }
+    auth: { required: true, permissions: ['admissions:export'] },
     cors: true,
     securityHeaders: true,
     endpoint: '/api/admissions/export'

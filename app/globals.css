@@ -194,10 +194,10 @@ p {
   color: #FFFFFF !important;
 }
 
-/* Ensure proper contrast on dark backgrounds */
-[class*="bg-"][class*="0A1628"] .text-white,
-[class*="bg-"][class*="0A1628"] p,
-[class*="bg-"][class*="0A1628"] span:not([class*="FFD700"]):not([class*="C6A75E"]) {
+/* Contrast help for explicit dark sections */
+.bg-navy-900 .text-white,
+.bg-navy-900 p,
+.bg-navy-900 span:not([class*="FFD700"]) {
   color: #FFFFFF;
 }
 

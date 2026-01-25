@@ -61,7 +61,7 @@ async function handleList(request: SecureRequest) {
 // Enable authentication after setting up JWT_SECRET and user management.
 export const GET = secureApiHandler(handleList, {
     rateLimit: 'api',        // 100 requests/minute
-    auth: false,             // TODO: Enable after setting JWT_SECRET: { required: true, permissions: ['admissions:read'] }
+    auth: { required: true, permissions: ['admissions:read'] },
     cors: true,
     securityHeaders: true,
     endpoint: '/api/admissions/list'

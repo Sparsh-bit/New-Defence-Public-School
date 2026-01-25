@@ -54,8 +54,8 @@ export function AboutSchoolSection() {
                         className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl"
                     >
                         <Image
-                            src="/images/ndps.jpg"
-                            alt="NDPS School Building"
+                            src="/images/about_school_render.jpg"
+                            alt="NDPS School Building Render"
                             fill
                             sizes="(max-width: 1024px) 100vw, 50vw"
                             className="object-cover"

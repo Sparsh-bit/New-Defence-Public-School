@@ -18,7 +18,7 @@ const managementTeam = [
     {
         name: "Rajesh Kumar Sharma",
         role: "Director",
-        qual: "M.A., B.Ed.",
+        qual: "M.Sc., B.Ed.",
         image: "/images/leadership/director.jpg",
         link: "/messages/director"
     },
@@ -110,26 +110,26 @@ export default function ManagementPage() {
                         </div>
                     </div>
 
-                    <div className="bg-[#0B1C2D] p-12 md:p-16 rounded-[48px] text-white relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32" />
+                    <div className="bg-white p-12 md:p-16 rounded-[48px] text-[#0A1628] relative overflow-hidden shadow-sm border border-[#C6A75E]/10">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-[#0B1C2D]/5 rounded-full -mr-32 -mt-32" />
                         <h3 className="text-3xl font-display font-bold mb-8">Contact Administration</h3>
                         <ul className="space-y-8">
                             <li className="flex items-center gap-6">
-                                <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
+                                <div className="w-12 h-12 bg-[#0B1C2D]/5 rounded-xl flex items-center justify-center">
                                     <Phone size={20} className="text-[#C6A75E]" />
                                 </div>
                                 <div>
-                                    <p className="text-[10px] font-black uppercase tracking-widest opacity-50 mb-1">Office Line</p>
-                                    <p className="font-bold">+91 9412362584, +91 9412158024</p>
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Office Line</p>
+                                    <p className="font-bold text-[#0B1C2D]">+91 9412362584, +91 9412158024</p>
                                 </div>
                             </li>
                             <li className="flex items-center gap-6">
-                                <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
+                                <div className="w-12 h-12 bg-[#0B1C2D]/5 rounded-xl flex items-center justify-center">
                                     <Mail size={20} className="text-[#C6A75E]" />
                                 </div>
                                 <div>
-                                    <p className="text-[10px] font-black uppercase tracking-widest opacity-50 mb-1">Email</p>
-                                    <p className="font-bold">newdefence@yahoo.co.in</p>
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Email</p>
+                                    <p className="font-bold text-[#0B1C2D]">newdefence@yahoo.co.in</p>
                                 </div>
                             </li>
                         </ul>

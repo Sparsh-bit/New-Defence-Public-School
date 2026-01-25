@@ -1,17 +1,9 @@
 import { NextResponse } from 'next/server';
 import { secureApiHandler } from '@/lib/security';
 
-export const runtime = 'edge';
+import { getStorageBucket } from '@/lib/storage';
 
-// Define minimal R2 types for TS
-interface R2ObjectBody {
-    json<T>(): Promise<T>;
-}
-
-interface R2Bucket {
-    get(key: string): Promise<R2ObjectBody | null>;
-    put(key: string, value: any, options?: any): Promise<any>;
-}
+export const runtime = process.env.NODE_ENV === 'production' ? 'edge' : 'nodejs';
 
 // Mock content for Edge Runtime
 const FALLBACK_CONTENT = {
@@ -39,6 +31,10 @@ const FALLBACK_CONTENT = {
             "/images/infrastructure/fl1.jpg",
             "/images/infrastructure/fl10.jpg"
         ]
+    },
+    downloads: {
+        general: [],
+        results: []
     }
 };
 
@@ -53,8 +49,8 @@ const FALLBACK_CONTENT = {
  */
 async function handleContent() {
     try {
-        const bucket = process.env.NDPS_BUCKET as unknown as R2Bucket;
-        let content = { ...FALLBACK_CONTENT };
+        const bucket = getStorageBucket();
+        let content = { ...FALLBACK_CONTENT } as any;
 
         if (bucket) {
             // 1. Fetch News
@@ -76,13 +72,26 @@ async function handleContent() {
                     if (galleryData.infrastructure) content.gallery.infrastructure = galleryData.infrastructure;
                 }
             }
+
+            // 3. Fetch Downloads
+            const downloadsObj = await bucket.get('downloads.json');
+            if (downloadsObj) {
+                const downloadsData = await downloadsObj.json() as any;
+                if (downloadsData) {
+                    content.downloads = downloadsData;
+                }
+            }
         }
 
-        // Add cache headers for performance (5 minutes cache)
+        // Cache Strategy: 5 mins for production, 0 mins for development
+        const cacheControl = process.env.NODE_ENV === 'development'
+            ? 'no-store, max-age=0'
+            : 'public, max-age=300, stale-while-revalidate=60';
+
         return new Response(JSON.stringify(content), {
             headers: {
                 'Content-Type': 'application/json',
-                'Cache-Control': 'public, max-age=300, stale-while-revalidate=60'
+                'Cache-Control': cacheControl
             }
         });
     } catch (error) {
@@ -94,7 +103,7 @@ async function handleContent() {
 
 // Export with security wrapper - lenient rate limiting for public content
 export const GET = secureApiHandler(handleContent, {
-    rateLimit: 'public',     // 200 requests/minute (lenient for public content)
+    rateLimit: 'public',     // 30 requests/minute (strict enough for public content)
     auth: false,             // Public content - no auth
     cors: true,
     securityHeaders: true,

@@ -58,7 +58,7 @@ async function handleVerify(request: SecureRequest) {
 // Export with security wrapper
 export const GET = secureApiHandler(handleVerify, {
     rateLimit: 'api',
-    auth: false,  // We manually check auth in the handler
+    auth: { required: true },
     cors: true,
     securityHeaders: true,
     endpoint: '/api/auth/verify'

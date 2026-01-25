@@ -12,7 +12,7 @@ export default function AboutPage() {
             <section className="relative min-h-[90vh] flex flex-col justify-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <Image
-                        src="/images/gen/school_infrastructure_india_1766952342809.png"
+                        src="/images/infra/campus.png"
                         alt="School Building"
                         fill
                         className="object-cover opacity-30 scale-105"
@@ -101,7 +101,7 @@ export default function AboutPage() {
                                 className="relative h-[600px] w-full rounded-[3rem] overflow-hidden shadow-2xl group border border-white/10"
                             >
                                 <Image
-                                    src="/images/gen/school_infrastructure_india_1766952342809.png"
+                                    src="/images/infra/campus.png"
                                     alt="School Building"
                                     fill
                                     className="object-cover transition-transform duration-1000 group-hover:scale-110"
@@ -163,9 +163,9 @@ export default function AboutPage() {
 
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {[
-                                { title: 'Smart Classrooms', desc: 'Interactive digital panels & ergonomic seating', img: '/images/gen/smart_classroom_india_1766952364269.png' },
-                                { title: 'Modern Library', desc: 'Extensive knowledge bank with digital access', img: '/images/gen/school_library_india_1766952387183.png' },
-                                { title: 'Science Labs', desc: 'Advanced equipment for practical discovery', img: '/images/gen/school_infrastructure_india_1766952342809.png' },
+                                { title: 'Smart Classrooms', desc: 'Interactive digital panels & ergonomic seating', img: '/images/infra/smart_classroom.png' },
+                                { title: 'Modern Library', desc: 'Extensive knowledge bank with digital access', img: '/images/infra/library.png' },
+                                { title: 'Science Labs', desc: 'Advanced equipment for practical discovery', img: '/images/infra/science_lab.png' },
                             ].map((item, i) => (
                                 <motion.div
                                     key={i}

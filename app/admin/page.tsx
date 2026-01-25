@@ -249,9 +249,9 @@ export default function AdminDashboard() {
                                         No active news or events.
                                     </div>
                                 ) : (
-                                    newsItems.map((item) => (
+                                    newsItems.map((item, idx) => (
                                         <motion.div
-                                            key={item.id}
+                                            key={item.id || `news-${idx}`}
                                             layout
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
@@ -319,7 +319,7 @@ export default function AdminDashboard() {
 
                             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
                                 {galleryItems.map((src, idx) => (
-                                    <div key={idx} className="relative aspect-square rounded-xl overflow-hidden group">
+                                    <div key={`gallery-${idx}`} className="relative aspect-square rounded-xl overflow-hidden group">
                                         <img src={src} alt="Gallery" className="w-full h-full object-cover" />
                                         <button
                                             className="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"

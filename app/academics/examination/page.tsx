@@ -54,19 +54,19 @@ export default function ExaminationPage() {
                             </div>
                         </div>
 
-                        <div className="bg-[#0A1628] rounded-[64px] p-12 text-white flex flex-col justify-center">
+                        <div className="bg-white border border-[#0A1628]/5 shadow-premium rounded-[64px] p-12 text-[#0A1628] flex flex-col justify-center">
                             <BarChart className="w-20 h-20 text-[#FFD700] mb-8 opacity-100" />
-                            <h4 className="text-4xl font-display font-black text-[#FFD700] mb-8 tracking-tight">Promotion Rules</h4>
-                            <div className="space-y-6 text-gray-100 font-medium text-lg">
+                            <h4 className="text-4xl font-display font-black text-[#0A1628] mb-8 tracking-tight">Promotion Rules</h4>
+                            <div className="space-y-6 text-gray-700 font-medium text-lg">
                                 <p className="flex gap-4 items-center">
-                                    <span className="text-[#FFD700] font-black text-2xl">75%</span>
+                                    <span className="text-[#0B1C2D] font-black text-2xl">75%</span>
                                     Attendance is mandatory for appearing in any examination.
                                 </p>
                                 <p className="flex gap-4 items-center">
-                                    <span className="text-[#FFD700] font-black text-2xl">33%</span>
+                                    <span className="text-[#0B1C2D] font-black text-2xl">33%</span>
                                     Minimum marks required in each subject for promotion to the next class.
                                 </p>
-                                <p className="italic text-white/50 bg-white/5 p-4 rounded-xl border border-white/10">
+                                <p className="italic text-slate-500 bg-[#0B1C2D]/5 p-6 rounded-3xl border border-[#0B1C2D]/10">
                                     "Promotion depends on the student's performance throughout the year and not just on the final exams."
                                 </p>
                             </div>

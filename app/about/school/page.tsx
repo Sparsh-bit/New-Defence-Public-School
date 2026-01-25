@@ -33,7 +33,7 @@ export default function AboutSchoolPage() {
                         >
                             <div className="aspect-[4/5] rounded-[64px] overflow-hidden shadow-2xl relative">
                                 <Image
-                                    src="/images/slider/ndps.jpg"
+                                    src="/images/infra/campus.png"
                                     alt="NDPS Campus"
                                     fill
                                     className="object-cover"

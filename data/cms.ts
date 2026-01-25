@@ -76,3 +76,17 @@ export const galleryImages = {
         "/images/gen/smart_classroom_india_1766952364269.png",
     ]
 };
+
+export interface DownloadItem {
+    id: string;
+    name: string;
+    description: string;
+    url: string;
+    category: 'general' | 'results';
+    updatedAt: string;
+}
+
+export const schoolDownloads = {
+    general: [] as DownloadItem[],
+    results: [] as DownloadItem[]
+};

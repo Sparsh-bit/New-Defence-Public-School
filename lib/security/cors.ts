@@ -103,27 +103,31 @@ export function getCorsConfig(): CorsConfig {
  */
 export function isOriginAllowed(origin: string | null, config: CorsConfig): boolean {
     if (!origin) {
-        // Requests without origin (same-origin, server-to-server) are typically allowed
-        // But be cautious - some proxies strip the Origin header
+        // Allow same-origin requests (no Origin header)
         return true;
     }
+
+    // Production: NO WILDCARDS ALLOWED. Must be explicit.
+    const isProduction = process.env.NODE_ENV === 'production';
 
     // Check for exact match
     if (config.allowedOrigins.includes(origin)) {
         return true;
     }
 
-    // Check for wildcard subdomain patterns (e.g., *.example.com)
+    // Wildcard subdomain patterns (e.g., *.example.com) - discouraged in prod but allowed if explicit
     for (const allowedOrigin of config.allowedOrigins) {
         if (allowedOrigin.startsWith('*.')) {
             const domain = allowedOrigin.slice(2);
             try {
                 const originUrl = new URL(origin);
+                // Ensure origin is using HTTPS in production
+                if (isProduction && originUrl.protocol !== 'https:') continue;
+
                 if (originUrl.hostname.endsWith(domain) || originUrl.hostname === domain.slice(1)) {
                     return true;
                 }
             } catch {
-                // Invalid origin URL, reject
                 return false;
             }
         }

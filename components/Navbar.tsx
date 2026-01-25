@@ -19,6 +19,8 @@ const navigation = [
         name: 'Academics', href: '/academics/examination', submenu: [
             { name: 'Curriculum', href: '/about/curriculum' },
             { name: 'Assessment', href: '/academics/examination' },
+            { name: 'Annual Results', href: '/result' },
+            { name: 'Downloads', href: '/downloads' },
             { name: 'Rules', href: '/rules/conduct' },
         ]
     },
@@ -47,8 +49,8 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Hide Navbar on Admin Portal
-    if (pathname && (pathname.startsWith('/admissions/admin') || pathname.startsWith('/admin'))) {
+    // Hide Navbar on Admin Portal & Login
+    if (pathname && (pathname.startsWith('/admissions/admin') || pathname.startsWith('/admin') || pathname === '/admissions/portal')) {
         return null;
     }
 

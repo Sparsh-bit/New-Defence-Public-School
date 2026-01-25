@@ -1,16 +1,9 @@
 import { NextResponse } from 'next/server';
 import { secureApiHandler, type SecureRequest } from '@/lib/security';
 
-export const runtime = 'edge';
+import { getStorageBucket } from '@/lib/storage';
 
-// Define R2 Types locally
-interface R2ObjectBody {
-    json<T>(): Promise<T>;
-}
-interface R2Bucket {
-    get(key: string): Promise<R2ObjectBody | null>;
-    put(key: string, value: any, options?: any): Promise<any>;
-}
+export const runtime = process.env.NODE_ENV === 'production' ? 'edge' : 'nodejs';
 
 /**
  * SECURE Admin Update Route
@@ -36,12 +29,8 @@ async function handleUpdate(request: SecureRequest) {
             }, { status: 413 });
         }
 
-        // Use R2 Bucket as a JSON Database
-        const bucket = process.env.NDPS_BUCKET as unknown as R2Bucket;
-
-        if (!bucket) {
-            return NextResponse.json({ success: false, message: 'Bucket not bound' }, { status: 500 });
-        }
+        // Access the bound R2 Bucket via the storage utility
+        const bucket = getStorageBucket();
 
         // Log admin action for audit trail
         console.log(`[ADMIN ACTION] User: ${request.user?.username || 'unknown'} | Action: ${body.type} | Time: ${new Date().toISOString()}`);
@@ -68,8 +57,6 @@ async function handleUpdate(request: SecureRequest) {
             const data = body.fullData;
 
             // SAFETY 3: Hard Limit 10 Images per Category
-            // This is the CRITICAL "Forever Free" enforcement.
-            // Even if client-side validation is bypassed, this blocks the database update.
             if (data.events && data.events.length > 10) {
                 return NextResponse.json({
                     success: false,
@@ -88,6 +75,31 @@ async function handleUpdate(request: SecureRequest) {
             });
         }
 
+        // Handle Downloads Meta Updates
+        if (body.type === 'downloads_meta') {
+            const data = body.fullData;
+
+            // SAFETY: Max 3 Results PDFs
+            if (data.results && data.results.length > 3) {
+                return NextResponse.json({
+                    success: false,
+                    message: 'Database Safety Limit: Max 3 Result PDFs allowed.'
+                }, { status: 400 });
+            }
+
+            // Max 10 General PDFs
+            if (data.general && data.general.length > 10) {
+                return NextResponse.json({
+                    success: false,
+                    message: 'Database Safety Limit: Max 10 General PDFs allowed.'
+                }, { status: 400 });
+            }
+
+            await bucket.put('downloads.json', JSON.stringify(data), {
+                httpMetadata: { contentType: 'application/json', cacheControl: 'no-cache' }
+            });
+        }
+
         return NextResponse.json({ success: true });
     } catch (error) {
         console.error('Update failed:', error);
@@ -99,11 +111,7 @@ async function handleUpdate(request: SecureRequest) {
 // NOTE: During initial setup, auth is set to false. 
 // Enable authentication after setting up JWT_SECRET and user management.
 export const POST = secureApiHandler(handleUpdate, {
-    rateLimit: 'admin',      // 30 requests/minute
-    auth: false,             // TODO: Enable after setting JWT_SECRET: { required: true, permissions: ['content:write'] }
-    cors: true,
-    securityHeaders: true,
-    endpoint: '/api/admin/update'
+    rateLimit: 'admin', auth: { required: true, permissions: ['content:write'] }, cors: true, securityHeaders: true, endpoint: '/api/admin/update'
 });
 
 // Handle OPTIONS for CORS preflight

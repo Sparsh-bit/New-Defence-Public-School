@@ -15,25 +15,25 @@ const facilities = [
         title: "Smart Classrooms",
         desc: "Equipped with 4K projectors and interactive whiteboards, our classrooms transform traditional learning into a dynamic, visual experience.",
         icon: <Monitor className="w-8 h-8" />,
-        image: "/images/slider/ndps.jpg" // Fallback to campus or relevant image
+        image: "/images/infra/smart_classroom.png"
     },
     {
         title: "Advanced Laboratories",
         desc: "Specialized Physics, Chemistry, Biology, and Mathematics labs designed for hands-on experimentation and scientific discovery.",
         icon: <Microscope className="w-8 h-8" />,
-        image: "/images/slider/02.jpg"
+        image: "/images/infra/science_lab.png"
     },
     {
         title: "Digital Library",
         desc: "A vast collection of over 10,000 books, journals, and digital resources in a quiet, modern environment conducive to research.",
         icon: <Library className="w-8 h-8" />,
-        image: "/images/slider/04.jpg"
+        image: "/images/infra/library.png"
     },
     {
         title: "Sports Complex",
         desc: "Professional-grade football ground, basketball courts, and indoor sports facilities to nurture physical fitness and teamwork.",
         icon: <Dumbbell className="w-8 h-8" />,
-        image: "/images/slider/01.jpg"
+        image: "/images/infra/sports_complex.png"
     }
 ];
 

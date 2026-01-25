@@ -77,11 +77,25 @@ export const RATE_LIMIT_PRESETS = {
         message: 'Upload rate limit exceeded. Please wait before uploading more files.'
     },
 
-    // Public content (more lenient)
+    // Public content (general browse)
     public: {
-        windowMs: 60 * 1000,  // 1 minute
-        maxRequests: parseInt(process.env.RATE_LIMIT_PUBLIC_MAX || '200'),
-        message: 'Request limit exceeded.'
+        windowMs: 60 * 1000,
+        maxRequests: 30,      // Tightened: 1 request every 2s average
+        message: 'Browse limit exceeded. Please slow down.'
+    },
+
+    // Specialized for result search (prevent scraping/abuse)
+    search: {
+        windowMs: 60 * 1000,
+        maxRequests: 10,      // 10 searches per minute is plenty for a student
+        message: 'Search frequency exceeded. Please try again in a minute.'
+    },
+
+    // Strict limit for form submissions (prevent spam)
+    form: {
+        windowMs: 15 * 60 * 1000, // 15 minutes
+        maxRequests: 3,           // Only 3 submissions per IP per 15 mins
+        message: 'Submission limit reached. Please wait before trying again.'
     }
 } as const;
 

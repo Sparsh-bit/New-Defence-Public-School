@@ -36,7 +36,7 @@ export default function PortalLogin() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 flex items-center justify-center px-4 py-12">
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 flex flex-col items-center justify-center px-4 py-12">
             {/* Animated Background */}
             <div className="absolute inset-0 overflow-hidden">
                 <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
@@ -61,7 +61,7 @@ export default function PortalLogin() {
                         <Shield className="w-10 h-10 text-white" />
                     </motion.div>
                     <h1 className="text-4xl font-bold text-white mb-2">
-                        Admission Portal
+                        Admin Portal
                     </h1>
                     <p className="text-blue-200">
                         New Defence Public School - Admin Access

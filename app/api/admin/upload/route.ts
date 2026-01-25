@@ -1,16 +1,9 @@
 import { NextResponse } from 'next/server';
 import { secureApiHandler, type SecureRequest } from '@/lib/security';
 
-export const runtime = 'edge';
+import { getStorageBucket, getPublicUrl } from '@/lib/storage';
 
-// Define R2 Types locally
-interface R2ObjectBody {
-    json<T>(): Promise<T>;
-}
-interface R2Bucket {
-    get(key: string): Promise<R2ObjectBody | null>;
-    put(key: string, value: any, options?: any): Promise<any>;
-}
+export const runtime = process.env.NODE_ENV === 'production' ? 'edge' : 'nodejs';
 
 /**
  * SECURE File Upload Route
@@ -50,13 +43,8 @@ async function handleUpload(request: SecureRequest) {
             }, { status: 400 });
         }
 
-        // Access the bound R2 Bucket from the environment
-        const bucket = process.env.NDPS_BUCKET as unknown as R2Bucket;
-
-        if (!bucket) {
-            console.error("R2 Bucket binding 'NDPS_BUCKET' not found.");
-            return NextResponse.json({ success: false, message: 'Server Configuration Error: Bucket not bound' }, { status: 500 });
-        }
+        // Access the bound R2 Bucket via the storage utility
+        const bucket = getStorageBucket();
 
         // Log upload action for audit trail
         console.log(`[UPLOAD ACTION] User: ${request.user?.username || 'unknown'} | Category: ${category} | File: ${file.name} | Size: ${file.size}`);
@@ -98,7 +86,7 @@ async function handleUpload(request: SecureRequest) {
 
         // Return Public URL
         // R2_PUBLIC_URL should be your R2 public domain (e.g., https://pub-xxx.r2.dev) set in env vars
-        const publicUrl = `${process.env.R2_PUBLIC_URL}/${filename}`;
+        const publicUrl = getPublicUrl(filename);
 
         return NextResponse.json({
             success: true,
@@ -116,7 +104,7 @@ async function handleUpload(request: SecureRequest) {
 // Enable authentication after setting up JWT_SECRET and user management.
 export const POST = secureApiHandler(handleUpload, {
     rateLimit: 'upload',     // 10 requests/minute (very strict for uploads)
-    auth: false,             // TODO: Enable after setting JWT_SECRET: { required: true, permissions: ['gallery:write'] }
+    auth: { required: true, permissions: ['gallery:write'] },
     cors: true,
     securityHeaders: true,
     endpoint: '/api/admin/upload'

@@ -1,0 +1,301 @@
+{
+    "results":  [
+                    {
+                        "sr_no":  "314-BIO",
+                        "student_name":  "MOHAMMAD SAIF",
+                        "class":  "12",
+                        "stream":  "BIO",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":40},{\"subject\":\"moral, phy. edu.\",\"marks\":40},{\"subject\":\"english\",\"marks\":70},{\"subject\":\"physics\",\"marks\":19},{\"subject\":\"chemistry\",\"marks\":30},{\"subject\":\"biology\",\"marks\":42}]",
+                        "total_marks":  241,
+                        "percentage":  43.82,
+                        "result_status":  "PASS",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "283-BIO",
+                        "student_name":  "RIYA BAGHEL",
+                        "class":  "12",
+                        "stream":  "BIO",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":24},{\"subject\":\"moral, phy. edu.\",\"marks\":38},{\"subject\":\"english\",\"marks\":32},{\"subject\":\"physics\",\"marks\":12},{\"subject\":\"chemistry\",\"marks\":62},{\"subject\":\"biology\",\"marks\":32}]",
+                        "total_marks":  200,
+                        "percentage":  36.36,
+                        "result_status":  "PASS",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "285-BIO",
+                        "student_name":  "PAYAL KUMARI",
+                        "class":  "12",
+                        "stream":  "BIO",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":18},{\"subject\":\"moral, phy. edu.\",\"marks\":41},{\"subject\":\"english\",\"marks\":45},{\"subject\":\"physics\",\"marks\":17},{\"subject\":\"chemistry\",\"marks\":60},{\"subject\":\"biology\",\"marks\":62}]",
+                        "total_marks":  243,
+                        "percentage":  44.18,
+                        "result_status":  "PASS",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "286-BIO",
+                        "student_name":  "KAJAL KUMARI",
+                        "class":  "12",
+                        "stream":  "BIO",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":21},{\"subject\":\"moral, phy. edu.\",\"marks\":39},{\"subject\":\"english\",\"marks\":38},{\"subject\":\"physics\",\"marks\":20},{\"subject\":\"chemistry\",\"marks\":50},{\"subject\":\"biology\",\"marks\":57}]",
+                        "total_marks":  225,
+                        "percentage":  40.91,
+                        "result_status":  "PASS",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "290-BIO",
+                        "student_name":  "EKTA KARDAM",
+                        "class":  "12",
+                        "stream":  "BIO",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":36},{\"subject\":\"moral, phy. edu.\",\"marks\":40},{\"subject\":\"english\",\"marks\":67},{\"subject\":\"physics\",\"marks\":17},{\"subject\":\"chemistry\",\"marks\":38},{\"subject\":\"biology\",\"marks\":42}]",
+                        "total_marks":  240,
+                        "percentage":  43.64,
+                        "result_status":  "PASS",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "291-BIO",
+                        "student_name":  "SAHIBA KHAN",
+                        "class":  "12",
+                        "stream":  "BIO",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":75},{\"subject\":\"moral, phy. edu.\",\"marks\":45},{\"subject\":\"english\",\"marks\":86},{\"subject\":\"physics\",\"marks\":33},{\"subject\":\"chemistry\",\"marks\":57},{\"subject\":\"biology\",\"marks\":44}]",
+                        "total_marks":  340,
+                        "percentage":  61.82,
+                        "result_status":  "PASS",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "292-BIO",
+                        "student_name":  "KHUSHBOO KUMARI",
+                        "class":  "12",
+                        "stream":  "BIO",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":56},{\"subject\":\"moral, phy. edu.\",\"marks\":42},{\"subject\":\"english\",\"marks\":56},{\"subject\":\"physics\",\"marks\":25},{\"subject\":\"chemistry\",\"marks\":33},{\"subject\":\"biology\",\"marks\":39}]",
+                        "total_marks":  251,
+                        "percentage":  45.64,
+                        "result_status":  "PASS",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "293-BIO",
+                        "student_name":  "PRINCY KARDAM",
+                        "class":  "12",
+                        "stream":  "BIO",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":53},{\"subject\":\"moral, phy. edu.\",\"marks\":40},{\"subject\":\"english\",\"marks\":78},{\"subject\":\"physics\",\"marks\":63},{\"subject\":\"chemistry\",\"marks\":81},{\"subject\":\"biology\",\"marks\":77}]",
+                        "total_marks":  392,
+                        "percentage":  71.27,
+                        "result_status":  "PASS",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "294-BIO",
+                        "student_name":  "PRIYANKA RATHORE",
+                        "class":  "12",
+                        "stream":  "BIO",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":36},{\"subject\":\"moral, phy. edu.\",\"marks\":38},{\"subject\":\"english\",\"marks\":36},{\"subject\":\"physics\",\"marks\":59},{\"subject\":\"chemistry\",\"marks\":33},{\"subject\":\"biology\",\"marks\":44}]",
+                        "total_marks":  246,
+                        "percentage":  44.73,
+                        "result_status":  "PASS",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "295-BIO",
+                        "student_name":  "SIMRAN KUMARI",
+                        "class":  "12",
+                        "stream":  "BIO",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":42},{\"subject\":\"moral, phy. edu.\",\"marks\":39},{\"subject\":\"english\",\"marks\":66},{\"subject\":\"physics\",\"marks\":21},{\"subject\":\"chemistry\",\"marks\":35},{\"subject\":\"biology\",\"marks\":43}]",
+                        "total_marks":  246,
+                        "percentage":  44.73,
+                        "result_status":  "PASS",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "297-BIO",
+                        "student_name":  "RITU KUMARI",
+                        "class":  "12",
+                        "stream":  "BIO",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":60},{\"subject\":\"moral, phy. edu.\",\"marks\":40},{\"subject\":\"english\",\"marks\":87},{\"subject\":\"physics\",\"marks\":54},{\"subject\":\"chemistry\",\"marks\":79},{\"subject\":\"biology\",\"marks\":50}]",
+                        "total_marks":  370,
+                        "percentage":  67.27,
+                        "result_status":  "PASS",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "276-BIO",
+                        "student_name":  "ANJALI KUMARI",
+                        "class":  "12",
+                        "stream":  "BIO",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":35},{\"subject\":\"moral, phy. edu.\",\"marks\":40},{\"subject\":\"english\",\"marks\":64},{\"subject\":\"physics\",\"marks\":20},{\"subject\":\"chemistry\",\"marks\":39},{\"subject\":\"biology\",\"marks\":38}]",
+                        "total_marks":  236,
+                        "percentage":  42.91,
+                        "result_status":  "PASS",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "303-BIO",
+                        "student_name":  "BHAVNA KUMARI",
+                        "class":  "12",
+                        "stream":  "BIO",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":60},{\"subject\":\"moral, phy. edu.\",\"marks\":44},{\"subject\":\"english\",\"marks\":84},{\"subject\":\"physics\",\"marks\":71},{\"subject\":\"chemistry\",\"marks\":78},{\"subject\":\"biology\",\"marks\":86}]",
+                        "total_marks":  423,
+                        "percentage":  76.91,
+                        "result_status":  "PASS",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "304-BIO",
+                        "student_name":  "FIRDOSH",
+                        "class":  "12",
+                        "stream":  "BIO",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":38},{\"subject\":\"moral, phy. edu.\",\"marks\":40},{\"subject\":\"english\",\"marks\":36},{\"subject\":\"physics\",\"marks\":15},{\"subject\":\"chemistry\",\"marks\":25},{\"subject\":\"biology\",\"marks\":0}]",
+                        "total_marks":  154,
+                        "percentage":  28,
+                        "result_status":  "FAIL",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "277-BIO",
+                        "student_name":  "AKSHA KHAN",
+                        "class":  "12",
+                        "stream":  "BIO",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":55},{\"subject\":\"moral, phy. edu.\",\"marks\":42},{\"subject\":\"english\",\"marks\":69},{\"subject\":\"physics\",\"marks\":24},{\"subject\":\"chemistry\",\"marks\":40},{\"subject\":\"biology\",\"marks\":43}]",
+                        "total_marks":  273,
+                        "percentage":  49.64,
+                        "result_status":  "PASS",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "309-BIO",
+                        "student_name":  "ANAM KHAN",
+                        "class":  "12",
+                        "stream":  "BIO",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":55},{\"subject\":\"moral, phy. edu.\",\"marks\":43},{\"subject\":\"english\",\"marks\":67},{\"subject\":\"physics\",\"marks\":26},{\"subject\":\"chemistry\",\"marks\":75},{\"subject\":\"biology\",\"marks\":62}]",
+                        "total_marks":  328,
+                        "percentage":  59.64,
+                        "result_status":  "PASS",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "311-BIO",
+                        "student_name":  "SWEETY KAIN",
+                        "class":  "12",
+                        "stream":  "BIO",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":47},{\"subject\":\"moral, phy. edu.\",\"marks\":38},{\"subject\":\"english\",\"marks\":63},{\"subject\":\"physics\",\"marks\":54},{\"subject\":\"chemistry\",\"marks\":26},{\"subject\":\"biology\",\"marks\":69}]",
+                        "total_marks":  297,
+                        "percentage":  57.12,
+                        "result_status":  "PASS",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "282-BIO",
+                        "student_name":  "TANYA KUMARI",
+                        "class":  "12",
+                        "stream":  "BIO",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":43},{\"subject\":\"moral, phy. edu.\",\"marks\":43},{\"subject\":\"english\",\"marks\":69},{\"subject\":\"physics\",\"marks\":54},{\"subject\":\"chemistry\",\"marks\":66},{\"subject\":\"biology\",\"marks\":61}]",
+                        "total_marks":  336,
+                        "percentage":  61.09,
+                        "result_status":  "PASS",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "274-MATH",
+                        "student_name":  "YOGESH SHARMA",
+                        "class":  "12",
+                        "stream":  "MATH",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":32},{\"subject\":\"moral, games \u0026 phy. edu.\",\"marks\":38},{\"subject\":\"english\",\"marks\":30},{\"subject\":\"physics\",\"marks\":12},{\"subject\":\"chemistry\",\"marks\":33},{\"subject\":\"math\",\"marks\":31}]",
+                        "total_marks":  176,
+                        "percentage":  32,
+                        "result_status":  "FAIL",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "287-MATH",
+                        "student_name":  "NAMAN KUSHWAH",
+                        "class":  "12",
+                        "stream":  "MATH",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":31},{\"subject\":\"moral, games \u0026 phy. edu.\",\"marks\":36},{\"subject\":\"english\",\"marks\":36},{\"subject\":\"physics\",\"marks\":43},{\"subject\":\"chemistry\",\"marks\":30},{\"subject\":\"math\",\"marks\":36}]",
+                        "total_marks":  212,
+                        "percentage":  38.55,
+                        "result_status":  "PASS",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "288-MATH",
+                        "student_name":  "GUNGUN KR. KASHYAP",
+                        "class":  "12",
+                        "stream":  "MATH",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":40},{\"subject\":\"moral, games \u0026 phy. edu.\",\"marks\":35},{\"subject\":\"english\",\"marks\":84},{\"subject\":\"physics\",\"marks\":69},{\"subject\":\"chemistry\",\"marks\":83},{\"subject\":\"math\",\"marks\":54}]",
+                        "total_marks":  365,
+                        "percentage":  66.36,
+                        "result_status":  "PASS",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "298-MATH",
+                        "student_name":  "JATIN KUMAR",
+                        "class":  "12",
+                        "stream":  "MATH",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":46},{\"subject\":\"moral, games \u0026 phy. edu.\",\"marks\":35},{\"subject\":\"english\",\"marks\":49},{\"subject\":\"physics\",\"marks\":22},{\"subject\":\"chemistry\",\"marks\":60},{\"subject\":\"math\",\"marks\":29}]",
+                        "total_marks":  241,
+                        "percentage":  43.82,
+                        "result_status":  "PASS",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "300-MATH",
+                        "student_name":  "ANKUSH CHAUDHARY",
+                        "class":  "12",
+                        "stream":  "MATH",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":47},{\"subject\":\"moral, games \u0026 phy. edu.\",\"marks\":38},{\"subject\":\"english\",\"marks\":46},{\"subject\":\"physics\",\"marks\":16},{\"subject\":\"chemistry\",\"marks\":25},{\"subject\":\"math\",\"marks\":30}]",
+                        "total_marks":  202,
+                        "percentage":  36.73,
+                        "result_status":  "PASS",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "305-MATH",
+                        "student_name":  "RAJUDDIN",
+                        "class":  "12",
+                        "stream":  "MATH",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":34},{\"subject\":\"moral, games \u0026 phy. edu.\",\"marks\":34},{\"subject\":\"english\",\"marks\":31},{\"subject\":\"physics\",\"marks\":15},{\"subject\":\"chemistry\",\"marks\":25},{\"subject\":\"math\",\"marks\":37}]",
+                        "total_marks":  176,
+                        "percentage":  32,
+                        "result_status":  "FAIL",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "307-MATH",
+                        "student_name":  "PARAS DIVAKAR",
+                        "class":  "12",
+                        "stream":  "MATH",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":54},{\"subject\":\"moral, games \u0026 phy. edu.\",\"marks\":38},{\"subject\":\"english\",\"marks\":72},{\"subject\":\"physics\",\"marks\":59},{\"subject\":\"chemistry\",\"marks\":47},{\"subject\":\"math\",\"marks\":39}]",
+                        "total_marks":  309,
+                        "percentage":  56.18,
+                        "result_status":  "PASS",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "308-MATH",
+                        "student_name":  "ANITA KUMARI",
+                        "class":  "12",
+                        "stream":  "MATH",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":60},{\"subject\":\"moral, games \u0026 phy. edu.\",\"marks\":34},{\"subject\":\"english\",\"marks\":75},{\"subject\":\"physics\",\"marks\":72},{\"subject\":\"chemistry\",\"marks\":77},{\"subject\":\"math\",\"marks\":46}]",
+                        "total_marks":  364,
+                        "percentage":  66.18,
+                        "result_status":  "PASS",
+                        "academic_year":  "2023-24"
+                    },
+                    {
+                        "sr_no":  "280-MATH",
+                        "student_name":  "YOGITA KUSHWAH",
+                        "class":  "12",
+                        "stream":  "MATH",
+                        "subjects_json":  "[{\"subject\":\"gen. hindi\",\"marks\":50},{\"subject\":\"moral, games \u0026 phy. edu.\",\"marks\":39},{\"subject\":\"english\",\"marks\":56},{\"subject\":\"physics\",\"marks\":55},{\"subject\":\"chemistry\",\"marks\":71},{\"subject\":\"math\",\"marks\":26}]",
+                        "total_marks":  297,
+                        "percentage":  54,
+                        "result_status":  "PASS",
+                        "academic_year":  "2023-24"
+                    }
+                ]
+}

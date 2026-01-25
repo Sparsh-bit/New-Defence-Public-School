@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { RefreshCw, Search, Calendar, User, Phone, LogOut, Settings, Plus, Trash2, Image as ImageIcon, Bell, GraduationCap, FileSpreadsheet, UploadCloud, Loader2 } from 'lucide-react';
-import { schoolNewsEvents, galleryImages } from '@/data/cms';
+import Link from 'next/link';
+import { RefreshCw, Search, Calendar, User, Phone, LogOut, Settings, Plus, Trash2, Image as ImageIcon, Bell, GraduationCap, FileSpreadsheet, UploadCloud, Loader2, FileText, Download } from 'lucide-react';
+import { schoolNewsEvents, galleryImages, DownloadItem, schoolDownloads } from '@/data/cms';
 
 // --- Types ---
 interface Application {
@@ -40,7 +41,7 @@ interface Application {
 export default function SuperAdminPortal() {
     const router = useRouter();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [activeTab, setActiveTab] = useState<'applications' | 'news' | 'gallery'>('applications');
+    const [activeTab, setActiveTab] = useState<'applications' | 'news' | 'gallery' | 'downloads'>('applications');
 
     // --- Applications State ---
     const [applications, setApplications] = useState<Application[]>([]);
@@ -62,6 +63,16 @@ export default function SuperAdminPortal() {
     // --- Gallery State ---
     const [galleryItems, setGalleryItems] = useState<any>(galleryImages);
 
+    // --- Downloads State ---
+    const [downloadItems, setDownloadItems] = useState(schoolDownloads);
+    const [newDownload, setNewDownload] = useState({
+        name: '',
+        description: '',
+        category: 'general' as 'general' | 'results'
+    });
+    const [docFile, setDocFile] = useState<File | null>(null);
+    const [isUploadingDoc, setIsUploadingDoc] = useState(false);
+
     // --- Authentication Check & Data Load ---
     useEffect(() => {
         const loggedIn = localStorage.getItem('adminLoggedIn');
@@ -82,14 +93,10 @@ export default function SuperAdminPortal() {
                 setNewsItems(data.news);
             }
             if (data.gallery) {
-                // Merge with LocalStorage data
-                const localEvents = JSON.parse(localStorage.getItem('ndps_gallery_events') || '[]');
-                const localInfra = JSON.parse(localStorage.getItem('ndps_gallery_infrastructure') || '[]');
-
-                setGalleryItems({
-                    events: [...localEvents, ...(data.gallery.events || [])],
-                    infrastructure: [...localInfra, ...(data.gallery.infrastructure || [])]
-                });
+                setGalleryItems(data.gallery);
+            }
+            if (data.downloads) {
+                setDownloadItems(data.downloads);
             }
         } catch (error) {
             console.error('Failed to load content:', error);
@@ -354,6 +361,75 @@ export default function SuperAdminPortal() {
         });
     };
 
+    // --- Downloads Logic ---
+    const handleUploadDoc = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!docFile || !newDownload.name) return;
+
+        // Security: Limit checks (Strict 3 for results)
+        if (newDownload.category === 'results' && (downloadItems.results?.length || 0) >= 3) {
+            alert("Limit Reached: Only 3 results PDFs allowed as per system policy.");
+            return;
+        }
+
+        setIsUploadingDoc(true);
+        try {
+            const formData = new FormData();
+            formData.append('file', docFile);
+            formData.append('category', newDownload.category);
+
+            const res = await fetch('/api/admin/upload-document', { method: 'POST', body: formData });
+            const data = await res.json();
+
+            if (data.success) {
+                const item: DownloadItem = {
+                    id: Date.now().toString(),
+                    name: newDownload.name,
+                    description: newDownload.description,
+                    url: data.url,
+                    category: newDownload.category,
+                    updatedAt: new Date().toISOString()
+                };
+
+                const updated = { ...downloadItems };
+                if (!updated[newDownload.category]) updated[newDownload.category] = [];
+                updated[newDownload.category] = [item, ...updated[newDownload.category]];
+                setDownloadItems(updated);
+
+                // Persist Meta
+                await fetch('/api/admin/update', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ type: 'downloads_meta', fullData: updated })
+                });
+
+                setNewDownload({ name: '', description: '', category: 'general' });
+                setDocFile(null);
+                const input = document.getElementById('docInput') as HTMLInputElement;
+                if (input) input.value = '';
+            } else {
+                alert(data.message || 'Upload failed');
+            }
+        } catch (error) {
+            console.error('Doc error', error);
+        } finally {
+            setIsUploadingDoc(false);
+        }
+    };
+
+    const handleDeleteDoc = async (category: 'general' | 'results', id: string) => {
+        if (!confirm('Remove this document?')) return;
+        const updated = { ...downloadItems };
+        updated[category] = updated[category].filter(i => i.id !== id);
+        setDownloadItems(updated);
+
+        await fetch('/api/admin/update', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ type: 'downloads_meta', fullData: updated })
+        });
+    };
+
     if (!isAuthenticated) return null;
 
     return (
@@ -387,6 +463,18 @@ export default function SuperAdminPortal() {
                     >
                         <ImageIcon size={20} /> Gallery
                     </button>
+                    <button
+                        onClick={() => setActiveTab('downloads')}
+                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${activeTab === 'downloads' ? 'bg-[#C6A75E] text-[#0A1628] font-bold shadow-lg' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}
+                    >
+                        <FileText size={20} /> Downloads
+                    </button>
+                    <Link
+                        href="/admin/results"
+                        className="w-full flex items-center gap-3 px-4 py-3 text-white/70 hover:bg-white/5 hover:text-white rounded-xl transition-all"
+                    >
+                        <FileSpreadsheet size={20} /> Excel Results
+                    </Link>
                 </nav>
 
                 <div className="absolute bottom-0 w-full p-4 border-t border-white/10">
@@ -407,6 +495,7 @@ export default function SuperAdminPortal() {
                             {activeTab === 'applications' && 'Admissions Overview'}
                             {activeTab === 'news' && 'News & Events Manager'}
                             {activeTab === 'gallery' && 'Gallery Manager'}
+                            {activeTab === 'downloads' && 'Downloads Manager'}
                         </h1>
                         <p className="text-gray-500">Welcome back, Administrator.</p>
                     </div>
@@ -457,9 +546,9 @@ export default function SuperAdminPortal() {
                             </div>
                         ) : (
                             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                                {filteredApplications.map((app) => (
+                                {filteredApplications.map((app, idx) => (
                                     <div
-                                        key={app.id}
+                                        key={app.id || idx}
                                         onClick={() => setSelectedApplication(app)}
                                         className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer border border-gray-100 group relative"
                                     >
@@ -561,9 +650,9 @@ export default function SuperAdminPortal() {
 
                         {/* List */}
                         <div className="lg:col-span-2 space-y-4">
-                            {newsItems.map((item) => (
+                            {newsItems.map((item, idx) => (
                                 <motion.div
-                                    key={item.id}
+                                    key={item.id || `news-${idx}`}
                                     layout
                                     className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex justify-between items-start group"
                                 >
@@ -669,7 +758,7 @@ export default function SuperAdminPortal() {
                             <h3 className="text-xl font-bold text-[#0A1628] mb-4">Events Gallery</h3>
                             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                                 {(galleryItems as any).events?.map((src: string, idx: number) => (
-                                    <div key={idx} className="relative aspect-square rounded-xl overflow-hidden group border border-gray-200">
+                                    <div key={`event-${idx}`} className="relative aspect-square rounded-xl overflow-hidden group border border-gray-200">
                                         <img src={src} alt="Gallery" className="w-full h-full object-cover" />
                                         <button
                                             onClick={() => handleDeleteImage('events', src)}
@@ -688,7 +777,7 @@ export default function SuperAdminPortal() {
                             <h3 className="text-xl font-bold text-[#0A1628] mb-4">Infrastructure Gallery</h3>
                             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                                 {(galleryItems as any).infrastructure?.map((src: string, idx: number) => (
-                                    <div key={idx} className="relative aspect-square rounded-xl overflow-hidden group border border-gray-200">
+                                    <div key={`infra-${idx}`} className="relative aspect-square rounded-xl overflow-hidden group border border-gray-200">
                                         <img src={src} alt="Gallery" className="w-full h-full object-cover" />
                                         <button
                                             onClick={() => handleDeleteImage('infrastructure', src)}
@@ -699,6 +788,132 @@ export default function SuperAdminPortal() {
                                         </button>
                                     </div>
                                 ))}
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* --- DOWNLOADS TAB --- */}
+                {activeTab === 'downloads' && (
+                    <div className="grid lg:grid-cols-3 gap-8">
+                        {/* Upload Form */}
+                        <div className="bg-white p-8 rounded-3xl shadow-lg border border-gray-100 h-fit">
+                            <h3 className="text-xl font-bold text-[#0A1628] mb-6 flex items-center gap-2">
+                                <Plus className="text-[#C6A75E]" /> Upload Document
+                            </h3>
+                            <form onSubmit={handleUploadDoc} className="space-y-5">
+                                <div>
+                                    <label className="text-xs font-bold uppercase text-gray-400 block mb-2">Document Name</label>
+                                    <input
+                                        value={newDownload.name}
+                                        onChange={e => setNewDownload({ ...newDownload, name: e.target.value })}
+                                        className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 focus:border-[#C6A75E] outline-none"
+                                        placeholder="e.g. Academic Calendar 2025"
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label className="text-xs font-bold uppercase text-gray-400 block mb-2">Description (Optional)</label>
+                                    <textarea
+                                        value={newDownload.description}
+                                        onChange={e => setNewDownload({ ...newDownload, description: e.target.value })}
+                                        className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 focus:border-[#C6A75E] outline-none"
+                                        rows={2}
+                                        placeholder="Small detail about this doc..."
+                                    />
+                                </div>
+                                <div>
+                                    <label className="text-xs font-bold uppercase text-gray-400 block mb-2">Category</label>
+                                    <select
+                                        value={newDownload.category}
+                                        onChange={e => setNewDownload({ ...newDownload, category: e.target.value as any })}
+                                        className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none"
+                                    >
+                                        <option value="general">General (Downloads Page)</option>
+                                        <option value="results">Class Results (Max 3)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="text-xs font-bold uppercase text-gray-400 block mb-2">Select PDF (Max 20MB)</label>
+                                    <input
+                                        id="docInput"
+                                        type="file"
+                                        accept="application/pdf"
+                                        onChange={e => setDocFile(e.target.files?.[0] || null)}
+                                        className="w-full bg-white border border-gray-200 rounded-xl p-3 focus:border-[#C6A75E] outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#0A1628] file:text-white hover:file:bg-[#C6A75E] hover:file:text-[#0A1628] transition-all cursor-pointer"
+                                        required
+                                    />
+                                </div>
+                                <button
+                                    type="submit"
+                                    disabled={isUploadingDoc || !docFile}
+                                    className="w-full py-4 bg-[#0A1628] text-white rounded-xl font-bold hover:bg-[#C6A75E] hover:text-[#0A1628] transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                                >
+                                    {isUploadingDoc ? <Loader2 className="animate-spin" /> : <UploadCloud size={20} />}
+                                    {isUploadingDoc ? 'Uploading...' : 'Upload PDF'}
+                                </button>
+                            </form>
+                        </div>
+
+                        {/* List */}
+                        <div className="lg:col-span-2 space-y-8">
+                            {/* Results section */}
+                            <div>
+                                <h3 className="text-xl font-bold text-[#0A1628] mb-4 flex items-center justify-between">
+                                    <span>Class Results</span>
+                                    <span className={`text-sm ${downloadItems.results?.length >= 3 ? 'text-red-500' : 'text-gray-400'}`}>
+                                        {downloadItems.results?.length || 0} / 3
+                                    </span>
+                                </h3>
+                                <div className="space-y-4">
+                                    {(!downloadItems.results || downloadItems.results.length === 0) && (
+                                        <div className="p-10 text-center bg-gray-50 rounded-2xl border border-dashed border-gray-200 text-gray-400">No results uploaded.</div>
+                                    )}
+                                    {downloadItems.results?.map((doc: DownloadItem) => (
+                                        <div key={doc.id} className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex justify-between items-center group">
+                                            <div className="flex gap-4 items-center">
+                                                <div className="w-12 h-12 bg-red-50 text-red-600 rounded-xl flex items-center justify-center shrink-0">
+                                                    <FileText size={24} />
+                                                </div>
+                                                <div>
+                                                    <h4 className="font-bold text-[#0A1628]">{doc.name}</h4>
+                                                    <p className="text-xs text-gray-400">{doc.description || 'No description'}</p>
+                                                </div>
+                                            </div>
+                                            <div className="flex gap-2">
+                                                <a href={doc.url} target="_blank" className="p-2 text-gray-400 hover:text-blue-500"><Download size={20} /></a>
+                                                <button onClick={() => handleDeleteDoc('results', doc.id)} className="p-2 text-gray-400 hover:text-red-500"><Trash2 size={20} /></button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* General section */}
+                            <div>
+                                <h3 className="text-xl font-bold text-[#0A1628] mb-4">General Downloads</h3>
+                                <div className="space-y-4">
+                                    {(!downloadItems.general || downloadItems.general.length === 0) && (
+                                        <div className="p-10 text-center bg-gray-50 rounded-2xl border border-dashed border-gray-200 text-gray-400">No general docs uploaded.</div>
+                                    )}
+                                    {downloadItems.general?.map((doc: DownloadItem) => (
+                                        <div key={doc.id} className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex justify-between items-center group">
+                                            <div className="flex gap-4 items-center">
+                                                <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center shrink-0">
+                                                    <FileText size={24} />
+                                                </div>
+                                                <div>
+                                                    <h4 className="font-bold text-[#0A1628]">{doc.name}</h4>
+                                                    <p className="text-xs text-gray-400">{doc.description || 'No description'}</p>
+                                                </div>
+                                            </div>
+                                            <div className="flex gap-2">
+                                                <a href={doc.url} target="_blank" className="p-2 text-gray-400 hover:text-blue-500"><Download size={20} /></a>
+                                                <button onClick={() => handleDeleteDoc('general', doc.id)} className="p-2 text-gray-400 hover:text-red-500"><Trash2 size={20} /></button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -19,7 +19,7 @@ export default function HeroSection() {
                     className="relative w-full h-full"
                 >
                     <Image
-                        src="/images/home_hero_bg.png"
+                        src="/images/home_hero_bg.jpg"
                         alt="NDPS School Building"
                         fill
                         sizes="100vw"
