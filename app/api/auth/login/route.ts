@@ -63,18 +63,7 @@ async function handleLogin(request: SecureRequest) {
             }, { status: 400 });
         }
 
-        // Check if JWT_SECRET is configured
-        const jwtSecret = process.env.JWT_SECRET;
-        if (!jwtSecret) {
-            console.error('CRITICAL: JWT_SECRET not configured. Authentication disabled.');
-            return NextResponse.json({
-                success: false,
-                error: 'AUTH_DISABLED',
-                message: 'Authentication is not configured. Set JWT_SECRET environment variable.'
-            }, { status: 503 });
-        }
-
-        // Find user (case-insensitive username)
+        // Check if authentication system is ready (handled by getAuthConfig fallback)
         const normalizedUsername = username.toLowerCase().trim();
         const user = DEMO_USERS[normalizedUsername];
 
