@@ -15,7 +15,6 @@ export default function AdminResultsPortal() {
     const [selectedYear, setSelectedYear] = useState('2024-25');
     const [isUploading, setIsUploading] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
-    const [isRepairing, setIsRepairing] = useState(false);
     const [batches, setBatches] = useState<{ batch_id: string, academic_year: string, class: string, stream: string, upload_date: string }[]>([]);
     const [isLoadingBatches, setIsLoadingBatches] = useState(false);
     const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
@@ -116,26 +115,6 @@ export default function AdminResultsPortal() {
         }
     };
 
-    const handleRepair = async () => {
-        setIsRepairing(true);
-        setMessage(null);
-        try {
-            const res = await fetch('/api/admin/repair', {
-                headers: getAuthHeaders()
-            });
-            const data = await res.json();
-            if (data.success) {
-                setMessage({ type: 'success', text: 'Database schema repaired successfully. You can now resume uploads.' });
-            } else {
-                setMessage({ type: 'error', text: 'Repair failed: ' + (data.error || data.message) });
-            }
-        } catch (e) {
-            setMessage({ type: 'error', text: 'Repair request failed.' });
-        } finally {
-            setIsRepairing(false);
-        }
-    };
-
     if (!isAuthenticated) {
         return (
             <div className="min-h-screen bg-[#0A1628] flex items-center justify-center p-6 text-display text-white">
@@ -200,23 +179,6 @@ export default function AdminResultsPortal() {
                                     {isDeleting ? <Loader2 className="animate-spin" /> : <Trash2 size={18} />}
                                     Wipe Category
                                 </button>
-
-                                <button
-                                    onClick={handleRepair}
-                                    disabled={isRepairing}
-                                    className={`w-full py-4 rounded-2xl font-bold text-sm transition-all flex items-center justify-center gap-3 disabled:opacity-30 ${message?.text?.includes('SQLITE_ERROR') || message?.text?.includes('column')
-                                        ? 'bg-amber-100 text-amber-700 hover:bg-amber-500 hover:text-white border border-amber-200'
-                                        : 'bg-gray-50 text-gray-400 hover:bg-gray-200'
-                                        }`}
-                                >
-                                    {isRepairing ? <Loader2 className="animate-spin" /> : <Database size={18} />}
-                                    Schema Patch
-                                </button>
-                                {message?.text?.includes('SQLITE_ERROR') && (
-                                    <p className="text-[10px] text-amber-600 font-bold text-center animate-pulse">
-                                        Found database mismatch. Click Schema Patch to fix.
-                                    </p>
-                                )}
                             </div>
                         </div>
 

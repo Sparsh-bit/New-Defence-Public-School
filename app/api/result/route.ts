@@ -40,6 +40,8 @@ async function handleGetResult(request: SecureRequest) {
         }
 
         const db = getDatabase();
+        const { ensureDatabaseSchema } = await import('@/lib/schema-manager');
+        await ensureDatabaseSchema(db);
 
         // Optimized Query: Find latest record for this SR No
         // NOTE: In D1/SQL, we'd use ORDER BY academic_year DESC

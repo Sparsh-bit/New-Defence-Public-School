@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { secureApiHandler, type SecureRequest } from '@/lib/security';
 import { deriveInfoFromSrNo } from '@/lib/result-utils';
 import { getDatabase } from '@/lib/db';
+import { ensureDatabaseSchema } from '@/lib/schema-manager';
 import * as XLSX from 'xlsx';
 
 export const runtime = 'edge';
@@ -38,6 +39,9 @@ async function handleUploadResults(request: SecureRequest) {
         const action = String(formData.get('action') || 'upload').trim();
 
         const db = getDatabase();
+
+        // Ensure database schema is up to date before proceeding
+        await ensureDatabaseSchema(db);
 
         if (action === 'delete-batch') {
             const batchId = String(formData.get('batch_id') || '').trim();
@@ -197,6 +201,7 @@ async function handleUploadResults(request: SecureRequest) {
 async function handleListBatches() {
     try {
         const db = getDatabase();
+        await ensureDatabaseSchema(db);
         const batches = await db.prepare("SELECT DISTINCT batch_id FROM results").all();
         return NextResponse.json({ success: true, data: batches.results || [] });
     } catch (error) {
