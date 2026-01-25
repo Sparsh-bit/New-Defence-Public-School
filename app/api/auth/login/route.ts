@@ -55,7 +55,7 @@ async function handleLogin(request: SecureRequest) {
             }, { status: 400 });
         }
 
-        if (!password || typeof password !== 'string' || password.length < 6) {
+        if (!password || typeof password !== 'string' || password.length < 5) {
             return NextResponse.json({
                 success: false,
                 error: 'INVALID_INPUT',
