@@ -85,6 +85,14 @@ export default function SuperAdminPortal() {
         }
     }, [router]);
 
+    const getAuthHeaders = () => {
+        const token = localStorage.getItem('adminToken');
+        return {
+            'Content-Type': 'application/json',
+            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+        };
+    };
+
     const fetchContent = async () => {
         try {
             const res = await fetch('/api/content');
@@ -121,7 +129,9 @@ export default function SuperAdminPortal() {
     const fetchApplications = async () => {
         setLoadingApps(true);
         try {
-            const response = await fetch('/api/admissions/list');
+            const response = await fetch('/api/admissions/list', {
+                headers: getAuthHeaders()
+            });
             const data = await response.json();
             if (data.success) {
                 setApplications(data.applications);
@@ -135,6 +145,8 @@ export default function SuperAdminPortal() {
     };
 
     const handleLogout = () => {
+        localStorage.removeItem('adminToken');
+        localStorage.removeItem('adminUser');
         localStorage.removeItem('adminLoggedIn');
         router.push('/admissions/portal');
     };
@@ -147,7 +159,7 @@ export default function SuperAdminPortal() {
         try {
             const res = await fetch('/api/admissions/delete', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: getAuthHeaders(),
                 body: JSON.stringify({ id })
             });
             const data = await res.json();
@@ -179,7 +191,7 @@ export default function SuperAdminPortal() {
         setNewsItems(updatedList);
         await fetch('/api/admin/update', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getAuthHeaders(),
             body: JSON.stringify({ type: 'news', fullList: updatedList })
         });
         setNewNews({ title: '', description: '', date: '', type: 'event', highlight: false });
@@ -192,7 +204,7 @@ export default function SuperAdminPortal() {
         // Persist to R2 JSON DB
         await fetch('/api/admin/update', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getAuthHeaders(),
             body: JSON.stringify({ type: 'news', fullList: updatedList })
         });
     };
@@ -292,8 +304,16 @@ export default function SuperAdminPortal() {
                     const optimizedFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".webp", { type: 'image/webp' });
                     const formData = new FormData();
                     formData.append('file', optimizedFile);
-                    formData.append('category', galleryCategory); // Pass category for strict server-side validity check
-                    const uploadRes = await fetch('/api/admin/upload', { method: 'POST', body: formData });
+                    formData.append('category', galleryCategory);
+
+                    const token = localStorage.getItem('adminToken');
+                    const uploadRes = await fetch('/api/admin/upload', {
+                        method: 'POST',
+                        headers: {
+                            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+                        },
+                        body: formData
+                    });
                     const uploadData = await uploadRes.json();
                     if (!uploadData.success) throw new Error(uploadData.message || 'Upload failed');
                     return uploadData.url;
@@ -317,7 +337,7 @@ export default function SuperAdminPortal() {
             // Persist to R2 JSON DB
             await fetch('/api/admin/update', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: getAuthHeaders(),
                 body: JSON.stringify({ type: 'gallery_meta', fullData: updatedGallery })
             });
 
@@ -353,7 +373,7 @@ export default function SuperAdminPortal() {
 
         await fetch('/api/admin/update', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getAuthHeaders(),
             body: JSON.stringify({
                 type: 'gallery_meta',
                 fullData: updatedGallery
@@ -378,7 +398,14 @@ export default function SuperAdminPortal() {
             formData.append('file', docFile);
             formData.append('category', newDownload.category);
 
-            const res = await fetch('/api/admin/upload-document', { method: 'POST', body: formData });
+            const token = localStorage.getItem('adminToken');
+            const res = await fetch('/api/admin/upload-document', {
+                method: 'POST',
+                headers: {
+                    ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+                },
+                body: formData
+            });
             const data = await res.json();
 
             if (data.success) {
@@ -399,7 +426,7 @@ export default function SuperAdminPortal() {
                 // Persist Meta
                 await fetch('/api/admin/update', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: getAuthHeaders(),
                     body: JSON.stringify({ type: 'downloads_meta', fullData: updated })
                 });
 
@@ -425,7 +452,7 @@ export default function SuperAdminPortal() {
 
         await fetch('/api/admin/update', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getAuthHeaders(),
             body: JSON.stringify({ type: 'downloads_meta', fullData: updated })
         });
     };

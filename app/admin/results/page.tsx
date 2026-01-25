@@ -35,33 +35,34 @@ export default function AdminResultsPortal() {
     }, [selectedClass]);
 
     useEffect(() => {
-        const loggedIn = localStorage.getItem('adminLoggedIn');
-        if (loggedIn === 'true') {
+        const token = localStorage.getItem('adminToken');
+        if (token) {
             setIsAuthenticated(true);
             fetchBatches();
+        } else {
+            router.push('/admissions/portal');
         }
-    }, []);
+    }, [router]);
+
+    const getAuthHeaders = () => {
+        const token = localStorage.getItem('adminToken');
+        return {
+            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+        };
+    };
 
     const fetchBatches = async () => {
         setIsLoadingBatches(true);
         try {
-            const res = await fetch('/api/admin/upload-results');
+            const res = await fetch('/api/admin/upload-results', {
+                headers: getAuthHeaders()
+            });
             const data = await res.json();
             if (data.success) setBatches(data.data);
         } catch (e) {
             console.error('Failed to fetch batches');
         } finally {
             setIsLoadingBatches(false);
-        }
-    };
-
-    const handleLogin = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (password === 'NDPS-ADMIN-2025') {
-            setIsAuthenticated(true);
-            localStorage.setItem('adminLoggedIn', 'true');
-        } else {
-            alert('Invalid Access Key');
         }
     };
 
@@ -90,6 +91,7 @@ export default function AdminResultsPortal() {
 
             const res = await fetch('/api/admin/upload-results', {
                 method: 'POST',
+                headers: getAuthHeaders(),
                 body: formData
             });
 
@@ -115,26 +117,11 @@ export default function AdminResultsPortal() {
 
     if (!isAuthenticated) {
         return (
-            <div className="min-h-screen bg-[#0A1628] flex items-center justify-center p-6 text-display">
-                <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="bg-white p-12 rounded-[48px] shadow-2xl max-w-md w-full text-center">
-                    <div className="w-20 h-20 bg-blue-50 text-[#0A1628] rounded-3xl flex items-center justify-center mx-auto mb-8">
-                        <ShieldCheck size={40} />
-                    </div>
-                    <h1 className="text-3xl font-black text-[#0A1628] mb-4">Results Vault</h1>
-                    <p className="text-gray-400 mb-8 font-medium">Authentication required to modify academic history.</p>
-                    <form onSubmit={handleLogin} className="space-y-4">
-                        <input
-                            type="password"
-                            placeholder="Admin Access Key"
-                            className="w-full p-5 bg-gray-50 border border-transparent rounded-[24px] outline-none focus:bg-white focus:border-[#C6A75E] transition-all font-bold text-center"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                        <button className="w-full py-5 bg-[#0A1628] text-white rounded-[24px] font-bold hover:bg-[#C6A75E] hover:text-[#0A1628] transition-all">
-                            Unlock Portal
-                        </button>
-                    </form>
-                </motion.div>
+            <div className="min-h-screen bg-[#0A1628] flex items-center justify-center p-6 text-display text-white">
+                <div className="flex flex-col items-center gap-4">
+                    <Loader2 className="animate-spin w-12 h-12 text-[#C6A75E]" />
+                    <p className="font-bold text-xl">Redirecting to Secure Login...</p>
+                </div>
             </div>
         );
     }

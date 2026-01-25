@@ -19,18 +19,32 @@ export default function PortalLogin() {
         setError('');
         setLoading(true);
 
-        // Simple authentication check
-        if (username === 'admin' && password === 'admin') {
-            // Store login state in localStorage
-            localStorage.setItem('adminLoggedIn', 'true');
-            localStorage.setItem('adminLoginTime', new Date().toISOString());
+        try {
+            const res = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password }),
+            });
 
-            // Redirect to admin dashboard
-            setTimeout(() => {
-                router.push('/admissions/admin');
-            }, 500);
-        } else {
-            setError('Invalid username or password');
+            const data = await res.json();
+
+            if (data.success) {
+                // Store authentication data
+                localStorage.setItem('adminToken', data.token);
+                localStorage.setItem('adminUser', JSON.stringify(data.user));
+                localStorage.setItem('adminLoggedIn', 'true');
+                localStorage.setItem('adminLoginTime', new Date().toISOString());
+
+                // Redirect to admin dashboard
+                setTimeout(() => {
+                    router.push('/admissions/admin');
+                }, 500);
+            } else {
+                setError(data.message || 'Invalid username or password');
+            }
+        } catch (err) {
+            setError('System temporarily offline. Please try again later.');
+        } finally {
             setLoading(false);
         }
     };

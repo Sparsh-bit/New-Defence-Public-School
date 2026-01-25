@@ -39,27 +39,26 @@ export function getCorsConfig(): CorsConfig {
         development: [
             'http://localhost:3000',
             'http://127.0.0.1:3000',
-            'http://localhost:8787',  // Wrangler dev server
-        ],
-        staging: [
-            // Add your staging domains here
-            process.env.STAGING_URL || 'https://staging.example.com',
+            'http://localhost:8787',
+            'https://new-defence-public-school.pages.dev',
+            '*.pages.dev'
         ],
         production: [
-            // Production domains - NEVER use wildcard (*)
             process.env.PRODUCTION_URL || 'https://www.newdefencepublicschool.com',
             'https://www.newdefencepublicschool.com',
             'https://newdefencepublicschool.com',
             'https://new-defence-public-school.pages.dev',
-            // Add Cloudflare Pages domains for previews
             '*.pages.dev',
             ...(process.env.CF_PAGES_URL ? [process.env.CF_PAGES_URL] : []),
         ]
     };
 
+    // Ensure common tiers like 'preview' or 'staging' inherit or have defaults
+    const currentTier = defaultOrigins[env] || defaultOrigins.production;
+
     // Combine environment-specific defaults with custom origins
     const origins = [...new Set([
-        ...(defaultOrigins[env] || defaultOrigins.development),
+        ...currentTier,
         ...envOrigins
     ])];
 
@@ -104,8 +103,8 @@ export function getCorsConfig(): CorsConfig {
  * Supports exact match and subdomain wildcards
  */
 export function isOriginAllowed(origin: string | null, config: CorsConfig): boolean {
-    if (!origin) {
-        // Allow same-origin requests (no Origin header)
+    if (!origin || origin === 'null') {
+        // Allow same-origin requests or browsers sending 'null' in certain contexts
         return true;
     }
 
@@ -117,20 +116,20 @@ export function isOriginAllowed(origin: string | null, config: CorsConfig): bool
         return true;
     }
 
-    // Wildcard subdomain patterns (e.g., *.example.com) - discouraged in prod but allowed if explicit
+    // Wildcard subdomain patterns (e.g., *.example.com)
     for (const allowedOrigin of config.allowedOrigins) {
         if (allowedOrigin.startsWith('*.')) {
             const domain = allowedOrigin.slice(2);
             try {
                 const originUrl = new URL(origin);
-                // Ensure origin is using HTTPS in production
+                // Ensure origin is using HTTPS in production environments
                 if (isProduction && originUrl.protocol !== 'https:') continue;
 
-                if (originUrl.hostname.endsWith(domain) || originUrl.hostname === domain.slice(1)) {
+                if (originUrl.hostname.endsWith(domain) || originUrl.hostname === domain) {
                     return true;
                 }
             } catch {
-                return false;
+                continue;
             }
         }
     }
@@ -153,10 +152,7 @@ export function getCorsHeaders(request: Request, config?: CorsConfig): Record<st
 
     // Only add CORS headers if origin is allowed
     if (isOriginAllowed(origin, corsConfig)) {
-        // Use the requesting origin (not wildcard) when credentials are allowed
-        if (corsConfig.allowCredentials && origin) {
-            headers['Access-Control-Allow-Origin'] = origin;
-        } else if (origin && corsConfig.allowedOrigins.includes(origin)) {
+        if (origin) {
             headers['Access-Control-Allow-Origin'] = origin;
         }
 
