@@ -93,14 +93,10 @@ async function handleLogin(request: SecureRequest) {
             }, { status: 401 });
         }
 
-        // For demo mode without proper password hashing
-        // REPLACE THIS with proper password verification in production:
-        // const isValidPassword = await verifyPassword(password, user.passwordHash);
-
         // Demo: Accept any password when passwordHash is the demo placeholder
         const isDemoMode = user.passwordHash === 'demo-hash-replace-in-production';
         const isValidPassword = isDemoMode
-            ? (password === 'admin123')  // Demo password
+            ? (password === 'admin')  // Restored to previous demo password
             : await verifyPassword(password, user.passwordHash);
 
         if (!isValidPassword) {
