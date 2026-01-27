@@ -22,14 +22,6 @@ export default function InfrastructureGallery() {
                     images = data.gallery.infrastructure;
                 }
 
-                // Merge with locally uploaded images (Demo Persistance)
-                const localImages = localStorage.getItem('ndps_gallery_infrastructure');
-                if (localImages) {
-                    const parsed = JSON.parse(localImages);
-                    images = [...parsed, ...images];
-                    images = Array.from(new Set(images));
-                }
-
                 setInfraImages(images);
             } catch (error) {
                 console.error('Failed to load images', error);
@@ -107,6 +99,11 @@ export default function InfrastructureGallery() {
                                     alt={`Infra ${idx}`}
                                     fill
                                     className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                                    onError={(e) => {
+                                        const target = e.target as HTMLElement;
+                                        const parent = target.closest('.group');
+                                        if (parent) (parent as HTMLElement).style.display = 'none';
+                                    }}
                                 />
                                 <div className="absolute inset-0 bg-[#0B1C2D]/0 group-hover:bg-[#0B1C2D]/40 transition-all duration-500" />
                             </motion.div>

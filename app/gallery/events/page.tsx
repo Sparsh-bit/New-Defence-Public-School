@@ -24,16 +24,6 @@ export default function EventsGallery() {
                     images = data.gallery.events;
                 }
 
-                // Merge with locally uploaded images (Demo Persistance)
-                const localImages = localStorage.getItem('ndps_gallery_events');
-                if (localImages) {
-                    const parsed = JSON.parse(localImages);
-                    // Deduplicate if necessary, but here we just prepend local uploads
-                    images = [...parsed, ...images];
-                    // Remove duplicates if any (though base64 vs url won't match)
-                    images = Array.from(new Set(images));
-                }
-
                 setEventImages(images);
             } catch (error) {
                 console.error('Failed to load images', error);
@@ -116,6 +106,11 @@ export default function EventsGallery() {
                                     alt={`Event ${idx}`}
                                     fill
                                     className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                    onError={(e) => {
+                                        const target = e.target as HTMLElement;
+                                        const parent = target.closest('.group');
+                                        if (parent) (parent as HTMLElement).style.display = 'none';
+                                    }}
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B1C2D]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
                             </motion.div>

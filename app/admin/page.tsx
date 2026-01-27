@@ -27,87 +27,75 @@ export default function AdminDashboard() {
     const [isUploading, setIsUploading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    // Initialize intent from LocalStorage
+    // Load Data
     useEffect(() => {
-        const saved = localStorage.getItem('ndps_gallery_images');
-        if (saved) {
-            setGalleryItems(JSON.parse(saved));
-        } else {
-            setGalleryItems(galleryImages.events);
-        }
+        const fetchContent = async () => {
+            try {
+                const res = await fetch('/api/content');
+                const data = await res.json();
+                if (data.gallery && data.gallery.events) {
+                    setGalleryItems(data.gallery.events);
+                }
+                if (data.news && Array.isArray(data.news)) {
+                    setNewsItems(data.news);
+                }
+            } catch (error) {
+                console.error('Failed to load content:', error);
+            }
+        };
+        fetchContent();
     }, []);
 
-    // Save to LocalStorage on change
-    useEffect(() => {
-        if (galleryItems.length > 0) {
-            localStorage.setItem('ndps_gallery_images', JSON.stringify(galleryItems));
-        }
-    }, [galleryItems]);
-
-    const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files?.length) return;
 
         setIsUploading(true);
-        const newImages: string[] = [];
+        const files = Array.from(e.target.files);
 
-        // Helper to resize image
-        const resizeImage = (file: File): Promise<string> => {
-            return new Promise((resolve) => {
-                const reader = new FileReader();
-                reader.onload = (readerEvent) => {
-                    const img = new Image();
-                    img.onload = () => {
-                        const canvas = document.createElement('canvas');
-                        let width = img.width;
-                        let height = img.height;
+        try {
+            const token = localStorage.getItem('adminToken');
+            const processedImages = await Promise.all(
+                files.map(async (file) => {
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    formData.append('category', 'events'); // Default to events in this simple view
 
-                        // Resize to reasonable dimensions for LocalStorage
-                        const MAX_WIDTH = 1000;
-                        const MAX_HEIGHT = 1000;
+                    const res = await fetch('/api/admin/upload', {
+                        method: 'POST',
+                        headers: {
+                            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+                        },
+                        body: formData
+                    });
+                    const data = await res.json();
+                    if (!data.success) throw new Error(data.message || 'Upload failed');
+                    return data.url;
+                })
+            );
 
-                        if (width > height) {
-                            if (width > MAX_WIDTH) {
-                                height *= MAX_WIDTH / width;
-                                width = MAX_WIDTH;
-                            }
-                        } else {
-                            if (height > MAX_HEIGHT) {
-                                width *= MAX_HEIGHT / height;
-                                height = MAX_HEIGHT;
-                            }
-                        }
+            // Update local state and persist metadata
+            const updated = [...processedImages, ...galleryItems].slice(0, 10);
+            setGalleryItems(updated);
 
-                        canvas.width = width;
-                        canvas.height = height;
-                        const ctx = canvas.getContext('2d');
-                        ctx?.drawImage(img, 0, 0, width, height);
-                        // Convert to highly optimized JPEG
-                        resolve(canvas.toDataURL('image/jpeg', 0.6));
-                    };
-                    img.src = readerEvent.target?.result as string;
-                };
-                reader.readAsDataURL(file);
+            await fetch('/api/admin/update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+                },
+                body: JSON.stringify({
+                    type: 'gallery_meta',
+                    fullData: { events: updated, infrastructure: [] }
+                })
             });
-        };
 
-        const promises = Array.from(e.target.files).map(file => resizeImage(file).then(base64 => newImages.push(base64)));
-
-        Promise.all(promises).then(() => {
-            setGalleryItems(prev => {
-                const updated = [...newImages, ...prev];
-                try {
-                    localStorage.setItem('ndps_gallery_images', JSON.stringify(updated));
-                } catch (err) {
-                    alert("Storage limit reached! Some older images might need to be removed to add new ones.");
-                    console.error("LocalStorage quota exceeded", err);
-                }
-                return updated;
-            });
+        } catch (error) {
+            console.error('Upload failed', error);
+            alert('Upload failed. Please try again.');
+        } finally {
             setIsUploading(false);
-            if (fileInputRef.current) {
-                fileInputRef.current.value = '';
-            }
-        });
+            if (fileInputRef.current) fileInputRef.current.value = '';
+        }
     };
 
     const handleAddNews = async (e: React.FormEvent) => {
@@ -324,10 +312,40 @@ export default function AdminDashboard() {
                                         <button
                                             className="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
                                             title="Remove Image"
-                                            onClick={() => {
+                                            onClick={async () => {
+                                                if (!confirm('Permanently delete image?')) return;
+                                                const url = src;
                                                 const newItems = galleryItems.filter((_, i) => i !== idx);
-                                                setGalleryItems(newItems);
-                                                // Ideally call API to delete here too
+
+                                                try {
+                                                    const token = localStorage.getItem('adminToken');
+                                                    // 1. Delete from R2
+                                                    await fetch('/api/admin/delete', {
+                                                        method: 'POST',
+                                                        headers: {
+                                                            'Content-Type': 'application/json',
+                                                            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+                                                        },
+                                                        body: JSON.stringify({ url })
+                                                    });
+
+                                                    // 2. Update JSON
+                                                    await fetch('/api/admin/update', {
+                                                        method: 'POST',
+                                                        headers: {
+                                                            'Content-Type': 'application/json',
+                                                            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+                                                        },
+                                                        body: JSON.stringify({
+                                                            type: 'gallery_meta',
+                                                            fullData: { events: newItems, infrastructure: [] }
+                                                        })
+                                                    });
+
+                                                    setGalleryItems(newItems);
+                                                } catch (error) {
+                                                    console.error('Delete failed', error);
+                                                }
                                             }}
                                         >
                                             <Trash2 size={14} />

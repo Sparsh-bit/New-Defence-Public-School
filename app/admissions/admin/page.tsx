@@ -361,12 +361,6 @@ export default function SuperAdminPortal() {
                 body: JSON.stringify({ type: 'gallery_meta', fullData: updatedGallery })
             });
 
-            // Persist to LocalStorage
-            const storageKey = `ndps_gallery_${galleryCategory}`;
-            const existing = JSON.parse(localStorage.getItem(storageKey) || '[]');
-            const newStored = [...processedImages, ...existing].slice(0, 10); // Enforce limit in storage
-            localStorage.setItem(storageKey, JSON.stringify(newStored));
-
             // Clear Input
             setSelectedFiles([]);
             const input = document.getElementById('fileInput') as HTMLInputElement;
@@ -381,24 +375,39 @@ export default function SuperAdminPortal() {
     };
 
     const handleDeleteImage = async (category: string, url: string) => {
+        if (!confirm('Permanently delete this image from storage?')) return;
+
+        // 1. Pessimistic State Update
         const updatedGallery = { ...galleryItems } as any;
         updatedGallery[category] = updatedGallery[category].filter((img: string) => img !== url);
-        setGalleryItems(updatedGallery);
 
-        // Also remove from LocalStorage to prevent ghost images on reload
-        const storageKey = `ndps_gallery_${category}`;
-        const storedImages = JSON.parse(localStorage.getItem(storageKey) || '[]');
-        const filteredStored = storedImages.filter((img: string) => img !== url);
-        localStorage.setItem(storageKey, JSON.stringify(filteredStored));
+        try {
+            // 2. Delete actual file from R2
+            const deleteRes = await fetch('/api/admin/delete', {
+                method: 'POST',
+                headers: getAuthHeaders(),
+                body: JSON.stringify({ url })
+            });
 
-        await fetch('/api/admin/update', {
-            method: 'POST',
-            headers: getAuthHeaders(),
-            body: JSON.stringify({
-                type: 'gallery_meta',
-                fullData: updatedGallery
-            })
-        });
+            if (!deleteRes.ok) throw new Error('Failed to delete file from storage');
+
+            // 3. Update Database (JSON)
+            await fetch('/api/admin/update', {
+                method: 'POST',
+                headers: getAuthHeaders(),
+                body: JSON.stringify({
+                    type: 'gallery_meta',
+                    fullData: updatedGallery
+                })
+            });
+
+            // 4. Update UI
+            setGalleryItems(updatedGallery);
+
+        } catch (error) {
+            console.error('Delete failed', error);
+            alert('Error deleting image. It may still exist in storage.');
+        }
     };
 
     // --- Downloads Logic ---
@@ -844,7 +853,16 @@ export default function SuperAdminPortal() {
                             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                                 {(galleryItems as any).events?.map((src: string, idx: number) => (
                                     <div key={`event-${idx}`} className="relative aspect-square rounded-xl overflow-hidden group border border-gray-200">
-                                        <img src={src} alt="Gallery" className="w-full h-full object-cover" />
+                                        <img
+                                            src={src}
+                                            alt="Gallery"
+                                            className="w-full h-full object-cover"
+                                            onError={(e) => {
+                                                const target = e.target as HTMLElement;
+                                                const parent = target.closest('.group');
+                                                if (parent) (parent as HTMLElement).style.display = 'none';
+                                            }}
+                                        />
                                         <button
                                             onClick={() => handleDeleteImage('events', src)}
                                             className="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600 shadow-md"
@@ -863,7 +881,16 @@ export default function SuperAdminPortal() {
                             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                                 {(galleryItems as any).infrastructure?.map((src: string, idx: number) => (
                                     <div key={`infra-${idx}`} className="relative aspect-square rounded-xl overflow-hidden group border border-gray-200">
-                                        <img src={src} alt="Gallery" className="w-full h-full object-cover" />
+                                        <img
+                                            src={src}
+                                            alt="Gallery"
+                                            className="w-full h-full object-cover"
+                                            onError={(e) => {
+                                                const target = e.target as HTMLElement;
+                                                const parent = target.closest('.group');
+                                                if (parent) (parent as HTMLElement).style.display = 'none';
+                                            }}
+                                        />
                                         <button
                                             onClick={() => handleDeleteImage('infrastructure', src)}
                                             className="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600 shadow-md"

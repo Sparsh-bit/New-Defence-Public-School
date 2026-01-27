@@ -74,13 +74,12 @@ async function handleUpload(request: SecureRequest) {
         const filename = `${Date.now()}-${randomSuffix}-${originalName}.webp`;
 
         // Upload directly using Cloudflare R2 Binding API with Caching
-        // OPTIMIZATION: Cache-Control header creates "Forever Free" usage pattern
-        // by telling browsers to never fetch this image again after the first time.
-        // This saves millions of 'Class B' operations.
+        // PRODUCTION HARDENING: We use 'must-revalidate' to ensure that if an image
+        // is deleted from R2, the CDN and Browser stop serving the cached version immediately.
         await bucket.put(filename, bytes, {
             httpMetadata: {
                 contentType: 'image/webp', // Ensure header matches actual content
-                cacheControl: 'public, max-age=31536000, immutable', // Cache for 1 year
+                cacheControl: 'public, max-age=0, must-revalidate',
             },
         });
 

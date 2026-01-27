@@ -14,6 +14,7 @@ export interface R2ObjectBody {
 export interface R2Bucket {
     get(key: string): Promise<R2ObjectBody | null>;
     put(key: string, value: any, options?: any): Promise<any>;
+    delete(key: string): Promise<void>;
 }
 
 // In-memory fallback for environments without storage (local dev edge simulation)
@@ -49,6 +50,9 @@ export function getStorageBucket(): R2Bucket {
         async put(key: string, value: any): Promise<any> {
             memoryStorage.set(key, value);
             return { key };
+        },
+        async delete(key: string): Promise<void> {
+            memoryStorage.delete(key);
         }
     };
 }
