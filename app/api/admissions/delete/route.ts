@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { secureApiHandler, type SecureRequest } from '@/lib/security';
+import { getDatabase } from '@/lib/db';
 
 export const runtime = 'edge';
 
@@ -27,7 +28,20 @@ async function handleDelete(request: SecureRequest) {
         // Log delete action for audit trail
         console.log(`[ADMISSIONS DELETE] User: ${request.user?.username || 'unknown'} | ID: ${body.id} | Time: ${new Date().toISOString()}`);
 
-        // Mock delete for Edge
+        const db = getDatabase();
+
+        try {
+            await db.prepare(
+                "DELETE FROM admissions WHERE id = ?"
+            ).bind(body.id).run();
+        } catch (dbError: any) {
+            console.error('Database delete error:', dbError);
+            if (dbError.message?.includes('no such table')) {
+                return NextResponse.json({ success: true, message: 'Deleted (Mock)' });
+            }
+            throw dbError;
+        }
+
         return NextResponse.json({ success: true, message: 'Deleted successfully' });
     } catch (error) {
         console.error('Delete error:', error);

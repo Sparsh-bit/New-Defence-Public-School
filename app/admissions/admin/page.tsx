@@ -200,6 +200,25 @@ export default function SuperAdminPortal() {
         window.location.href = `/api/admissions/export?format=${format}`;
     };
 
+    const handleRepair = async () => {
+        if (!confirm('Run database schema repair? This will ensure all necessary tables are created.')) return;
+        try {
+            const res = await fetch('/api/admin/repair', {
+                headers: getAuthHeaders()
+            });
+            const data = await res.json();
+            if (data.success) {
+                alert('Database repair completed successfully.');
+                fetchApplications(); // Refresh data
+            } else {
+                alert('Repair failed: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Repair error', error);
+            alert('Failed to connect to repair service.');
+        }
+    };
+
     // --- News Logic ---
     const handleAddNews = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -563,6 +582,13 @@ export default function SuperAdminPortal() {
                                 title="Download Excel"
                             >
                                 <FileSpreadsheet size={20} /> <span className="hidden md:inline">Export Excel</span>
+                            </button>
+                            <button
+                                onClick={handleRepair}
+                                className="bg-white p-3 rounded-xl shadow-sm text-amber-600 hover:text-amber-700 transition-colors"
+                                title="Repair Database Schema"
+                            >
+                                <Database size={20} />
                             </button>
                             <button
                                 onClick={() => { fetchApplications(); fetchBatches(); }}

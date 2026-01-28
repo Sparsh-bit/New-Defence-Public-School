@@ -19,6 +19,21 @@ async function handleRepair(request: SecureRequest) {
 
         // We use try-catch for each ALTER TABLE because SQLite doesn't have 'IF NOT EXISTS' for columns
         const tasks = [
+            {
+                name: 'admissions_table', sql: `CREATE TABLE IF NOT EXISTS admissions (
+                id TEXT PRIMARY KEY,
+                student_name TEXT NOT NULL,
+                father_name TEXT NOT NULL,
+                mother_name TEXT,
+                class_applying_for TEXT NOT NULL,
+                date_of_birth TEXT,
+                contact_number TEXT,
+                email TEXT,
+                address TEXT,
+                status TEXT DEFAULT 'pending',
+                submitted_at TEXT NOT NULL,
+                data_json TEXT
+            )` },
             { name: 'academic_year', sql: "ALTER TABLE results ADD COLUMN academic_year TEXT" },
             { name: 'batch_id', sql: "ALTER TABLE results ADD COLUMN batch_id TEXT" },
             { name: 'upload_date', sql: "ALTER TABLE results ADD COLUMN upload_date TEXT" }

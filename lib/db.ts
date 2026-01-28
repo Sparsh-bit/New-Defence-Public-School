@@ -27,7 +27,8 @@ interface MockPreparedStatement extends D1PreparedStatement {
 
 // In-memory Database for local development (Edge-safe)
 const memoryDb = {
-    results: [] as any[]
+    results: [] as any[],
+    admissions: [] as any[]
 };
 
 /**
@@ -45,11 +46,13 @@ class DevDatabase implements D1Database {
                     return createStatement(args);
                 },
                 async first<T>() {
-                    const table = memoryDb.results || [];
+                    const isAdmissions = query.toUpperCase().includes('ADMISSIONS');
+                    const table = isAdmissions ? memoryDb.admissions : memoryDb.results;
 
                     if (query.toUpperCase().includes('SELECT')) {
+                        const boundValue = stmt._bound[0];
                         const found = table.find((r: any) =>
-                            String(r.sr_no || '').toUpperCase() === String(stmt._bound[0] || '').toUpperCase()
+                            String(isAdmissions ? (r.id) : (r.sr_no || '')).toUpperCase() === String(boundValue || '').toUpperCase()
                         );
                         return (found as T) || null;
                     }
@@ -70,6 +73,13 @@ class DevDatabase implements D1Database {
                 },
                 async all<T>() {
                     const queryUpper = query.toUpperCase();
+                    if (queryUpper.includes('ADMISSIONS')) {
+                        // Return all admissions sorted by date descending
+                        const sorted = [...memoryDb.admissions].sort((a, b) =>
+                            new Date(b.submitted_at).getTime() - new Date(a.submitted_at).getTime()
+                        );
+                        return { success: true, results: sorted as unknown as T[] };
+                    }
                     if (queryUpper.includes('SELECT') && queryUpper.includes('DISTINCT ACADEMIC_YEAR')) {
                         const years = Array.from(new Set(memoryDb.results.map((r: any) => r.academic_year)))
                             .map(y => ({ academic_year: y }));
@@ -106,6 +116,21 @@ class DevDatabase implements D1Database {
                     const [cls, strm, year] = bound;
                     memoryDb.results = memoryDb.results.filter((r: any) => !(String(r.class) === String(cls) && String(r.stream) === String(strm) && String(r.academic_year) === String(year)));
                 }
+            } else if (queryUpper.includes('INSERT INTO ADMISSIONS')) {
+                const [id, student, father, mother, cls, dob, contact, email, address, status, submitted_at] = bound;
+                memoryDb.admissions.push({
+                    id,
+                    student_name: student,
+                    father_name: father,
+                    mother_name: mother,
+                    class_applying_for: cls,
+                    date_of_birth: dob,
+                    contact_number: contact,
+                    email,
+                    address,
+                    status,
+                    submitted_at
+                });
             } else if (queryUpper.includes('INSERT')) {
                 const [sr, name, cls, strm, subjects, total, perc, status, year, batchId, uploadDate] = bound;
                 memoryDb.results.push({

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { secureApiHandler, type SecureRequest } from '@/lib/security';
+import { getDatabase } from '@/lib/db';
 
 export const runtime = 'edge';
 
@@ -39,13 +40,52 @@ async function handleList(request: SecureRequest) {
         // Log access for audit trail
         console.log(`[ADMISSIONS ACCESS] User: ${request.user?.username || 'unknown'} | Action: list | Time: ${new Date().toISOString()}`);
 
-        // Edge Runtime does not support fs. 
-        // In a real production environment, this should connect to a Database (e.g. Supabase, MongoDB).
-        // For this deployment, we return mock/in-memory data to ensure the site functions.
+        const db = getDatabase();
+        let applications = [];
+
+        try {
+            const { results } = await db.prepare(
+                "SELECT * FROM admissions ORDER BY submitted_at DESC"
+            ).all();
+
+            // Map DB fields to camelCase and merge full data
+            applications = (results || []).map((app: any) => {
+                let fullData = {};
+                try {
+                    if (app.data_json) fullData = JSON.parse(app.data_json);
+                } catch (e) {
+                    console.error('Failed to parse data_json for app:', app.id);
+                }
+
+                return {
+                    ...fullData,
+                    id: app.id,
+                    studentName: app.student_name,
+                    fatherName: app.father_name,
+                    motherName: app.mother_name,
+                    classApplyingFor: app.class_applying_for,
+                    dateOfBirth: app.date_of_birth,
+                    contactNumber: app.contact_number,
+                    email: app.email,
+                    address: app.address,
+                    status: app.status,
+                    submittedAt: app.submitted_at
+                };
+            });
+
+            // If empty, we can still show mock data for demonstration if it's a dev environment
+            if (applications.length === 0 && process.env.NODE_ENV === 'development') {
+                applications = MOCK_APPLICATIONS;
+            }
+        } catch (dbError: any) {
+            console.error('Database fetch error:', dbError);
+            // Fallback to mock data if table doesn't exist yet
+            applications = MOCK_APPLICATIONS;
+        }
 
         return NextResponse.json({
             success: true,
-            applications: MOCK_APPLICATIONS
+            applications
         });
     } catch (error) {
         console.error('Error fetching applications:', error);

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { secureApiHandler, type SecureRequest } from '@/lib/security';
+import { getDatabase } from '@/lib/db';
 
 export const runtime = 'edge';
 
@@ -65,10 +66,48 @@ async function handleSubmit(request: SecureRequest) {
 
         // Generate ID
         const id = `NDPS-${Date.now()}`;
+        const submittedAt = new Date().toISOString();
 
-        // In Edge Runtime, we cannot write to disk. 
-        // We log the submission and return success to the user so the UX is preserved.
-        console.log(`[ADMISSION SUBMISSION] ID: ${id} | Student: ${sanitizedData.studentName} | Class: ${sanitizedData.classApplyingFor} | Time: ${new Date().toISOString()}`);
+        // Save to Database
+        const db = getDatabase();
+        try {
+            await db.prepare(
+                `INSERT INTO admissions (
+                    id, student_name, father_name, mother_name, 
+                    class_applying_for, date_of_birth, contact_number, 
+                    email, address, status, submitted_at, data_json
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+            ).bind(
+                id,
+                sanitizedData.studentName,
+                sanitizedData.fatherName,
+                sanitizedData.motherName,
+                sanitizedData.classApplyingFor,
+                sanitizedData.dateOfBirth,
+                sanitizedData.contactNumber,
+                sanitizedData.email,
+                sanitizedData.address,
+                'pending',
+                submittedAt,
+                JSON.stringify(body)
+            ).run();
+
+            console.log(`[ADMISSION SUBMISSION] ID: ${id} | Student: ${sanitizedData.studentName} | Status: Saved to DB`);
+        } catch (dbError: any) {
+            console.error('Database insertion error:', dbError);
+            // Fallback: If table doesn't exist, we still want to log it
+            console.log(`[ADMISSION FALLBACK] ID: ${id} | Data: ${JSON.stringify(sanitizedData)}`);
+
+            // If it's a "no such table" error, we want to provide a helpful message
+            if (dbError.message?.includes('no such table')) {
+                return NextResponse.json({
+                    success: false,
+                    message: 'Admissions system is currently being updated. Your data has been logged but not yet processed.',
+                    id
+                }, { status: 202 }); // Accepted but not fully processed
+            }
+            throw dbError;
+        }
 
         return NextResponse.json({
             success: true,

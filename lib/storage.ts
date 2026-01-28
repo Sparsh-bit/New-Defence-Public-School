@@ -41,9 +41,9 @@ export function getStorageBucket(): R2Bucket {
                 json: async () => typeof data === 'string' ? JSON.parse(data) : data,
                 arrayBuffer: async () => {
                     if (data instanceof ArrayBuffer) return data;
-                    if (data instanceof Uint8Array) return data.buffer;
+                    if (data instanceof Uint8Array) return data.buffer as ArrayBuffer;
                     const enc = new TextEncoder();
-                    return enc.encode(JSON.stringify(data)).buffer;
+                    return enc.encode(JSON.stringify(data)).buffer as ArrayBuffer;
                 }
             };
         },
