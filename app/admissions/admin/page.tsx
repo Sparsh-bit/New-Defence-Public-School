@@ -885,9 +885,9 @@ export default function SuperAdminPortal() {
                                             alt="Gallery"
                                             className="w-full h-full object-cover"
                                             onError={(e) => {
-                                                const target = e.target as HTMLElement;
-                                                const parent = target.closest('.group');
-                                                if (parent) (parent as HTMLElement).style.display = 'none';
+                                                const target = e.target as HTMLImageElement;
+                                                target.src = "https://placehold.co/400x400/0A1628/white?text=Image+Not+Found";
+                                                target.className = "w-full h-full object-contain opacity-50";
                                             }}
                                         />
                                         <button
@@ -913,9 +913,9 @@ export default function SuperAdminPortal() {
                                             alt="Gallery"
                                             className="w-full h-full object-cover"
                                             onError={(e) => {
-                                                const target = e.target as HTMLElement;
-                                                const parent = target.closest('.group');
-                                                if (parent) (parent as HTMLElement).style.display = 'none';
+                                                const target = e.target as HTMLImageElement;
+                                                target.src = "https://placehold.co/400x400/0A1628/white?text=Image+Not+Found";
+                                                target.className = "w-full h-full object-contain opacity-50";
                                             }}
                                         />
                                         <button

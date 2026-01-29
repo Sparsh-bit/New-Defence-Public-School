@@ -86,7 +86,7 @@ export default function DownloadsPage() {
                                             </div>
                                         </div>
                                         <a
-                                            href={doc.url}
+                                            href={`${doc.url}${doc.url.includes('?') ? '&' : '?'}dl=1`}
                                             download
                                             className="w-full md:w-auto px-8 py-4 bg-[#0A1628] text-white rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-[#C6A75E] hover:text-[#0A1628] transition-all"
                                         >

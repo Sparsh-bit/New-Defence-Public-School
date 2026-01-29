@@ -28,6 +28,9 @@ export async function GET(
             return new Response('Missing file key', { status: 400 });
         }
 
+        const { searchParams } = new URL(request.url);
+        const forceDownload = searchParams.get('dl') === '1' || searchParams.get('download') === '1';
+
         const bucket = getStorageBucket();
         const obj = await bucket.get(fileKey);
 
@@ -38,20 +41,29 @@ export async function GET(
         const data = await obj.arrayBuffer();
 
         // Determine content type
-        let contentType = 'application/octet-stream';
-        if (fileKey.endsWith('.pdf')) contentType = 'application/pdf';
-        else if (fileKey.endsWith('.webp')) contentType = 'image/webp';
-        else if (fileKey.endsWith('.png')) contentType = 'image/png';
-        else if (fileKey.endsWith('.jpg') || fileKey.endsWith('.jpeg')) contentType = 'image/jpeg';
-        else if (fileKey.endsWith('.json')) contentType = 'application/json';
-        else if (fileKey.endsWith('.csv')) contentType = 'text/csv';
+        const ext = fileKey.split('.').pop()?.toLowerCase();
+        const mimeMap: Record<string, string> = {
+            'pdf': 'application/pdf',
+            'webp': 'image/webp',
+            'png': 'image/png',
+            'jpg': 'image/jpeg',
+            'jpeg': 'image/jpeg',
+            'json': 'application/json',
+            'csv': 'text/csv',
+            'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        };
+
+        const contentType = mimeMap[ext || ''] || 'application/octet-stream';
+        const filename = fileKey.split('/').pop() || 'file';
 
         return new Response(data, {
             headers: {
                 'Content-Type': contentType,
-                'Cache-Control': 'public, max-age=31536000, immutable', // Long-term cache for storage
-                'Access-Control-Allow-Origin': '*', // Allow CORS for these assets
-                'Content-Disposition': fileKey.endsWith('.pdf') ? 'inline' : 'inline' // Show images/pdfs in browser
+                'Cache-Control': 'public, max-age=31536000, immutable',
+                'Access-Control-Allow-Origin': '*',
+                'Vary': 'Origin',
+                'Content-Disposition': forceDownload ? `attachment; filename="${filename}"` : 'inline'
             }
         });
     } catch (error) {

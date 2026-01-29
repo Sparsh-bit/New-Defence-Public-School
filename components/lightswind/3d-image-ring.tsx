@@ -247,7 +247,7 @@ export function ThreeDImageRing({
                 )}
                 style={{
                   transformStyle: "preserve-3d",
-                  backgroundImage: `url(${imageUrl})`,
+                  backgroundImage: `url("${imageUrl}"), linear-gradient(to bottom, #1A3969, #0B1C2D)`,
                   backgroundSize: "cover",
                   backgroundRepeat: "no-repeat",
                   backfaceVisibility: "hidden",

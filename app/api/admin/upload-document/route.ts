@@ -45,16 +45,14 @@ async function handleUpload(request: SecureRequest) {
         }
 
         const bytes = await file.arrayBuffer();
-        const buffer = Buffer.from(bytes);
         const originalName = file.name.replace(/\.[^/.]+$/, "").replace(/[^a-zA-Z0-9]/g, '_');
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const filename = `docs/${category}/${Date.now()}-${randomSuffix}-${originalName}.pdf`;
 
-        // Upload to Storage (R2 in Prod, Disk in Dev)
-        await bucket.put(filename, buffer as any, {
+        // Upload to Storage
+        await bucket.put(filename, bytes, {
             httpMetadata: {
                 contentType: 'application/pdf',
-                contentDisposition: `attachment; filename="${file.name}"`,
                 cacheControl: 'public, max-age=31536000, immutable',
             },
         });

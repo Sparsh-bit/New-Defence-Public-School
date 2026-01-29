@@ -1,16 +1,12 @@
 import { NextResponse } from 'next/server';
 import { adminApiHandler, type SecureRequest } from '@/lib/security';
 import { getDatabase } from '@/lib/db';
-import { getStorageBucket, getPublicUrl } from '@/lib/storage';
+import { getStorageBucket, getPublicUrl, cleanseUrl } from '@/lib/storage';
 
 export const runtime = 'edge';
 
 /**
  * DATABASE REPAIR UTILITY
- * 
- * This endpoint is used to apply schema migrations to the D1 database
- * directly from the application. This is useful when the remote
- * database schema falls behind the code.
  */
 async function handleRepair(request: SecureRequest) {
     try {
@@ -49,10 +45,10 @@ async function handleRepair(request: SecureRequest) {
                     if (galleryObj) {
                         const galleryData = await galleryObj.json() as any;
                         if (galleryData.events) {
-                            galleryData.events = galleryData.events.map((url: string) => getPublicUrl(url));
+                            galleryData.events = galleryData.events.map((url: string) => cleanseUrl(url));
                         }
                         if (galleryData.infrastructure) {
-                            galleryData.infrastructure = galleryData.infrastructure.map((url: string) => getPublicUrl(url));
+                            galleryData.infrastructure = galleryData.infrastructure.map((url: string) => cleanseUrl(url));
                         }
                         await bucket.put('gallery.json', JSON.stringify(galleryData), {
                             httpMetadata: { contentType: 'application/json' }
@@ -66,20 +62,20 @@ async function handleRepair(request: SecureRequest) {
                         if (downloadsData.results) {
                             downloadsData.results = downloadsData.results.map((doc: any) => ({
                                 ...doc,
-                                url: getPublicUrl(doc.url)
+                                url: cleanseUrl(doc.url)
                             }));
                         }
                         if (downloadsData.general) {
                             downloadsData.general = downloadsData.general.map((doc: any) => ({
                                 ...doc,
-                                url: getPublicUrl(doc.url)
+                                url: cleanseUrl(doc.url)
                             }));
                         }
                         await bucket.put('downloads.json', JSON.stringify(downloadsData), {
                             httpMetadata: { contentType: 'application/json' }
                         });
                     }
-                    return "Synced all media URLs successfully";
+                    return "Database cleansed and keys normalized successfully.";
                 }
             }
         ];
