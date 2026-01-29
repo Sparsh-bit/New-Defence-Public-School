@@ -3,6 +3,7 @@ import {
     secureApiHandler,
     createAccessToken,
     verifyPassword,
+    getAuthConfig,
     type User,
     type SecureRequest
 } from '@/lib/security';
@@ -19,16 +20,15 @@ export const runtime = 'edge';
  * Default password for demo: "admin123" (DO NOT USE IN PRODUCTION)
  */
 const DEMO_USERS: Record<string, User & { passwordHash: string }> = {
-    'admin': {
+    'ndps1996': {
         id: 'user-001',
-        username: 'admin',
+        username: 'ndps1996',
         email: 'admin@newdefencepublicschool.com',
         role: 'super_admin',
         permissions: [],  // Super admin has all permissions automatically
         createdAt: '2024-01-01T00:00:00Z',
-        // Pre-hashed "admin123" - FOR DEMO ONLY
-        // In production, hash: await hashPassword('your-secure-password')
-        passwordHash: 'demo-hash-replace-in-production'
+        // Hashed password for "sanjay@281280"
+        passwordHash: '1bc1cbd31783abd2af2b946913c1b201:0b0081810d759c5bfeeb5ce4287dd1083fe159167356bd9e01e1adc5f13f7696'
     }
 };
 
@@ -51,7 +51,7 @@ async function handleLogin(request: SecureRequest) {
             return NextResponse.json({
                 success: false,
                 error: 'INVALID_INPUT',
-                message: 'Invalid credentials'  // Generic message to prevent enumeration
+                message: 'Invalid credentials'
             }, { status: 400 });
         }
 
@@ -63,18 +63,13 @@ async function handleLogin(request: SecureRequest) {
             }, { status: 400 });
         }
 
-        // Check if authentication system is ready (handled by getAuthConfig fallback)
         const normalizedUsername = username.toLowerCase().trim();
         const user = DEMO_USERS[normalizedUsername];
 
-        // Log attempt for audit (never log passwords!)
-        console.log(`[LOGIN ATTEMPT] Username: ${normalizedUsername} | IP: ${request.headers.get('cf-connecting-ip') || 'unknown'} | Time: ${new Date().toISOString()}`);
+        console.log(`[LOGIN ATTEMPT] Username: ${normalizedUsername} | Time: ${new Date().toISOString()}`);
 
         if (!user) {
-            // Don't reveal whether user exists - always check password to maintain constant time
-            // This prevents timing attacks that reveal valid usernames
-            await new Promise(resolve => setTimeout(resolve, 100)); // Simulate password check delay
-
+            await new Promise(resolve => setTimeout(resolve, 100)); // Timing attack protection
             return NextResponse.json({
                 success: false,
                 error: 'INVALID_CREDENTIALS',
@@ -82,15 +77,10 @@ async function handleLogin(request: SecureRequest) {
             }, { status: 401 });
         }
 
-        // Demo: Accept any password when passwordHash is the demo placeholder
-        const isDemoMode = user.passwordHash === 'demo-hash-replace-in-production';
-        const isValidPassword = isDemoMode
-            ? (password === 'admin')  // Restored to previous demo password
-            : await verifyPassword(password, user.passwordHash);
+        const isValidPassword = await verifyPassword(password, user.passwordHash);
 
         if (!isValidPassword) {
             console.log(`[LOGIN FAILED] Username: ${normalizedUsername} | Reason: Invalid password`);
-
             return NextResponse.json({
                 success: false,
                 error: 'INVALID_CREDENTIALS',
@@ -98,7 +88,7 @@ async function handleLogin(request: SecureRequest) {
             }, { status: 401 });
         }
 
-        // Create access token
+        // Login Successful
         const token = await createAccessToken({
             id: user.id,
             username: user.username,
@@ -108,7 +98,7 @@ async function handleLogin(request: SecureRequest) {
             createdAt: user.createdAt
         });
 
-        console.log(`[LOGIN SUCCESS] Username: ${normalizedUsername} | Role: ${user.role}`);
+        console.log(`[LOGIN SUCCESS] Username: ${user.username} | Role: ${user.role}`);
 
         return NextResponse.json({
             success: true,

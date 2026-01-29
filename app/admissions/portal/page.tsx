@@ -41,6 +41,7 @@ export default function PortalLogin() {
                 }, 500);
             } else {
                 setError(data.message || 'Invalid username or password');
+                setPassword('');
             }
         } catch (err) {
             setError('System temporarily offline. Please try again later.');
@@ -90,6 +91,7 @@ export default function PortalLogin() {
                     className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 shadow-2xl"
                 >
                     <form onSubmit={handleLogin} className="space-y-6">
+
                         {/* Username Field */}
                         <div>
                             <label className="block text-white font-semibold mb-2 text-sm">
@@ -158,12 +160,12 @@ export default function PortalLogin() {
                             {loading ? (
                                 <span className="flex items-center justify-center gap-2">
                                     <div className="w-5 h-5 border-t-2 border-b-2 border-white rounded-full animate-spin"></div>
-                                    Logging in...
+                                    Authenticating...
                                 </span>
                             ) : (
                                 <span className="flex items-center justify-center gap-2">
                                     <LogIn className="w-5 h-5" />
-                                    Login to Portal
+                                    Access Portal
                                 </span>
                             )}
                         </motion.button>
