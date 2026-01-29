@@ -131,7 +131,7 @@ export default function AdminResultsPortal() {
             {/* Header */}
             <header className="bg-white border-b border-gray-100 py-6 px-10 flex justify-between items-center sticky top-0 z-50">
                 <div className="flex items-center gap-6">
-                    <button onClick={() => router.back()} className="p-3 hover:bg-gray-50 rounded-2xl transition-all text-gray-400"><ArrowLeft /></button>
+                    <button onClick={() => router.push('/admissions/admin')} className="p-3 hover:bg-gray-50 rounded-2xl transition-all text-gray-400"><ArrowLeft /></button>
                     <div>
                         <h2 className="text-xl font-display font-bold text-[#0A1628]">Academic History Manager</h2>
                         <div className="flex items-center gap-2 mt-1">
