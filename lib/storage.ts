@@ -59,11 +59,37 @@ export function getStorageBucket(): R2Bucket {
 
 /**
  * Get the public URL for a file
+ * 
+ * DESIGN:
+ * 1. If R2_PUBLIC_URL is set, use it as the base.
+ * 2. If it's a relative path (starts with /), return it as is (it's a static asset).
+ * 3. Otherwise, use our secure storage proxy route as fallback.
  */
 export function getPublicUrl(filename: string): string {
-    const baseUrl = process.env.R2_PUBLIC_URL || '';
-    if (!baseUrl && process.env.NODE_ENV === 'development') {
+    if (!filename || typeof filename !== 'string') return '';
+
+    // 1. If it's already an absolute URL or a path to a static image, return it
+    if (filename.startsWith('http') || filename.startsWith('/images/') || filename.startsWith('/api/storage/')) {
+        return filename;
+    }
+
+    const baseUrl = process.env.R2_PUBLIC_URL;
+
+    // 2. Use Public URL if configured
+    if (baseUrl) {
+        // Ensure no double slashes if filename starts with /
+        const cleanFilename = filename.replace(/^\/+/, '');
+        const cleanBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+        return `${cleanBaseUrl}/${cleanFilename}`;
+    }
+
+    // 3. Performance/Development Fallback
+    if (process.env.NODE_ENV === 'development') {
         return `/api/placeholder?file=${encodeURIComponent(filename)}`;
     }
-    return `${baseUrl}/${filename}`;
+
+    // 4. Production Fallback: Use our Storage Proxy
+    // Strip any leading slashes to prevent // paths or double slashes in the final URL
+    const cleanFilename = filename.replace(/^\/+/, '');
+    return `/api/storage/${cleanFilename}`;
 }

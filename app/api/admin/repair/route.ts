@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { adminApiHandler, type SecureRequest } from '@/lib/security';
 import { getDatabase } from '@/lib/db';
+import { getStorageBucket, getPublicUrl } from '@/lib/storage';
 
 export const runtime = 'edge';
 
@@ -36,15 +37,64 @@ async function handleRepair(request: SecureRequest) {
             )` },
             { name: 'academic_year', sql: "ALTER TABLE results ADD COLUMN academic_year TEXT" },
             { name: 'batch_id', sql: "ALTER TABLE results ADD COLUMN batch_id TEXT" },
-            { name: 'upload_date', sql: "ALTER TABLE results ADD COLUMN upload_date TEXT" }
+            { name: 'upload_date', sql: "ALTER TABLE results ADD COLUMN upload_date TEXT" },
+            {
+                name: 'gallery_sync',
+                sql: "SELECT 1", // Placeholder for logic below
+                run: async () => {
+                    const bucket = getStorageBucket();
+
+                    // 1. Sync Gallery
+                    const galleryObj = await bucket.get('gallery.json');
+                    if (galleryObj) {
+                        const galleryData = await galleryObj.json() as any;
+                        if (galleryData.events) {
+                            galleryData.events = galleryData.events.map((url: string) => getPublicUrl(url));
+                        }
+                        if (galleryData.infrastructure) {
+                            galleryData.infrastructure = galleryData.infrastructure.map((url: string) => getPublicUrl(url));
+                        }
+                        await bucket.put('gallery.json', JSON.stringify(galleryData), {
+                            httpMetadata: { contentType: 'application/json' }
+                        });
+                    }
+
+                    // 2. Sync Downloads
+                    const downloadsObj = await bucket.get('downloads.json');
+                    if (downloadsObj) {
+                        const downloadsData = await downloadsObj.json() as any;
+                        if (downloadsData.results) {
+                            downloadsData.results = downloadsData.results.map((doc: any) => ({
+                                ...doc,
+                                url: getPublicUrl(doc.url)
+                            }));
+                        }
+                        if (downloadsData.general) {
+                            downloadsData.general = downloadsData.general.map((doc: any) => ({
+                                ...doc,
+                                url: getPublicUrl(doc.url)
+                            }));
+                        }
+                        await bucket.put('downloads.json', JSON.stringify(downloadsData), {
+                            httpMetadata: { contentType: 'application/json' }
+                        });
+                    }
+                    return "Synced all media URLs successfully";
+                }
+            }
         ];
 
         const results = [];
 
         for (const task of tasks) {
             try {
-                await db.prepare(task.sql).run();
-                results.push({ column: task.name, status: 'Added successfully' });
+                if (task.run) {
+                    const msg = await task.run();
+                    results.push({ column: task.name, status: 'Completed', detail: msg });
+                } else {
+                    await db.prepare(task.sql).run();
+                    results.push({ column: task.name, status: 'Added successfully' });
+                }
             } catch (e: any) {
                 if (e.message?.includes('duplicate column name') || e.message?.includes('already exists')) {
                     results.push({ column: task.name, status: 'Already exists' });

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { secureApiHandler } from '@/lib/security';
 
-import { getStorageBucket } from '@/lib/storage';
+import { getStorageBucket, getPublicUrl } from '@/lib/storage';
 
 export const runtime = 'edge';
 
@@ -47,8 +47,11 @@ const FALLBACK_CONTENT = {
  * - CORS: Strict origin validation
  * - Caching headers for performance
  */
-async function handleContent() {
+async function handleContent(request: Request) {
     try {
+        const { searchParams } = new URL(request.url);
+        const isFresh = searchParams.get('fresh') === '1';
+
         const bucket = getStorageBucket();
         let content = { ...FALLBACK_CONTENT } as any;
 
@@ -67,9 +70,13 @@ async function handleContent() {
             if (galleryObj) {
                 const galleryData = await galleryObj.json() as any;
                 if (galleryData) {
-                    // Merge or Override. Let's Override to ensure Admin has full control.
-                    if (galleryData.events) content.gallery.events = galleryData.events;
-                    if (galleryData.infrastructure) content.gallery.infrastructure = galleryData.infrastructure;
+                    // Normalize URLs: ensure every URL is correctly formatted through getPublicUrl
+                    if (galleryData.events) {
+                        content.gallery.events = galleryData.events.map((url: string) => getPublicUrl(url));
+                    }
+                    if (galleryData.infrastructure) {
+                        content.gallery.infrastructure = galleryData.infrastructure.map((url: string) => getPublicUrl(url));
+                    }
                 }
             }
 
@@ -78,26 +85,45 @@ async function handleContent() {
             if (downloadsObj) {
                 const downloadsData = await downloadsObj.json() as any;
                 if (downloadsData) {
+                    // Normalize Download URLs
+                    if (downloadsData.results) {
+                        downloadsData.results = downloadsData.results.map((doc: any) => ({
+                            ...doc,
+                            url: getPublicUrl(doc.url)
+                        }));
+                    }
+                    if (downloadsData.general) {
+                        downloadsData.general = downloadsData.general.map((doc: any) => ({
+                            ...doc,
+                            url: getPublicUrl(doc.url)
+                        }));
+                    }
                     content.downloads = downloadsData;
                 }
             }
         }
 
-        // Cache Strategy: 5 mins for production, 0 mins for development
-        const cacheControl = process.env.NODE_ENV === 'development'
-            ? 'no-store, max-age=0'
-            : 'public, max-age=300, stale-while-revalidate=60';
+        // PROFESIONAL CACHE STRATEGY:
+        // - Development: Never cache
+        // - Admin/Fresh Request: Never cache
+        // - Production Public: Cache but revalidate every time (ensures instant updates)
+        const cacheControl = (process.env.NODE_ENV === 'development' || isFresh)
+            ? 'no-store, max-age=0, must-revalidate'
+            : 'public, max-age=0, must-revalidate, stale-while-revalidate=30';
 
         return new Response(JSON.stringify(content), {
             headers: {
                 'Content-Type': 'application/json',
-                'Cache-Control': cacheControl
+                'Cache-Control': cacheControl,
+                'X-Content-Source': isFresh ? 'Direct-R2' : 'Edge-Cache'
             }
         });
     } catch (error) {
         console.error('Content fetch failed:', error);
-        // Fallback to static
-        return NextResponse.json(FALLBACK_CONTENT);
+        // Fallback to static with no-cache to be safe
+        return new Response(JSON.stringify(FALLBACK_CONTENT), {
+            headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }
+        });
     }
 }
 

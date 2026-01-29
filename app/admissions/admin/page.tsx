@@ -98,7 +98,8 @@ export default function SuperAdminPortal() {
 
     const fetchContent = async () => {
         try {
-            const res = await fetch('/api/content');
+            // SECURITY/PERFORMANCE: Add ?fresh=1 to bypass Edge Cache for Admins
+            const res = await fetch('/api/content?fresh=1');
             const data = await res.json();
             if (data.news && Array.isArray(data.news)) {
                 setNewsItems(data.news);
