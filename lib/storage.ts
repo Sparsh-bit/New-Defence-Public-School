@@ -94,8 +94,13 @@ export function cleanseUrl(url: string): string {
         }
     }
 
-    // Final Polish: Strip leading slashes, query params, and whitespace
-    return target.replace(/^\/+/, '').split('?')[0].trim();
+    // Final Polish: Strip leading slashes, query params, and decode encoded chars (like %20)
+    try {
+        const decoded = decodeURIComponent(target);
+        return decoded.replace(/^\/+/, '').split('?')[0].trim();
+    } catch (e) {
+        return target.replace(/^\/+/, '').split('?')[0].trim();
+    }
 }
 
 /**

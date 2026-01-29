@@ -23,9 +23,14 @@ async function handleDelete(request: SecureRequest) {
             return NextResponse.json({ success: true, message: 'Cleaned up empty entry' });
         }
 
-        // SECURITY: Prevent directory traversal but allow subfolders
-        if (!/^[a-zA-Z0-9._\-/ ]+$/.test(filename)) {
-            return NextResponse.json({ success: false, message: 'Invalid filename format' }, { status: 400 });
+        // SECURITY: Broadened regex to allow common symbols like (), [], {}, +, ,, =, !, etc.
+        // Still prevents directory traversal (..) by validation logic.
+        if (!/^[^<>:\"|?*]+$/.test(filename) || filename.includes('..')) {
+            console.error(`[DELETE BLOCKED] Invalid characters in filename: "${filename}"`);
+            return NextResponse.json({
+                success: false,
+                message: 'Invalid filename format. Prohibited characters detected.'
+            }, { status: 400 });
         }
 
         // SKIP LOCAL ASSETS: If it starts with 'images/', it's local public storage, not R2.
