@@ -67,23 +67,35 @@ export function getStorageBucket(): R2Bucket {
  */
 /**
  * CLEANSE URL: Converts any URL (absolute, proxied, or relative) into a raw R2 key.
- * This ensures the database stores environment-agnostic identifiers.
+ * This is the ultimate "scrubber" for the database.
  */
 export function cleanseUrl(url: string): string {
     if (!url || typeof url !== 'string') return '';
-    try {
-        if (url.startsWith('http')) {
-            const parsed = new URL(url.startsWith('//') ? `https:${url}` : url);
-            // If it's a domain we recognize (r2.dev or similar), extract path
-            if (parsed.hostname.includes('r2.dev')) {
-                return parsed.pathname.replace(/^\/+/, '');
-            }
-        }
-        // Strip common proxy prefix if it exists
-        return url.replace(/^\/?api\/storage\//, '').replace(/^\/+/, '').split('?')[0];
-    } catch (e) {
-        return url;
+
+    // Safety: Remove any whitespace
+    let target = url.trim();
+
+    // 1. Handle Proxy URLs: /api/storage/KEY or https://domain.com/api/storage/KEY
+    if (target.includes('/api/storage/')) {
+        target = target.split('/api/storage/')[1];
     }
+    // 2. Handle R2 Direct URLs: https://pub-xxx.r2.dev/KEY
+    else if (target.includes('r2.dev/')) {
+        target = target.split('r2.dev/')[1];
+    }
+    // 3. Handle Absolute URLs from other environments
+    else if (target.startsWith('http')) {
+        try {
+            const parsed = new URL(target.startsWith('//') ? `https:${target}` : target);
+            target = parsed.pathname.replace(/^\/+/, '');
+        } catch (e) {
+            // If URL parsing fails, stick with original but strip leading slash
+            target = target.replace(/^\/+/, '');
+        }
+    }
+
+    // Final Polish: Strip leading slashes, query params, and whitespace
+    return target.replace(/^\/+/, '').split('?')[0].trim();
 }
 
 /**
@@ -91,52 +103,35 @@ export function cleanseUrl(url: string): string {
  * 
  * Logic:
  * 1. Static Assets (/images/...) - Return as-is
- * 2. Already Proxied Paths - Return as-is
- * 3. Absolute URL Analysis: If it's a broken R2 link, wrap it in our stable proxy.
- * 4. Otherwise, use proxy for everything R2-related for maximum production stability.
+ * 2. R2 Assets - ALWAYS force through our stable same-origin proxy /api/storage/
+ *    This avoids CORS issues and stabilizes connection on Cloudflare Pages.
  */
 export function getPublicUrl(filename: string): string {
     if (!filename || typeof filename !== 'string') return '';
 
-    // 1. Static Assets (/images/...) - Return as-is
+    // 1. Static Assets Handling
     if (filename.startsWith('/images/')) {
         return filename;
     }
+    if (filename.startsWith('images/')) {
+        return `/${filename}`;
+    }
 
-    // 2. Already Proxied Paths - Return as-is
+    // 2. Already Proxied Paths (Relative) - Return as-is
     if (filename.startsWith('/api/storage/')) {
         return filename;
     }
 
     // 3. Absolute URL Analysis
     if (filename.startsWith('http') || filename.startsWith('//')) {
-        const fullUrl = filename.startsWith('//') ? `https:${filename}` : filename;
-        try {
-            const url = new URL(fullUrl);
-            // If it's a default Cloudflare r2.dev domain, it's often blocked or unstable.
-            // We force it through our stable same-domain proxy.
-            if (url.hostname.includes('.r2.dev')) {
-                const cleanPath = url.pathname.replace(/^\/+/, '');
-                return `/api/storage/${cleanPath}`;
-            }
-            return fullUrl; // Non-R2 absolute URLs are returned as-is
-        } catch (e) {
-            // Invalid URL string, fall through to default logic
-        }
+        const key = cleanseUrl(filename);
+        // Recursively call to handle if the cleansed key is a static asset
+        return getPublicUrl(key);
     }
 
-    // 4. Base Configuration Logic
-    const baseUrl = process.env.R2_PUBLIC_URL;
+    // 4. Base Configuration Logic (Proxy First for R2)
     const cleanFilename = filename.replace(/^\/+/, '');
+    if (!cleanFilename) return '';
 
-    // 5. Custom Domain Proxy (Environment Strategy)
-    // If we have a custom public URL and it's NOT an r2.dev domain, use it.
-    if (baseUrl && !baseUrl.includes('.r2.dev')) {
-        const cleanBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
-        return `${cleanBaseUrl}/${cleanFilename}`;
-    }
-
-    // 6. ULTIMATE PRODUCTION FALLBACK: Same-Domain Proxy
-    // This is the most professional and stable method as it avoids all cross-domain/rate-limit issues.
     return `/api/storage/${cleanFilename}`;
 }
