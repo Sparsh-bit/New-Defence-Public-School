@@ -13,15 +13,25 @@ async function handleDelete(request: SecureRequest) {
         const { url, filename: inputFilename } = body;
 
         // Use CLEANSE logic to get the raw R2 key (handles folders and proxies)
-        const filename = inputFilename || cleanseUrl(url);
+        const filename = (inputFilename || cleanseUrl(url) || '').trim();
 
+        // PROFESSIONAL RESILIENCE:
+        // If filename is empty, we're likely cleaning up a broken DB entry.
+        // Return success so the frontend can finish removing the entry from the JSON metadata.
         if (!filename) {
-            return NextResponse.json({ success: false, message: 'Filename or URL is required' }, { status: 400 });
+            console.log(`[DELETE SKIP] User: ${request.user?.username || 'unknown'} | Reason: Empty Key (Cleanup)`);
+            return NextResponse.json({ success: true, message: 'Cleaned up empty entry' });
         }
 
-        // Security: Prevent directory traversal but allow slashes for subfolders
-        if (!/^[a-zA-Z0-9._\-/]+$/.test(filename)) {
-            return NextResponse.json({ success: false, message: 'Invalid filename' }, { status: 400 });
+        // SECURITY: Prevent directory traversal but allow subfolders
+        if (!/^[a-zA-Z0-9._\-/ ]+$/.test(filename)) {
+            return NextResponse.json({ success: false, message: 'Invalid filename format' }, { status: 400 });
+        }
+
+        // SKIP LOCAL ASSETS: If it starts with 'images/', it's local public storage, not R2.
+        if (filename.startsWith('images/')) {
+            console.log(`[DELETE SKIP] User: ${request.user?.username || 'unknown'} | Reason: Local Static Asset | Key: ${filename}`);
+            return NextResponse.json({ success: true, message: 'Skipped local asset' });
         }
 
         const bucket = getStorageBucket();
@@ -30,11 +40,6 @@ async function handleDelete(request: SecureRequest) {
         console.log(`[DELETE ACTION] User: ${request.user?.username || 'unknown'} | Key: ${filename}`);
         await bucket.delete(filename);
 
-        // 2. Cache Invalidation
-        // Note: Full CDN purge requires Cloudflare API Token and Zone ID which aren't in env yet.
-        // However, by deleting the object and using 'must-revalidate', the CDN will
-        // catch the 404 on the next check.
-
         return NextResponse.json({
             success: true,
             message: `File ${filename} deleted successfully`
@@ -42,7 +47,7 @@ async function handleDelete(request: SecureRequest) {
 
     } catch (error) {
         console.error('R2 Delete Error:', error);
-        return NextResponse.json({ success: false, message: 'Delete failed' }, { status: 500 });
+        return NextResponse.json({ success: false, message: 'Internal delete error' }, { status: 500 });
     }
 }
 
