@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { RefreshCw, Search, Calendar, User, Phone, LogOut, Settings, Plus, Trash2, Image as ImageIcon, Bell, GraduationCap, FileSpreadsheet, UploadCloud, Loader2, FileText, Download, Database } from 'lucide-react';
 import { schoolNewsEvents, galleryImages, DownloadItem, schoolDownloads } from '@/data/cms';
+import { getPublicUrl } from '@/lib/storage';
 
 // --- Types ---
 interface Application {
@@ -356,7 +357,9 @@ export default function SuperAdminPortal() {
                     });
                     const uploadData = await uploadRes.json();
                     if (!uploadData.success) throw new Error(uploadData.message || 'Upload failed');
-                    return uploadData.url;
+                    // CRITICAL: We store the 'key' in the DB list for stability, 
+                    // but we will display it via getPublicUrl in the UI.
+                    return uploadData.key || uploadData.url;
                 })
             );
 
@@ -462,7 +465,7 @@ export default function SuperAdminPortal() {
                     id: Date.now().toString(),
                     name: newDownload.name,
                     description: newDownload.description,
-                    url: data.url,
+                    url: data.key || data.url, // Store the raw key for stability
                     category: newDownload.category,
                     updatedAt: new Date().toISOString()
                 };
@@ -494,16 +497,34 @@ export default function SuperAdminPortal() {
     };
 
     const handleDeleteDoc = async (category: 'general' | 'results', id: string) => {
-        if (!confirm('Remove this document?')) return;
-        const updated = { ...downloadItems };
-        updated[category] = updated[category].filter(i => i.id !== id);
-        setDownloadItems(updated);
+        const itemToDelete = downloadItems[category]?.find(i => i.id === id);
+        if (!itemToDelete) return;
 
-        await fetch('/api/admin/update', {
-            method: 'POST',
-            headers: getAuthHeaders(),
-            body: JSON.stringify({ type: 'downloads_meta', fullData: updated })
-        });
+        if (!confirm(`Permanently remove "${itemToDelete.name}" and delete its file from storage?`)) return;
+
+        try {
+            // 1. Delete physical file from R2
+            await fetch('/api/admin/delete', {
+                method: 'POST',
+                headers: getAuthHeaders(),
+                body: JSON.stringify({ url: itemToDelete.url })
+            });
+
+            // 2. Update metadata
+            const updated = { ...downloadItems };
+            updated[category] = updated[category].filter(i => i.id !== id);
+
+            await fetch('/api/admin/update', {
+                method: 'POST',
+                headers: getAuthHeaders(),
+                body: JSON.stringify({ type: 'downloads_meta', fullData: updated })
+            });
+
+            setDownloadItems(updated);
+        } catch (error) {
+            console.error('Document deletion failed', error);
+            alert('Failed to fully delete document.');
+        }
     };
 
     if (!isAuthenticated) return null;
@@ -881,7 +902,7 @@ export default function SuperAdminPortal() {
                                 {(galleryItems as any).events?.map((src: string, idx: number) => (
                                     <div key={`event-${idx}`} className="relative aspect-square rounded-xl overflow-hidden group border border-gray-200">
                                         <img
-                                            src={src}
+                                            src={getPublicUrl(src)}
                                             alt="Gallery"
                                             className="w-full h-full object-cover"
                                             onError={(e) => {

@@ -61,7 +61,8 @@ async function handleUpload(request: SecureRequest) {
 
         return NextResponse.json({
             success: true,
-            url: publicUrl,
+            key: filename, // Stable identifier
+            url: publicUrl, // For immediate feedback
             filename: file.name
         });
 

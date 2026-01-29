@@ -83,13 +83,11 @@ async function handleUpload(request: SecureRequest) {
             },
         });
 
-        // Return Public URL
-        // R2_PUBLIC_URL should be your R2 public domain (e.g., https://pub-xxx.r2.dev) set in env vars
-        const publicUrl = getPublicUrl(filename);
-
+        // Return raw Key for database stability
         return NextResponse.json({
             success: true,
-            url: publicUrl
+            key: filename,
+            url: getPublicUrl(filename) // Still provide URL for immediate UI feedback
         });
 
     } catch (error) {
